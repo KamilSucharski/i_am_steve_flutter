@@ -26,7 +26,7 @@ abstract class LocalStorage {
 
   String? getString(final String key);
 
-  T? getObject<T>(final String key, final Type type);
+  T? getObject<T>(final String key);
 
   File getFile(final String key);
 }

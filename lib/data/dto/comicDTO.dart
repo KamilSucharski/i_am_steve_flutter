@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-class Comic extends Equatable {
+class ComicDTO extends Equatable {
 
-  const Comic(this.number, this.title, this.date);
+  const ComicDTO(this.number, this.title, this.date);
 
   final int number;
   final String title;

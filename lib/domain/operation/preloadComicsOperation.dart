@@ -47,10 +47,12 @@ class PreloadComicsOperation implements Operation<Stream<bool>> {
     comics.forEach((comic) {
       for (int panelNumber = 1; panelNumber <= 4; panelNumber++) {
         final String fileName = sprintf(
-            Consts.COMIC_PANEL_FILE_NAME_FORMAT, [comic.number, panelNumber]);
+          Consts.COMIC_PANEL_FILE_NAME_FORMAT,
+          [comic.number, panelNumber]
+        );
         final Stream<File> fileStream = _assetReader
-            .getBytes(fileName)
-            .map((bytes) => _localStorage.putFile(fileName, bytes));
+          .getBytes(fileName)
+          .map((bytes) => _localStorage.putFile(fileName, bytes));
         fileStreams.add(fileStream);
       }
     });

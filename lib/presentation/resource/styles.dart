@@ -11,7 +11,7 @@ class Styles {
       ThemeData(
         primaryColor: backgroundColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        fontFamily: 'Manrope',
+        fontFamily: 'Komika',
         dividerTheme: DividerThemeData(
           color: elementColor,
           space: 1,
