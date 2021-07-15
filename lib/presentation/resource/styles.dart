@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class Styles {
   Styles._();
 
-  static const backgroundColor = Color(0xFF404040);
-  static const elementColor = Color(0xFF303030);
-  static const textColor = Colors.white;
+  static const Color backgroundColor = Color(0xFF404040);
+  static const Color elementColor = Color(0xFF303030);
+  static const Color textColor = Colors.white;
 
   static ThemeData get appTheme =>
       ThemeData(

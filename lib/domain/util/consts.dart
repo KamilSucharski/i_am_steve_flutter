@@ -1,16 +1,17 @@
 class Consts {
   Consts._();
 
-  static const EMPTY = '';
-  static const TAG = 'IAMSTEVE';
-  static const COMIC_METADATA_FILE_NAME = 'comics.json';
-  static const COMIC_PANEL_FILE_NAME_FORMAT = '%d_%d.png';
+  static const String EMPTY = '';
+  static const String TAG = 'IAMSTEVE';
+  static const String COMIC_METADATA_FILE_NAME = 'comics.json';
+  static const String COMIC_PANEL_FILE_NAME_FORMAT = '%d_%d.png';
+  static const int PRELOAD_VERSION = 1;
 
   // Shared Preferences
-  static const SHARED_PREFERENCES_NAME = 'SHARED_PREFERENCES';
-  static const KEY_COMIC_LIST = 'KEY_COMIC_LIST';
-  static const KEY_PRELOAD_VERSION = 'KEY_PRELOAD_VERSION';
+  static const String SHARED_PREFERENCES_NAME = 'SHARED_PREFERENCES';
+  static const String KEY_COMIC_LIST = 'KEY_COMIC_LIST';
+  static const String KEY_PRELOAD_VERSION = 'KEY_PRELOAD_VERSION';
 
   // Extra
-  static const EXTRA_COMIC = 'EXTRA_COMIC';
+  static const String EXTRA_COMIC = 'EXTRA_COMIC';
 }

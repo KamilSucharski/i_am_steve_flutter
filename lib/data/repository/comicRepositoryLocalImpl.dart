@@ -6,7 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/repository/comicRepositoryLocal.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
-import 'package:i_am_steve_flutter/domain/util/localStorage.dart';
+import 'package:i_am_steve_flutter/domain/util/abstraction/localStorage.dart';
 import 'package:sprintf/sprintf.dart';
 
 class ComicRepositoryLocalImpl implements ComicRepositoryLocal {

@@ -19,16 +19,18 @@ dependencies:
   provider: 5.0.0
   get_it: 5.0.6
 
-  # Networking
+  # Data
   dio: 4.0.0
   pretty_dio_logger: 1.2.0-beta-1
   equatable: 2.0.3
+  shared_preferences: 2.0.6
 
   # UI
   flutter_svg: 0.22.0
 
-  # Strings
-  sprintf: ^5.0.0
+  # Other
+  sprintf: 5.0.0
+  path_provider: 2.0.2
 
 flutter:
   uses-material-design: true
