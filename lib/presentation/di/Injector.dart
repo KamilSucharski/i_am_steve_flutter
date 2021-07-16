@@ -1,20 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:i_am_steve_flutter/data/api/comicAPI.dart';
-import 'package:i_am_steve_flutter/data/mapper/comicMapper.dart';
-import 'package:i_am_steve_flutter/data/repository/comicRepositoryLocalImpl.dart';
-import 'package:i_am_steve_flutter/data/repository/comicRepositoryRemoteImpl.dart';
-import 'package:i_am_steve_flutter/domain/repository/comicRepositoryLocal.dart';
-import 'package:i_am_steve_flutter/domain/repository/comicRepositoryRemote.dart';
-import 'package:i_am_steve_flutter/domain/util/abstraction/assetReader.dart';
+import 'package:i_am_steve_flutter/data/api/comic_api.dart';
+import 'package:i_am_steve_flutter/data/mapper/comic_mapper.dart';
+import 'package:i_am_steve_flutter/data/repository/comic_repository_local_impl.dart';
+import 'package:i_am_steve_flutter/data/repository/comic_repository_remote_impl.dart';
+import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
+import 'package:i_am_steve_flutter/domain/repository/comic_repository_remote.dart';
+import 'package:i_am_steve_flutter/domain/util/abstraction/asset_reader.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/configuration.dart';
-import 'package:i_am_steve_flutter/domain/util/abstraction/localStorage.dart';
+import 'package:i_am_steve_flutter/domain/util/abstraction/local_storage.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/logger.dart';
-import 'package:i_am_steve_flutter/domain/view/start/startCubit.dart';
-import 'package:i_am_steve_flutter/presentation/util/implementation/assetReaderImpl.dart';
-import 'package:i_am_steve_flutter/presentation/util/implementation/configurationImpl.dart';
-import 'package:i_am_steve_flutter/presentation/util/implementation/localStorageImpl.dart';
-import 'package:i_am_steve_flutter/presentation/util/implementation/loggerImpl.dart';
+import 'package:i_am_steve_flutter/domain/view/start/start_cubit.dart';
+import 'package:i_am_steve_flutter/presentation/util/implementation/asset_reader_impl.dart';
+import 'package:i_am_steve_flutter/presentation/util/implementation/configuration_impl.dart';
+import 'package:i_am_steve_flutter/presentation/util/implementation/local_storage_impl.dart';
+import 'package:i_am_steve_flutter/presentation/util/implementation/logger_impl.dart';
 
 class Injector {
 

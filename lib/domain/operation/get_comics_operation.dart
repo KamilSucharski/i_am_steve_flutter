@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
-import 'package:i_am_steve_flutter/domain/exception/noComicsException.dart';
+import 'package:i_am_steve_flutter/domain/exception/no_comics_exception.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
-import 'package:i_am_steve_flutter/domain/repository/comicRepositoryLocal.dart';
-import 'package:i_am_steve_flutter/domain/repository/comicRepositoryRemote.dart';
+import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
+import 'package:i_am_steve_flutter/domain/repository/comic_repository_remote.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/logger.dart';
 import 'package:i_am_steve_flutter/domain/util/operation.dart';
 

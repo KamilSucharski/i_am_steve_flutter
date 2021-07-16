@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
-import 'package:i_am_steve_flutter/domain/model/comicPanels.dart';
-import 'package:i_am_steve_flutter/domain/repository/comicRepositoryLocal.dart';
-import 'package:i_am_steve_flutter/domain/repository/comicRepositoryRemote.dart';
+import 'package:i_am_steve_flutter/domain/model/comic_panels.dart';
+import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
+import 'package:i_am_steve_flutter/domain/repository/comic_repository_remote.dart';
 import 'package:i_am_steve_flutter/domain/util/operation.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -31,7 +31,12 @@ class GetComicPanelsOperation implements Operation<Stream<ComicPanels>> {
     final File? panel3 = await _comicRepositoryLocal.loadComicPanel(_comic.number, 3);
     final File? panel4 = await _comicRepositoryLocal.loadComicPanel(_comic.number, 4);
     if (panel1 != null && panel2 != null && panel3 != null && panel4 != null) {
-      return ComicPanels(panel1, panel2, panel3, panel4);
+      return ComicPanels(
+        panel1: panel1,
+        panel2: panel2,
+        panel3: panel3,
+        panel4: panel4
+      );
     } else {
       return null;
     }
@@ -57,7 +62,12 @@ class GetComicPanelsOperation implements Operation<Stream<ComicPanels>> {
         panelStreams[1],
         panelStreams[2],
         panelStreams[3],
-            (p1, p2, p3, p4) => ComicPanels(p1, p2, p3, p4)
+        (panel1, panel2, panel3, panel4) => ComicPanels(
+          panel1: panel1,
+          panel2: panel2,
+          panel3: panel3,
+          panel4: panel4
+        )
     );
   }
 }

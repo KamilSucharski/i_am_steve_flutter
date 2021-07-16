@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:get_it/get_it.dart';
-import 'package:i_am_steve_flutter/data/api/comicAPI.dart';
-import 'package:i_am_steve_flutter/data/mapper/comicMapper.dart';
+import 'package:i_am_steve_flutter/data/api/comic_api.dart';
+import 'package:i_am_steve_flutter/data/mapper/comic_mapper.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
-import 'package:i_am_steve_flutter/domain/repository/comicRepositoryRemote.dart';
+import 'package:i_am_steve_flutter/domain/repository/comic_repository_remote.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
 import 'package:sprintf/sprintf.dart';
 

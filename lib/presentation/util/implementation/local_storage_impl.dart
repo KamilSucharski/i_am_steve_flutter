@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'dart:typed_data';
 
-import 'package:i_am_steve_flutter/domain/util/abstraction/localStorage.dart';
+import 'package:i_am_steve_flutter/domain/util/abstraction/local_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

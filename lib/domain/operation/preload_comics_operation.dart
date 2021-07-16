@@ -6,9 +6,9 @@ import 'package:i_am_steve_flutter/domain/util/abstraction/logger.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
-import 'package:i_am_steve_flutter/domain/util/abstraction/assetReader.dart';
+import 'package:i_am_steve_flutter/domain/util/abstraction/asset_reader.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
-import 'package:i_am_steve_flutter/domain/util/abstraction/localStorage.dart';
+import 'package:i_am_steve_flutter/domain/util/abstraction/local_storage.dart';
 import 'package:i_am_steve_flutter/domain/util/operation.dart';
 
 class PreloadComicsOperation implements Operation<Stream<bool>> {

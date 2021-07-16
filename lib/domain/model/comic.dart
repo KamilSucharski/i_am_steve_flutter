@@ -1,13 +1,13 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Comic extends Equatable {
+part 'comic.freezed.dart';
 
-  const Comic(this.number, this.title, this.date);
+@freezed
+abstract class Comic with _$Comic {
 
-  final int number;
-  final String title;
-  final String date;
-
-  @override
-  List<Object> get props => [number, title, date];
+  const factory Comic({
+    required int number,
+    required String title,
+    required String date
+  }) = _Comic;
 }

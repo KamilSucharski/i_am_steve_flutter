@@ -1,0 +1,4 @@
+analyzer:
+  exclude:
+    - lib/**/*.g.dart # json_serializable uses dynamic instead of Object
+    - lib/**/*.freezed.dart
