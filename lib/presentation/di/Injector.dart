@@ -10,6 +10,7 @@ import 'package:i_am_steve_flutter/domain/util/abstraction/assetReader.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/configuration.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/localStorage.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/logger.dart';
+import 'package:i_am_steve_flutter/domain/view/start/startCubit.dart';
 import 'package:i_am_steve_flutter/presentation/util/implementation/assetReaderImpl.dart';
 import 'package:i_am_steve_flutter/presentation/util/implementation/configurationImpl.dart';
 import 'package:i_am_steve_flutter/presentation/util/implementation/localStorageImpl.dart';
@@ -38,5 +39,8 @@ class Injector {
     ));
     GetIt.I.registerFactory<LocalStorage>(() => LocalStorageImpl());
     GetIt.I.registerFactory<Logger>(() => LoggerImpl());
+
+    // Cubit
+    GetIt.I.registerFactory(() => StartCubit());
   }
 }

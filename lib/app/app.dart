@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:i_am_steve_flutter/presentation/view/start/StartWidget.dart';
 
 class App extends StatelessWidget {
 
@@ -9,7 +10,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: StartPage(),
     );
   }
 }
