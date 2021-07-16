@@ -13,7 +13,14 @@ class StartPage extends StatelessWidget {
       child: BlocListener<StartCubit, StartState>(
         listener: (context, state) {
 
-        }
+        },
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+
+            ),
+          ),
+        )
       )
     );
   }
