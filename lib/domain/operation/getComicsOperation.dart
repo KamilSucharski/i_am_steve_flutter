@@ -3,7 +3,7 @@ import 'package:i_am_steve_flutter/domain/exception/noComicsException.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/repository/comicRepositoryLocal.dart';
 import 'package:i_am_steve_flutter/domain/repository/comicRepositoryRemote.dart';
-import 'package:i_am_steve_flutter/domain/util/logger.dart';
+import 'package:i_am_steve_flutter/domain/util/abstraction/logger.dart';
 import 'package:i_am_steve_flutter/domain/util/operation.dart';
 
 class GetComicsOperation implements Operation<Stream<List<Comic>>> {
@@ -18,12 +18,12 @@ class GetComicsOperation implements Operation<Stream<List<Comic>>> {
       return comics;
     }).handleError((error) {
       _logger.error('Error getting comics', error);
-      final List<Comic>? localComics = _comicRepositoryLocal.loadComics();
-      if (localComics != null) {
-        return Stream.value(localComics);
-      } else {
-        return Stream.error(NoComicsException());
-      }
+      _comicRepositoryLocal
+          .loadComics()
+          .then((localComics) => localComics != null
+              ? Stream.value(localComics)
+              : Stream.error(NoComicsException()))
+          .asStream();
     });
   }
 }

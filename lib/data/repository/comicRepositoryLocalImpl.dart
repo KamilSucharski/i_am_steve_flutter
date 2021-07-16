@@ -14,22 +14,22 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   final LocalStorage _localStorage = GetIt.I.get<LocalStorage>();
 
   @override
-  void saveComics(final List<Comic> comics) {
-    _localStorage.putObject(
+  Future<bool> saveComics(final List<Comic> comics) {
+    return _localStorage.putObject(
       Consts.KEY_COMIC_LIST,
       comics
     );
   }
 
   @override
-  List<Comic>? loadComics() {
+  Future<List<Comic>?> loadComics() {
     return _localStorage.getObject<List<Comic>>(
       Consts.KEY_COMIC_LIST
     );
   }
 
   @override
-  File saveComicPanel(
+  Future<File> saveComicPanel(
     final int comicNumber,
     final int panelNumber,
     final ByteData bytes
@@ -44,7 +44,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   }
 
   @override
-  File? loadComicPanel(
+  Future<File?> loadComicPanel(
     final int comicNumber,
     final int panelNumber
   ) {

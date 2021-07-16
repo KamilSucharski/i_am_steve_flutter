@@ -1,4 +1,4 @@
 abstract class Logger {
   void debug(String string);
-  void error(String string, [Exception exception]);
+  void error(String string, [Exception? exception]);
 }

@@ -17,18 +17,37 @@ class GetComicPanelsOperation implements Operation<Stream<ComicPanels>> {
 
   @override
   Stream<ComicPanels> execute() {
-    final ComicPanels? existingComicPanels = _getExistingComicPanels();
-    if (existingComicPanels != null) {
-      return Stream.value(existingComicPanels);
-    }
+    return _getExistingComicPanels()
+      .asStream()
+      .flatMap((existingComicPanels) => existingComicPanels != null
+        ? Stream.value(existingComicPanels)
+        : _getNewComicPanels()
+      );
+  }
 
+  Future<ComicPanels?> _getExistingComicPanels() async {
+    final File? panel1 = await _comicRepositoryLocal.loadComicPanel(_comic.number, 1);
+    final File? panel2 = await _comicRepositoryLocal.loadComicPanel(_comic.number, 2);
+    final File? panel3 = await _comicRepositoryLocal.loadComicPanel(_comic.number, 3);
+    final File? panel4 = await _comicRepositoryLocal.loadComicPanel(_comic.number, 4);
+    if (panel1 != null && panel2 != null && panel3 != null && panel4 != null) {
+      return ComicPanels(panel1, panel2, panel3, panel4);
+    } else {
+      return null;
+    }
+  }
+
+  Stream<ComicPanels> _getNewComicPanels() {
     final List<Stream<File>> panelStreams = [];
     for (int panelNumber = 0; panelNumber < 4; panelNumber++) {
       final Stream<File> panelStream = _comicRepositoryRemote
           .getComicPanel(_comic.number, panelNumber)
-          .map((bytes) {
+          .flatMap((bytes) {
         return _comicRepositoryLocal.saveComicPanel(
-            _comic.number, panelNumber, bytes);
+            _comic.number,
+            panelNumber,
+            bytes
+        ).asStream();
       });
       panelStreams.add(panelStream);
     }
@@ -38,19 +57,7 @@ class GetComicPanelsOperation implements Operation<Stream<ComicPanels>> {
         panelStreams[1],
         panelStreams[2],
         panelStreams[3],
-        (p1, p2, p3, p4) => ComicPanels(p1, p2, p3, p4)
+            (p1, p2, p3, p4) => ComicPanels(p1, p2, p3, p4)
     );
-  }
-
-  ComicPanels? _getExistingComicPanels() {
-    final File? panel1 = _comicRepositoryLocal.loadComicPanel(_comic.number, 1);
-    final File? panel2 = _comicRepositoryLocal.loadComicPanel(_comic.number, 2);
-    final File? panel3 = _comicRepositoryLocal.loadComicPanel(_comic.number, 3);
-    final File? panel4 = _comicRepositoryLocal.loadComicPanel(_comic.number, 4);
-    if (panel1 != null && panel2 != null && panel3 != null && panel4 != null) {
-      return ComicPanels(panel1, panel2, panel3, panel4);
-    } else {
-      return null;
-    }
   }
 }

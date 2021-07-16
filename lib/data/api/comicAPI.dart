@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/data/dto/comicDTO.dart';
-import 'package:i_am_steve_flutter/domain/util/configuration.dart';
+import 'package:i_am_steve_flutter/domain/util/abstraction/configuration.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
 
 class ComicAPI {
