@@ -1,2 +1,0 @@
-class NoComicsException implements Exception {
-}

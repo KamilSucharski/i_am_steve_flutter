@@ -14,17 +14,17 @@ class ComicRepositoryRemoteImpl implements ComicRepositoryRemote {
   final ComicMapper _comicMapper = GetIt.I.get<ComicMapper>();
 
   @override
-  Stream<List<Comic>> getComics() {
+  Future<List<Comic>> getComics() {
     return _comicApi
       .getComics()
-      .map((comics) => comics
+      .then((comics) => comics
         .map((comic) => _comicMapper.map(comic))
         .toList()
     );
   }
 
   @override
-  Stream<ByteData> getComicPanel(
+  Future<ByteData> getComicPanel(
     final int comicNumber,
     final int panelNumber
   ) {

@@ -29,8 +29,8 @@ class _StartPageState extends State<StartPage> {
   }
 
   Widget _createBody(final StartState state) {
-    if (state is Error) {
-      Fluttertoast.showToast(msg: state.exception.toString());
+    if (state is HandleError) {
+      Fluttertoast.showToast(msg: state.error.toString());
     }
 
     final String progressText = state.maybeMap(

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:i_am_steve_flutter/data/api/comic_api.dart';
 import 'package:i_am_steve_flutter/data/mapper/comic_mapper.dart';
 import 'package:i_am_steve_flutter/data/repository/comic_repository_local_impl.dart';
@@ -20,7 +22,14 @@ class Injector {
 
   static void initialize() {
     // Networking
-    GetIt.I.registerFactory(() => Dio());
+    final Dio dio = Dio();
+    if (kDebugMode) {
+      dio.interceptors.add(PrettyDioLogger(
+        requestBody: true,
+        maxWidth: 120,
+      ));
+    }
+    GetIt.I.registerSingleton(dio);
 
     // API
     GetIt.I.registerFactory(() => ComicAPI());

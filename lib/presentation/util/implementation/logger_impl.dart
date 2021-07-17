@@ -9,10 +9,10 @@ class LoggerImpl implements Logger {
   }
 
   @override
-  void error(String string, [Exception? exception]) {
+  void error(String string, [Error? error]) {
     stderr.writeln(string);
-    if (exception != null) {
-      stderr.writeln(exception.toString());
+    if (error != null) {
+      stderr.writeln(error.toString());
     }
   }
 }

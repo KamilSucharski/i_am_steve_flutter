@@ -11,40 +11,39 @@ import 'package:i_am_steve_flutter/domain/util/consts.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/local_storage.dart';
 import 'package:i_am_steve_flutter/domain/util/operation.dart';
 
-class PreloadComicsOperation implements Operation<Stream<bool>> {
+class PreloadComicsOperation implements Operation<Future<void>> {
   final Logger _logger = GetIt.I.get<Logger>();
   final LocalStorage _localStorage = GetIt.I.get<LocalStorage>();
   final AssetReader _assetReader = GetIt.I.get<AssetReader>();
 
   @override
-  Stream<bool> execute() {
+  Future<void> execute() async {
     _logger.debug('Preloading started');
+    final int? previousPreloadVersion = await _localStorage.getInt(
+      Consts.KEY_PRELOAD_VERSION
+    );
+    if (previousPreloadVersion != null && previousPreloadVersion >= Consts.PRELOAD_VERSION) {
+      return;
+    }
 
-    return _localStorage
-      .getInt(Consts.KEY_PRELOAD_VERSION)
+    return _performPreload()
+      .then((value) {
+        _logger.debug('Preloading completed');
+      })
+      .onError((error, stackTrace) {
+        _logger.error('Preloading failed');
+      });
+  }
+
+  Future<void> _performPreload() async {
+    final List<Comic> comics = await _assetReader
+      .getString(Consts.ASSETS_PRELOAD + Consts.COMIC_METADATA_FILE_NAME)
+      .then((comicsJson) => (jsonDecode(comicsJson) as List))
       .asStream()
-      .map((previousPreloadVersion) =>
-        previousPreloadVersion != null
-        && previousPreloadVersion >= Consts.PRELOAD_VERSION
-      )
-      .flatMap((alreadyHasUpToDatePreload) => alreadyHasUpToDatePreload
-        ? Stream.value(false)
-        : _performPreload()
-      );
-  }
+      .flatMapIterable((value) => Stream.value(value))
+      .map((item) => Comic.fromJson(item))
+      .toList();
 
-  Stream<bool> _performPreload() {
-    return _assetReader
-        .getString(Consts.ASSETS_PRELOAD + Consts.COMIC_METADATA_FILE_NAME)
-        .map((comicsJson) => (jsonDecode(comicsJson) as List))
-        .flatMapIterable((value) => Stream.value(value))
-        .map((item) => Comic.fromJson(item))
-        .toList()
-        .asStream()
-        .flatMap((comics) => _saveImageAssetsToLocalStorage(comics));
-  }
-
-  Stream<bool> _saveImageAssetsToLocalStorage(final List<Comic> comics) {
     final List<Stream<File>> fileStreams = [];
 
     comics.forEach((comic) {
@@ -55,27 +54,24 @@ class PreloadComicsOperation implements Operation<Stream<bool>> {
         );
         final Stream<File> fileStream = _assetReader
           .getBytes(Consts.ASSETS_PRELOAD + fileName)
-          .flatMap((bytes) => _localStorage.putFile(fileName, bytes).asStream());
+          .then((bytes) => _localStorage.putFile(fileName, bytes))
+          .asStream();
         fileStreams.add(fileStream);
       }
     });
 
     return ZipStream(
       fileStreams,
-      (list) => saveComicsAndUpdatePreloadVersion(comics)
-    );
-  }
-
-  bool saveComicsAndUpdatePreloadVersion(final List<Comic> comics) {
-    _localStorage.putObject(
-      Consts.KEY_COMIC_LIST,
-      comics
-    );
-    _localStorage.putInt(
-      Consts.KEY_PRELOAD_VERSION,
-      Consts.PRELOAD_VERSION
-    );
-    _logger.debug('Preloading finished');
-    return true;
+      (list) {
+        _localStorage.putObject(
+          Consts.KEY_COMIC_LIST,
+          comics
+        );
+        _localStorage.putInt(
+          Consts.KEY_PRELOAD_VERSION,
+          Consts.PRELOAD_VERSION
+        );
+      }
+    ).first;
   }
 }

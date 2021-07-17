@@ -11,9 +11,9 @@ abstract class  StartState with _$StartState {
     final int all
   ) = Loading;
 
-  const factory StartState.error(
-    final Exception exception
-  ) = Error;
+  const factory StartState.handleError(
+    final Error error
+  ) = HandleError;
 
   const factory StartState.navigateToComics() = NavigateToComics;
 }

@@ -27,9 +27,9 @@ class _$StartStateTearOff {
     );
   }
 
-  Error error(Exception exception) {
-    return Error(
-      exception,
+  HandleError handleError(Error error) {
+    return HandleError(
+      error,
     );
   }
 
@@ -47,7 +47,7 @@ mixin _$StartState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Exception exception) error,
+    required TResult Function(Error error) handleError,
     required TResult Function() navigateToComics,
   }) =>
       throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ mixin _$StartState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Exception exception)? error,
+    TResult Function(Error error)? handleError,
     TResult Function()? navigateToComics,
     required TResult orElse(),
   }) =>
@@ -64,7 +64,7 @@ mixin _$StartState {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(HandleError value) handleError,
     required TResult Function(NavigateToComics value) navigateToComics,
   }) =>
       throw _privateConstructorUsedError;
@@ -72,7 +72,7 @@ mixin _$StartState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(HandleError value)? handleError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) =>
@@ -134,7 +134,7 @@ class _$Initial implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Exception exception) error,
+    required TResult Function(Error error) handleError,
     required TResult Function() navigateToComics,
   }) {
     return initial();
@@ -145,7 +145,7 @@ class _$Initial implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Exception exception)? error,
+    TResult Function(Error error)? handleError,
     TResult Function()? navigateToComics,
     required TResult orElse(),
   }) {
@@ -160,7 +160,7 @@ class _$Initial implements Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(HandleError value) handleError,
     required TResult Function(NavigateToComics value) navigateToComics,
   }) {
     return initial(this);
@@ -171,7 +171,7 @@ class _$Initial implements Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(HandleError value)? handleError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) {
@@ -261,7 +261,7 @@ class _$Loading implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Exception exception) error,
+    required TResult Function(Error error) handleError,
     required TResult Function() navigateToComics,
   }) {
     return loading(done, all);
@@ -272,7 +272,7 @@ class _$Loading implements Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Exception exception)? error,
+    TResult Function(Error error)? handleError,
     TResult Function()? navigateToComics,
     required TResult orElse(),
   }) {
@@ -287,7 +287,7 @@ class _$Loading implements Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(HandleError value) handleError,
     required TResult Function(NavigateToComics value) navigateToComics,
   }) {
     return loading(this);
@@ -298,7 +298,7 @@ class _$Loading implements Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(HandleError value)? handleError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) {
@@ -319,74 +319,75 @@ abstract class Loading implements StartState {
 }
 
 /// @nodoc
-abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
-      _$ErrorCopyWithImpl<$Res>;
-  $Res call({Exception exception});
+abstract class $HandleErrorCopyWith<$Res> {
+  factory $HandleErrorCopyWith(
+          HandleError value, $Res Function(HandleError) then) =
+      _$HandleErrorCopyWithImpl<$Res>;
+  $Res call({Error error});
 }
 
 /// @nodoc
-class _$ErrorCopyWithImpl<$Res> extends _$StartStateCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
-      : super(_value, (v) => _then(v as Error));
+class _$HandleErrorCopyWithImpl<$Res> extends _$StartStateCopyWithImpl<$Res>
+    implements $HandleErrorCopyWith<$Res> {
+  _$HandleErrorCopyWithImpl(
+      HandleError _value, $Res Function(HandleError) _then)
+      : super(_value, (v) => _then(v as HandleError));
 
   @override
-  Error get _value => super._value as Error;
+  HandleError get _value => super._value as HandleError;
 
   @override
   $Res call({
-    Object? exception = freezed,
+    Object? error = freezed,
   }) {
-    return _then(Error(
-      exception == freezed
-          ? _value.exception
-          : exception // ignore: cast_nullable_to_non_nullable
-              as Exception,
+    return _then(HandleError(
+      error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as Error,
     ));
   }
 }
 
 /// @nodoc
 
-class _$Error implements Error {
-  const _$Error(this.exception);
+class _$HandleError implements HandleError {
+  const _$HandleError(this.error);
 
   @override
-  final Exception exception;
+  final Error error;
 
   @override
   String toString() {
-    return 'StartState.error(exception: $exception)';
+    return 'StartState.handleError(error: $error)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Error &&
-            (identical(other.exception, exception) ||
-                const DeepCollectionEquality()
-                    .equals(other.exception, exception)));
+        (other is HandleError &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
 
   @JsonKey(ignore: true)
   @override
-  $ErrorCopyWith<Error> get copyWith =>
-      _$ErrorCopyWithImpl<Error>(this, _$identity);
+  $HandleErrorCopyWith<HandleError> get copyWith =>
+      _$HandleErrorCopyWithImpl<HandleError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Exception exception) error,
+    required TResult Function(Error error) handleError,
     required TResult Function() navigateToComics,
   }) {
-    return error(exception);
+    return handleError(error);
   }
 
   @override
@@ -394,12 +395,12 @@ class _$Error implements Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Exception exception)? error,
+    TResult Function(Error error)? handleError,
     TResult Function()? navigateToComics,
     required TResult orElse(),
   }) {
-    if (error != null) {
-      return error(exception);
+    if (handleError != null) {
+      return handleError(error);
     }
     return orElse();
   }
@@ -409,10 +410,10 @@ class _$Error implements Error {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(HandleError value) handleError,
     required TResult Function(NavigateToComics value) navigateToComics,
   }) {
-    return error(this);
+    return handleError(this);
   }
 
   @override
@@ -420,23 +421,24 @@ class _$Error implements Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(HandleError value)? handleError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) {
-    if (error != null) {
-      return error(this);
+    if (handleError != null) {
+      return handleError(this);
     }
     return orElse();
   }
 }
 
-abstract class Error implements StartState {
-  const factory Error(Exception exception) = _$Error;
+abstract class HandleError implements StartState {
+  const factory HandleError(Error error) = _$HandleError;
 
-  Exception get exception => throw _privateConstructorUsedError;
+  Error get error => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ErrorCopyWith<Error> get copyWith => throw _privateConstructorUsedError;
+  $HandleErrorCopyWith<HandleError> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -481,7 +483,7 @@ class _$NavigateToComics implements NavigateToComics {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Exception exception) error,
+    required TResult Function(Error error) handleError,
     required TResult Function() navigateToComics,
   }) {
     return navigateToComics();
@@ -492,7 +494,7 @@ class _$NavigateToComics implements NavigateToComics {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Exception exception)? error,
+    TResult Function(Error error)? handleError,
     TResult Function()? navigateToComics,
     required TResult orElse(),
   }) {
@@ -507,7 +509,7 @@ class _$NavigateToComics implements NavigateToComics {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    required TResult Function(HandleError value) handleError,
     required TResult Function(NavigateToComics value) navigateToComics,
   }) {
     return navigateToComics(this);
@@ -518,7 +520,7 @@ class _$NavigateToComics implements NavigateToComics {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(HandleError value)? handleError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) {

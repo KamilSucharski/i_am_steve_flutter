@@ -1,2 +1,0 @@
-class MissingArgumentException implements Exception {
-}

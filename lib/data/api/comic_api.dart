@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/data/dto/comic_dto.dart';
@@ -12,13 +13,15 @@ class ComicAPI {
   final Dio _dio = GetIt.I.get<Dio>();
   final Configuration _configuration = GetIt.I.get<Configuration>();
 
-  Stream<List<ComicDTO>> getComics() => _dio
+  Future<List<ComicDTO>> getComics() => _dio
     .get(_configuration.getBaseUrl() + Consts.COMIC_METADATA_FILE_NAME)
+    .then((response) => jsonDecode(response.toString()) as List)
     .asStream()
-    .map((response) => jsonDecode(response.toString()) as List<ComicDTO>);
+    .flatMapIterable((item) => Stream.value(item))
+    .map((item) => ComicDTO.fromJson(item))
+    .toList();
 
-  Stream<ByteData> getComicPanel(final String fileName) => _dio
+  Future<ByteData> getComicPanel(final String fileName) => _dio
     .get(_configuration.getBaseUrl() + 'assets/comic/$fileName')
-    .asStream()
-    .map((response) => response.data as ByteData);
+    .then((response) => response.data as ByteData);
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 
 abstract class AssetReader {
-  Stream<String> getString(final String assetName);
-  Stream<ByteData> getBytes(final String assetName);
+  Future<String> getString(final String assetName);
+  Future<ByteData> getBytes(final String assetName);
 }

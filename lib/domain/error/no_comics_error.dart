@@ -1,0 +1,2 @@
+class NoComicsError extends Error {
+}

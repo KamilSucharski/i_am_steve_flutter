@@ -4,16 +4,12 @@ import 'package:i_am_steve_flutter/domain/util/abstraction/asset_reader.dart';
 class AssetReaderImpl implements AssetReader {
 
   @override
-  Stream<String> getString(String assetName) {
-    return rootBundle
-        .loadString(assetName)
-        .asStream();
+  Future<String> getString(final String assetName) {
+    return rootBundle.loadString(assetName);
   }
 
   @override
-  Stream<ByteData> getBytes(String assetName) {
-    return rootBundle
-        .load(assetName)
-        .asStream();
+  Future<ByteData> getBytes(final String assetName) {
+    return rootBundle.load(assetName);
   }
 }

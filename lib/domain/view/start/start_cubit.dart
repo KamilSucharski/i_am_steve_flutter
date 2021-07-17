@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/operation/get_comic_panels_operation.dart';
@@ -16,38 +15,35 @@ class StartCubit extends BaseCubit<StartState> {
   @override
   Future<void> init() async {
     _preloadComics()
-      .flatMap((_) => _getComics())
-      .flatMap((comics) => _sequentiallyDownloadComicPanels(comics))
+      .then((_) => _getComics())
+      .then((comics) => _sequentiallyDownloadComicPanels(comics))
+      .asStream()
       .listen(
         (data) {},
-        onError: (error) { emit(StartState.error(error)); },
+        onError: (error) { emit(StartState.handleError(error)); },
         onDone: () { emit(StartState.navigateToComics()); }
       )
       .addTo(disposables);
   }
 
-  Stream<bool> _preloadComics() {
+  Future<void> _preloadComics() {
     return PreloadComicsOperation().execute();
   }
 
-  Stream<List<Comic>> _getComics() {
+  Future<List<Comic>> _getComics() {
     return GetComicsOperation().execute();
   }
 
-  Stream _sequentiallyDownloadComicPanels(final List<Comic> comics) {
-    Stream sequentialDownload = Stream.value(true);
-    comics.forEach((comic) =>
-      sequentialDownload = sequentialDownload.flatMap((download) =>
-        GetComicPanelsOperation(comic)
-          .execute()
-          .doOnDone(() {
-            emit(StartState.loading(
-              comic.number,
-              comics.length
-            ));
-          })
-      )
+  Future _sequentiallyDownloadComicPanels(final List<Comic> comics) async {
+    comics.forEach((comic) async =>
+      await GetComicPanelsOperation(comic)
+        .execute()
+        .then((_) {
+          emit(StartState.loading(
+            comic.number,
+            comics.length
+          ));
+        })
     );
-    return sequentialDownload;
   }
 }
