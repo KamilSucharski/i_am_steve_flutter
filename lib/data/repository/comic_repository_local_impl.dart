@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:get_it/get_it.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
@@ -22,10 +23,17 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   }
 
   @override
-  Future<List<Comic>?> loadComics() {
-    return _localStorage.getObject<List<Comic>>(
-      Consts.KEY_COMIC_LIST
-    );
+  Future<List<Comic>?> loadComics() async {
+    final List? list = await _localStorage.getObject<List>(Consts.KEY_COMIC_LIST);
+    if (list == null) {
+      return null;
+    }
+
+    return Stream
+      .value(list)
+      .flatMapIterable((item) => Stream.value(item))
+      .map((item) => Comic.fromJson(item))
+      .toList();
   }
 
   @override

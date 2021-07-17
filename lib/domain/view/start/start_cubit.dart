@@ -11,7 +11,7 @@ import 'package:i_am_steve_flutter/domain/view/start/start_state.dart';
 
 class StartCubit extends BaseCubit<StartState> {
 
-  StartCubit() : super(StartState());
+  StartCubit() : super(StartState.initial());
 
   @override
   Future<void> init() async {
@@ -24,9 +24,11 @@ class StartCubit extends BaseCubit<StartState> {
         },
         onError: (error) {
           stderr.writeln("DUPA error");
+          emit(StartState.navigateToComics());
         },
         onDone: () {
           stdout.writeln("DUPA done");
+          emit(StartState.navigateToComics());
         }
       )
       .addTo(disposables);
@@ -46,7 +48,9 @@ class StartCubit extends BaseCubit<StartState> {
       sequentialDownload = sequentialDownload.flatMap((download) =>
         GetComicPanelsOperation(comic)
           .execute()
-          //.map((comicPanels) => view.setProgress(comic.number, comics.size))
+          .doOnDone(() {
+            emit(StartState.loading(comic.number, comics.length));
+          })
       )
     );
     return sequentialDownload;
