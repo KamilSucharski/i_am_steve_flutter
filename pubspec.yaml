@@ -27,6 +27,7 @@ dependencies:
 
   # UI
   flutter_svg: 0.22.0
+  fluttertoast: 8.0.7
 
   # Other
   sprintf: 5.0.0

@@ -7,9 +7,13 @@ abstract class  StartState with _$StartState {
   const factory StartState.initial() = Initial;
 
   const factory StartState.loading(
-    int done,
-    int all
+    final int done,
+    final int all
   ) = Loading;
+
+  const factory StartState.error(
+    final Exception exception
+  ) = Error;
 
   const factory StartState.navigateToComics() = NavigateToComics;
 }

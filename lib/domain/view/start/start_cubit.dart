@@ -19,17 +19,9 @@ class StartCubit extends BaseCubit<StartState> {
       .flatMap((_) => _getComics())
       .flatMap((comics) => _sequentiallyDownloadComicPanels(comics))
       .listen(
-        (data) {
-          stdout.writeln("DUPA data");
-        },
-        onError: (error) {
-          stderr.writeln("DUPA error");
-          emit(StartState.navigateToComics());
-        },
-        onDone: () {
-          stdout.writeln("DUPA done");
-          emit(StartState.navigateToComics());
-        }
+        (data) {},
+        onError: (error) { emit(StartState.error(error)); },
+        onDone: () { emit(StartState.navigateToComics()); }
       )
       .addTo(disposables);
   }
@@ -49,7 +41,10 @@ class StartCubit extends BaseCubit<StartState> {
         GetComicPanelsOperation(comic)
           .execute()
           .doOnDone(() {
-            emit(StartState.loading(comic.number, comics.length));
+            emit(StartState.loading(
+              comic.number,
+              comics.length
+            ));
           })
       )
     );
