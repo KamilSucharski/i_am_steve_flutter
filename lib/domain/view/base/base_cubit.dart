@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 
 abstract class BaseCubit<State> extends Cubit<State> {
 
-  final CompositeSubscription subscription = CompositeSubscription();
+  final CompositeSubscription disposables = CompositeSubscription();
 
   BaseCubit(State initialState) : super(initialState) {
     init();
@@ -15,7 +15,7 @@ abstract class BaseCubit<State> extends Cubit<State> {
 
   @override
   Future<void> close() async {
-    subscription.dispose();
+    disposables.dispose();
     return super.close();
   }
 }

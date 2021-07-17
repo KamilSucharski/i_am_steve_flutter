@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'comic.freezed.dart';
+part 'comic.g.dart';
 
 @freezed
 abstract class Comic with _$Comic {
@@ -10,4 +11,6 @@ abstract class Comic with _$Comic {
     required String title,
     required String date
   }) = _Comic;
+
+  factory Comic.fromJson(Map<String, dynamic> json) => _$ComicFromJson(json);
 }

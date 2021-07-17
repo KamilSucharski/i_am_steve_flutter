@@ -12,6 +12,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Comic _$ComicFromJson(Map<String, dynamic> json) {
+  return _Comic.fromJson(json);
+}
+
 /// @nodoc
 class _$ComicTearOff {
   const _$ComicTearOff();
@@ -24,6 +28,10 @@ class _$ComicTearOff {
       date: date,
     );
   }
+
+  Comic fromJson(Map<String, Object> json) {
+    return Comic.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -35,6 +43,7 @@ mixin _$Comic {
   String get title => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ComicCopyWith<Comic> get copyWith => throw _privateConstructorUsedError;
 }
@@ -118,10 +127,13 @@ class __$ComicCopyWithImpl<$Res> extends _$ComicCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Comic implements _Comic {
   const _$_Comic(
       {required this.number, required this.title, required this.date});
+
+  factory _$_Comic.fromJson(Map<String, dynamic> json) =>
+      _$_$_ComicFromJson(json);
 
   @override
   final int number;
@@ -158,6 +170,11 @@ class _$_Comic implements _Comic {
   @override
   _$ComicCopyWith<_Comic> get copyWith =>
       __$ComicCopyWithImpl<_Comic>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$_$_ComicToJson(this);
+  }
 }
 
 abstract class _Comic implements Comic {
@@ -165,6 +182,8 @@ abstract class _Comic implements Comic {
       {required int number,
       required String title,
       required String date}) = _$_Comic;
+
+  factory _Comic.fromJson(Map<String, dynamic> json) = _$_Comic.fromJson;
 
   @override
   int get number => throw _privateConstructorUsedError;

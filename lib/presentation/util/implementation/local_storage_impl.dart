@@ -62,6 +62,9 @@ class LocalStorageImpl implements LocalStorage {
   @override
   Future<File> putFile(final String key, final ByteData bytes) async {
     final File file = await _getFile(key);
+    if (await file.exists() == false) {
+      await file.create(recursive: true);
+    }
     final ByteBuffer buffer = bytes.buffer;
     return await file.writeAsBytes(buffer.asUint8List(
         bytes.offsetInBytes,
@@ -108,7 +111,11 @@ class LocalStorageImpl implements LocalStorage {
   }
 
   Future<File> _getFile(final String key) async {
-    final Directory path = await getApplicationDocumentsDirectory();
+    final Directory directory = await getApplicationSupportDirectory();
+    if (await directory.exists() == false) {
+      await directory.create(recursive: true);
+    }
+    final String path = directory.path;
     return File('$path/$key');
   }
 }

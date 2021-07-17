@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/operation/get_comic_panels_operation.dart';
@@ -18,11 +19,17 @@ class StartCubit extends BaseCubit<StartState> {
       .flatMap((_) => _getComics())
       .flatMap((comics) => _sequentiallyDownloadComicPanels(comics))
       .listen(
-        (data) { },
-        onError: (error) { },
-        onDone: () {}
+        (data) {
+          stdout.writeln("DUPA data");
+        },
+        onError: (error) {
+          stderr.writeln("DUPA error");
+        },
+        onDone: () {
+          stdout.writeln("DUPA done");
+        }
       )
-      .addTo(subscription);
+      .addTo(disposables);
   }
 
   Stream<bool> _preloadComics() {

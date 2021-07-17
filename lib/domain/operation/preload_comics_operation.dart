@@ -35,11 +35,13 @@ class PreloadComicsOperation implements Operation<Stream<bool>> {
 
   Stream<bool> _performPreload() {
     return _assetReader
-        .getString(Consts.COMIC_METADATA_FILE_NAME)
-        .map((comicsJson) => jsonDecode(comicsJson) as List<Comic>)
-        .flatMap((comics) => _saveImageAssetsToLocalStorage(
-        comics
-    ));
+        .getString(Consts.ASSETS_PRELOAD + Consts.COMIC_METADATA_FILE_NAME)
+        .map((comicsJson) => (jsonDecode(comicsJson) as List))
+        .flatMapIterable((value) => Stream.value(value))
+        .map((item) => Comic.fromJson(item))
+        .toList()
+        .asStream()
+        .flatMap((comics) => _saveImageAssetsToLocalStorage(comics));
   }
 
   Stream<bool> _saveImageAssetsToLocalStorage(final List<Comic> comics) {
@@ -52,7 +54,7 @@ class PreloadComicsOperation implements Operation<Stream<bool>> {
           [comic.number, panelNumber]
         );
         final Stream<File> fileStream = _assetReader
-          .getBytes(fileName)
+          .getBytes(Consts.ASSETS_PRELOAD + fileName)
           .flatMap((bytes) => _localStorage.putFile(fileName, bytes).asStream());
         fileStreams.add(fileStream);
       }
