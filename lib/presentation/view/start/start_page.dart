@@ -5,6 +5,7 @@ import 'package:i_am_steve_flutter/domain/view/start/start_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_state.dart';
 import 'package:i_am_steve_flutter/presentation/resource/assets.dart';
 import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
+import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
 import 'package:i_am_steve_flutter/presentation/view/base/base_widget_state.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -19,7 +20,7 @@ class _StartPageState extends BaseWidgetState<StartCubit, StartState> with Singl
   @override
   void initState() {
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 5000),
+      duration: const Duration(milliseconds: 2500),
       vsync: this,
     );
     super.initState();
@@ -64,6 +65,9 @@ class _StartPageState extends BaseWidgetState<StartCubit, StartState> with Singl
       child: Text(
         progressText,
         textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.overline?.apply(
+          fontSizeFactor: 4
+        ),
       )
     );
 
@@ -89,13 +93,16 @@ class _StartPageState extends BaseWidgetState<StartCubit, StartState> with Singl
     );
 
     return SafeArea(
-      child: Column(
-        verticalDirection: VerticalDirection.up,
-        children: [
-          textContainer,
-          iconContainer
-        ],
-      ),
+      child: Container(
+        color: Styles.BACKGROUND_COLOR,
+        child: Column(
+          verticalDirection: VerticalDirection.up,
+          children: [
+            textContainer,
+            iconContainer
+          ],
+        )
+      )
     );
   }
 }
