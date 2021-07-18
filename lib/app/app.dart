@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:i_am_steve_flutter/presentation/view/start/start_page.dart';
+import 'package:i_am_steve_flutter/presentation/view/start/start_page_state.dart';
 
 class App extends StatelessWidget {
 

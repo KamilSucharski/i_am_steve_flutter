@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_state.dart';
 import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
+import 'package:i_am_steve_flutter/presentation/view/base/base_widget_state.dart';
 import 'package:sprintf/sprintf.dart';
 
 class StartPage extends StatefulWidget {
@@ -12,27 +11,25 @@ class StartPage extends StatefulWidget {
   State<StatefulWidget> createState() => _StartPageState();
 }
 
-class _StartPageState extends State<StartPage> {
-  final StartCubit _cubit = GetIt.I.get<StartCubit>();
+class _StartPageState extends BaseWidgetState<StartCubit, StartState> {
 
   @override
-  Widget build(final BuildContext context) {
-    return BlocProvider<StartCubit>(
-      create: (_) => _cubit,
-      child: BlocListener<StartCubit, StartState>(
-        listener: (context, state) {
-          setState(() {});
-        },
-        child: _createBody(_cubit.state)
-      )
-    );
-  }
-
-  Widget _createBody(final StartState state) {
+  bool onStateChange(final BuildContext context, final StartState state) {
     if (state is HandleError) {
       Fluttertoast.showToast(msg: state.error.toString());
+      return false;
     }
 
+    if (state is NavigateToComics) {
+      Fluttertoast.showToast(msg: 'Navigate');
+      return false;
+    }
+
+    return true;
+  }
+
+  @override
+  Widget createBody(final BuildContext context, final StartState state) {
     final String progressText = state.maybeMap(
       loading: (state) => sprintf(
         Strings.START_BODY_WITH_PROGRESS,
