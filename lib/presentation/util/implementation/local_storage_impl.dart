@@ -60,16 +60,12 @@ class LocalStorageImpl implements LocalStorage {
   }
 
   @override
-  Future<File> putFile(final String key, final ByteData bytes) async {
+  Future<File> putFile(final String key, final String data) async {
     final File file = await _getFile(key);
     if (await file.exists() == false) {
       await file.create(recursive: true);
     }
-    final ByteBuffer buffer = bytes.buffer;
-    return await file.writeAsBytes(buffer.asUint8List(
-        bytes.offsetInBytes,
-        bytes.lengthInBytes
-    ));
+    return file.writeAsString(data);
   }
 
   @override

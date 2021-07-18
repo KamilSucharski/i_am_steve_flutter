@@ -24,7 +24,7 @@ class ComicRepositoryRemoteImpl implements ComicRepositoryRemote {
   }
 
   @override
-  Future<ByteData> getComicPanel(
+  Future<String> getComicPanel(
     final int comicNumber,
     final int panelNumber
   ) {

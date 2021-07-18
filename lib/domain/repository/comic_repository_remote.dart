@@ -4,5 +4,5 @@ import 'package:i_am_steve_flutter/domain/model/comic.dart';
 
 abstract class ComicRepositoryRemote {
   Future<List<Comic>> getComics();
-  Future<ByteData> getComicPanel(final int comicNumber, final int panelNumber);
+  Future<String> getComicPanel(final int comicNumber, final int panelNumber);
 }

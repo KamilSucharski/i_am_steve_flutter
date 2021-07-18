@@ -53,8 +53,8 @@ class PreloadComicsOperation implements Operation<Future<void>> {
           [comic.number, panelNumber]
         );
         final Stream<File> fileStream = _assetReader
-          .getBytes(Consts.ASSETS_PRELOAD + fileName)
-          .then((bytes) => _localStorage.putFile(fileName, bytes))
+          .getString(Consts.ASSETS_PRELOAD + fileName)
+          .then((string) => _localStorage.putFile(fileName, string))
           .asStream();
         fileStreams.add(fileStream);
       }

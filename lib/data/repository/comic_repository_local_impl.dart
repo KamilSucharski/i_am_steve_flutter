@@ -40,14 +40,14 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   Future<File> saveComicPanel(
     final int comicNumber,
     final int panelNumber,
-    final ByteData bytes
+    final String panelString
   ) {
     return _localStorage.putFile(
         sprintf(
           Consts.COMIC_PANEL_FILE_NAME_FORMAT,
           [comicNumber, panelNumber]
         ),
-        bytes
+        panelString
     );
   }
 
