@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +13,7 @@ class ComicAPI {
 
   Future<List<ComicDTO>> getComics() => _dio
     .get(_configuration.getBaseUrl() + Consts.COMIC_METADATA_FILE_NAME)
-    .then((response) => jsonDecode(response.toString()) as List)
+    .then((response) => response.data as List)
     .asStream()
     .flatMapIterable((item) => Stream.value(item))
     .map((item) => ComicDTO.fromJson(item))
@@ -23,5 +21,7 @@ class ComicAPI {
 
   Future<ByteData> getComicPanel(final String fileName) => _dio
     .get(_configuration.getBaseUrl() + 'assets/comic/$fileName')
-    .then((response) => response.data as ByteData);
+    .then((response) {
+      return response.data as ByteData;
+    });
 }

@@ -13,8 +13,8 @@ class GetComicsOperation implements Operation<Future<List<Comic>>> {
 
   @override
   Future<List<Comic>> execute() async {
-    return _comicRepositoryRemote.getComics().then((comics) {
-      _comicRepositoryLocal.saveComics(comics);
+    return _comicRepositoryRemote.getComics().then((comics) async {
+      await _comicRepositoryLocal.saveComics(comics);
       return comics;
     }).catchError((error) {
       _logger.error('Error getting comics', error);

@@ -45,7 +45,7 @@ class GetComicPanelsOperation implements Operation<Future<ComicPanels>> {
 
   Future<ComicPanels> _getNewComicPanels() async {
     final List<Stream<File>> panelStreams = [];
-    for (int panelNumber = 0; panelNumber < 4; panelNumber++) {
+    for (int panelNumber = 1; panelNumber <= 4; panelNumber++) {
       final ByteData panelBytes = await _comicRepositoryRemote.getComicPanel(
         _comic.number,
         panelNumber
