@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'comic_panels.freezed.dart';
@@ -7,9 +7,9 @@ part 'comic_panels.freezed.dart';
 abstract class ComicPanels with _$ComicPanels {
 
   const factory ComicPanels({
-    required File panel1,
-    required File panel2,
-    required File panel3,
-    required File panel4
+    required Uint8List panel1,
+    required Uint8List panel2,
+    required Uint8List panel3,
+    required Uint8List panel4
   }) = _ComicPanels;
 }

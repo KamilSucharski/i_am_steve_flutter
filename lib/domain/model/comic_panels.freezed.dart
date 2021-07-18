@@ -17,10 +17,10 @@ class _$ComicPanelsTearOff {
   const _$ComicPanelsTearOff();
 
   _ComicPanels call(
-      {required File panel1,
-      required File panel2,
-      required File panel3,
-      required File panel4}) {
+      {required Uint8List panel1,
+      required Uint8List panel2,
+      required Uint8List panel3,
+      required Uint8List panel4}) {
     return _ComicPanels(
       panel1: panel1,
       panel2: panel2,
@@ -35,10 +35,10 @@ const $ComicPanels = _$ComicPanelsTearOff();
 
 /// @nodoc
 mixin _$ComicPanels {
-  File get panel1 => throw _privateConstructorUsedError;
-  File get panel2 => throw _privateConstructorUsedError;
-  File get panel3 => throw _privateConstructorUsedError;
-  File get panel4 => throw _privateConstructorUsedError;
+  Uint8List get panel1 => throw _privateConstructorUsedError;
+  Uint8List get panel2 => throw _privateConstructorUsedError;
+  Uint8List get panel3 => throw _privateConstructorUsedError;
+  Uint8List get panel4 => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ComicPanelsCopyWith<ComicPanels> get copyWith =>
@@ -50,7 +50,8 @@ abstract class $ComicPanelsCopyWith<$Res> {
   factory $ComicPanelsCopyWith(
           ComicPanels value, $Res Function(ComicPanels) then) =
       _$ComicPanelsCopyWithImpl<$Res>;
-  $Res call({File panel1, File panel2, File panel3, File panel4});
+  $Res call(
+      {Uint8List panel1, Uint8List panel2, Uint8List panel3, Uint8List panel4});
 }
 
 /// @nodoc
@@ -72,19 +73,19 @@ class _$ComicPanelsCopyWithImpl<$Res> implements $ComicPanelsCopyWith<$Res> {
       panel1: panel1 == freezed
           ? _value.panel1
           : panel1 // ignore: cast_nullable_to_non_nullable
-              as File,
+              as Uint8List,
       panel2: panel2 == freezed
           ? _value.panel2
           : panel2 // ignore: cast_nullable_to_non_nullable
-              as File,
+              as Uint8List,
       panel3: panel3 == freezed
           ? _value.panel3
           : panel3 // ignore: cast_nullable_to_non_nullable
-              as File,
+              as Uint8List,
       panel4: panel4 == freezed
           ? _value.panel4
           : panel4 // ignore: cast_nullable_to_non_nullable
-              as File,
+              as Uint8List,
     ));
   }
 }
@@ -96,7 +97,8 @@ abstract class _$ComicPanelsCopyWith<$Res>
           _ComicPanels value, $Res Function(_ComicPanels) then) =
       __$ComicPanelsCopyWithImpl<$Res>;
   @override
-  $Res call({File panel1, File panel2, File panel3, File panel4});
+  $Res call(
+      {Uint8List panel1, Uint8List panel2, Uint8List panel3, Uint8List panel4});
 }
 
 /// @nodoc
@@ -120,19 +122,19 @@ class __$ComicPanelsCopyWithImpl<$Res> extends _$ComicPanelsCopyWithImpl<$Res>
       panel1: panel1 == freezed
           ? _value.panel1
           : panel1 // ignore: cast_nullable_to_non_nullable
-              as File,
+              as Uint8List,
       panel2: panel2 == freezed
           ? _value.panel2
           : panel2 // ignore: cast_nullable_to_non_nullable
-              as File,
+              as Uint8List,
       panel3: panel3 == freezed
           ? _value.panel3
           : panel3 // ignore: cast_nullable_to_non_nullable
-              as File,
+              as Uint8List,
       panel4: panel4 == freezed
           ? _value.panel4
           : panel4 // ignore: cast_nullable_to_non_nullable
-              as File,
+              as Uint8List,
     ));
   }
 }
@@ -147,13 +149,13 @@ class _$_ComicPanels implements _ComicPanels {
       required this.panel4});
 
   @override
-  final File panel1;
+  final Uint8List panel1;
   @override
-  final File panel2;
+  final Uint8List panel2;
   @override
-  final File panel3;
+  final Uint8List panel3;
   @override
-  final File panel4;
+  final Uint8List panel4;
 
   @override
   String toString() {
@@ -190,19 +192,19 @@ class _$_ComicPanels implements _ComicPanels {
 
 abstract class _ComicPanels implements ComicPanels {
   const factory _ComicPanels(
-      {required File panel1,
-      required File panel2,
-      required File panel3,
-      required File panel4}) = _$_ComicPanels;
+      {required Uint8List panel1,
+      required Uint8List panel2,
+      required Uint8List panel3,
+      required Uint8List panel4}) = _$_ComicPanels;
 
   @override
-  File get panel1 => throw _privateConstructorUsedError;
+  Uint8List get panel1 => throw _privateConstructorUsedError;
   @override
-  File get panel2 => throw _privateConstructorUsedError;
+  Uint8List get panel2 => throw _privateConstructorUsedError;
   @override
-  File get panel3 => throw _privateConstructorUsedError;
+  Uint8List get panel3 => throw _privateConstructorUsedError;
   @override
-  File get panel4 => throw _privateConstructorUsedError;
+  Uint8List get panel4 => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ComicPanelsCopyWith<_ComicPanels> get copyWith =>
