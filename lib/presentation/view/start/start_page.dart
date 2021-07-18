@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_state.dart';
+import 'package:i_am_steve_flutter/presentation/resource/assets.dart';
 import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
 import 'package:i_am_steve_flutter/presentation/view/base/base_widget_state.dart';
 import 'package:sprintf/sprintf.dart';
@@ -38,10 +40,29 @@ class _StartPageState extends BaseWidgetState<StartCubit, StartState> {
       orElse: () => Strings.START_BODY_WITHOUT_PROGRESS
     );
 
+    final MediaQueryData mediaQueryData = MediaQuery.of(context);
+
     return SafeArea(
       child: Column(
+        verticalDirection: VerticalDirection.up,
         children: [
-          Text(progressText)
+          Container(
+            width: mediaQueryData.size.width,
+            height: mediaQueryData.size.height * 0.5,
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              progressText,
+              textAlign: TextAlign.center,
+            )
+          ),
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: SvgPicture.asset(
+              Assets.ICON_STEVE,
+              width: mediaQueryData.size.width * 0.5,
+              height: mediaQueryData.size.width * 0.5
+            ),
+          )
         ],
       ),
     );
