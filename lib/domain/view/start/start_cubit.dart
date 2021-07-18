@@ -15,35 +15,43 @@ class StartCubit extends BaseCubit<StartState> {
   @override
   Future<void> init() async {
     _preloadComics()
-      .then((_) => _getComics())
-      .then((comics) => _sequentiallyDownloadComicPanels(comics))
-      .asStream()
+      .flatMap((_) => _getComics())
+      .flatMap((comics) => _sequentiallyDownloadComicPanels(comics))
       .listen(
         (data) {},
         onError: (error) { emit(StartState.handleError(error)); },
-        onDone: () { emit(StartState.navigateToComics()); }
+        onDone: () {
+          emit(StartState.navigateToComics());
+        }
       )
       .addTo(disposables);
   }
 
-  Future<void> _preloadComics() {
-    return PreloadComicsOperation().execute();
+  Stream _preloadComics() {
+    return PreloadComicsOperation()
+      .execute()
+      .asStream();
   }
 
-  Future<List<Comic>> _getComics() {
-    return GetComicsOperation().execute();
-  }
-
-  Future _sequentiallyDownloadComicPanels(final List<Comic> comics) async {
-    comics.forEach((comic) async =>
-      await GetComicPanelsOperation(comic)
+  Stream<List<Comic>> _getComics() {
+    return GetComicsOperation()
         .execute()
-        .then((_) {
+        .asStream();
+  }
+
+  Stream _sequentiallyDownloadComicPanels(final List<Comic> comics) {
+    Stream sequentialDownloads = Stream.value(null);
+    comics.forEach((comic) {
+      final Stream nextDownload = GetComicPanelsOperation(comic)
+        .execute()
+        .map((_) {
           emit(StartState.loading(
             comic.number,
             comics.length
           ));
-        })
-    );
+      });
+      sequentialDownloads = sequentialDownloads.flatMap((_) => nextDownload);
+    });
+    return sequentialDownloads;
   }
 }

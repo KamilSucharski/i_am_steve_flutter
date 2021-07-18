@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/model/comic_panels.dart';
@@ -9,7 +8,7 @@ import 'package:i_am_steve_flutter/domain/repository/comic_repository_remote.dar
 import 'package:i_am_steve_flutter/domain/util/operation.dart';
 import 'package:rxdart/rxdart.dart';
 
-class GetComicPanelsOperation implements Operation<Future<ComicPanels>> {
+class GetComicPanelsOperation implements Operation<Stream<ComicPanels>> {
   final Comic _comic;
   final ComicRepositoryLocal _comicRepositoryLocal = GetIt.I.get<ComicRepositoryLocal>();
   final ComicRepositoryRemote _comicRepositoryRemote = GetIt.I.get<ComicRepositoryRemote>();
@@ -17,13 +16,13 @@ class GetComicPanelsOperation implements Operation<Future<ComicPanels>> {
   GetComicPanelsOperation(this._comic);
 
   @override
-  Future<ComicPanels> execute() async {
-    final ComicPanels? existingComicPanels = await _getExistingComicPanels();
-    if (existingComicPanels != null) {
-      return existingComicPanels;
-    } else {
-      return _getNewComicPanels();
-    }
+  Stream<ComicPanels> execute() {
+    return _getExistingComicPanels()
+      .asStream()
+      .flatMap((existingComicPanels) => existingComicPanels != null
+        ? Stream.value(existingComicPanels)
+        : _getNewComicPanels()
+      );
   }
 
   Future<ComicPanels?> _getExistingComicPanels() async {
@@ -43,18 +42,15 @@ class GetComicPanelsOperation implements Operation<Future<ComicPanels>> {
     }
   }
 
-  Future<ComicPanels> _getNewComicPanels() async {
+  Stream<ComicPanels> _getNewComicPanels() {
     final List<Stream<File>> panelStreams = [];
     for (int panelNumber = 1; panelNumber <= 4; panelNumber++) {
-      final String panelString = await _comicRepositoryRemote.getComicPanel(
-        _comic.number,
-        panelNumber
-      );
-      final Stream<File> panelStream = _comicRepositoryLocal.saveComicPanel(
-        _comic.number,
-        panelNumber,
-        panelString
-      ).asStream();
+      final Stream<File> panelStream =_comicRepositoryRemote
+        .getComicPanel(_comic.number, panelNumber)
+        .then((panelString) =>_comicRepositoryLocal
+          .saveComicPanel(_comic.number, panelNumber, panelString)
+        )
+        .asStream();
       panelStreams.add(panelStream);
     }
 
@@ -69,6 +65,6 @@ class GetComicPanelsOperation implements Operation<Future<ComicPanels>> {
           panel3: panel3,
           panel4: panel4
         )
-    ).first;
+    );
   }
 }
