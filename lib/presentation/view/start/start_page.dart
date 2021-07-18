@@ -13,7 +13,23 @@ class StartPage extends StatefulWidget {
   State<StatefulWidget> createState() => _StartPageState();
 }
 
-class _StartPageState extends BaseWidgetState<StartCubit, StartState> {
+class _StartPageState extends BaseWidgetState<StartCubit, StartState> with SingleTickerProviderStateMixin {
+  AnimationController? _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 5000),
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
 
   @override
   bool onStateChange(final BuildContext context, final StartState state) {
@@ -41,28 +57,43 @@ class _StartPageState extends BaseWidgetState<StartCubit, StartState> {
     );
 
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
+    final Widget textContainer = Container(
+      width: mediaQueryData.size.width,
+      height: mediaQueryData.size.height * 0.5,
+      padding: const EdgeInsets.all(16),
+      child: Text(
+        progressText,
+        textAlign: TextAlign.center,
+      )
+    );
+
+    Widget icon = SvgPicture.asset(
+      Assets.ICON_STEVE,
+      width: mediaQueryData.size.width * 0.5,
+      height: mediaQueryData.size.width * 0.5
+    );
+
+    if (_animationController != null) {
+      icon = RotationTransition(
+        turns: Tween(begin: 0.0, end: 1.0).animate(_animationController!),
+        child: icon
+      );
+      if (_animationController?.isAnimating == false) {
+        _animationController?.repeat();
+      }
+    }
+
+    final Widget iconContainer = Container(
+      padding: const EdgeInsets.all(16),
+      child: icon
+    );
 
     return SafeArea(
       child: Column(
         verticalDirection: VerticalDirection.up,
         children: [
-          Container(
-            width: mediaQueryData.size.width,
-            height: mediaQueryData.size.height * 0.5,
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              progressText,
-              textAlign: TextAlign.center,
-            )
-          ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: SvgPicture.asset(
-              Assets.ICON_STEVE,
-              width: mediaQueryData.size.width * 0.5,
-              height: mediaQueryData.size.width * 0.5
-            ),
-          )
+          textContainer,
+          iconContainer
         ],
       ),
     );
