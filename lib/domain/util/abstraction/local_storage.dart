@@ -18,7 +18,9 @@ abstract class LocalStorage {
 
   Future<bool> putObject(final String key, final Object object);
 
-  Future<File> putFile(final String key, final String data);
+  Future<File> putFileBytes(final String key, final ByteData data);
+
+  Future<File> putFileString(final String key, final String data);
 
   Future<bool?> getBoolean(final String key);
 

@@ -42,7 +42,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     final int panelNumber,
     final String panelString
   ) {
-    return _localStorage.putFile(
+    return _localStorage.putFileString(
         sprintf(
           Consts.COMIC_PANEL_FILE_NAME_FORMAT,
           [comicNumber, panelNumber]

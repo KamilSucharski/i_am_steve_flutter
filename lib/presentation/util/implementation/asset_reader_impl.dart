@@ -7,4 +7,9 @@ class AssetReaderImpl implements AssetReader {
   Future<String> getString(final String assetName) {
     return rootBundle.loadString(assetName);
   }
+
+  @override
+  Future<ByteData> getBytes(final String assetName) {
+    return rootBundle.load(assetName);
+  }
 }

@@ -28,15 +28,11 @@ class StartCubit extends BaseCubit<StartState> {
   }
 
   Stream _preloadComics() {
-    return PreloadComicsOperation()
-      .execute()
-      .asStream();
+    return PreloadComicsOperation().execute();
   }
 
   Stream<List<Comic>> _getComics() {
-    return GetComicsOperation()
-        .execute()
-        .asStream();
+    return GetComicsOperation().execute();
   }
 
   Stream _sequentiallyDownloadComicPanels(final List<Comic> comics) {
