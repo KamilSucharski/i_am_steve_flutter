@@ -4,9 +4,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_state.dart';
 import 'package:i_am_steve_flutter/presentation/resource/assets.dart';
+import 'package:i_am_steve_flutter/presentation/resource/routes.dart';
 import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
 import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
 import 'package:i_am_steve_flutter/presentation/view/base/base_widget_state.dart';
+import 'package:i_am_steve_flutter/presentation/view/comic/gallery/comic_gallery_arguments.dart';
 import 'package:sprintf/sprintf.dart';
 
 class StartPage extends StatefulWidget {
@@ -40,7 +42,10 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
     }
 
     if (state is NavigateToComics) {
-      Fluttertoast.showToast(msg: 'Navigate');
+      Navigator.of(context).pushReplacementNamed(
+        Routes.COMICS,
+        arguments: ComicGalleryArguments(comics: state.comics),
+      );
       return false;
     }
 

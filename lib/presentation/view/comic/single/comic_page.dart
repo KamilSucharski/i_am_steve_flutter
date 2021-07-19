@@ -8,12 +8,13 @@ import 'package:i_am_steve_flutter/domain/view/comic/single/comic_state.dart';
 import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
 import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
 import 'package:i_am_steve_flutter/presentation/view/base/base_widget_state.dart';
+import 'package:i_am_steve_flutter/presentation/view/comic/single/comic_arguments.dart';
 import 'package:sprintf/sprintf.dart';
 
 class ComicPage extends StatefulWidget {
-  final Comic comic;
+  final ComicArguments arguments;
 
-  const ComicPage(this.comic);
+  const ComicPage(this.arguments);
 
   @override
   State<StatefulWidget> createState() => _ComicPageState();
@@ -23,11 +24,6 @@ class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState>
 
   @override
   bool onStateChange(final BuildContext context, final ComicState state) {
-    if (state is Reload) {
-      cubit.fetchComicPanels(widget.comic);
-      return false;
-    }
-
     if (state is HandleError) {
       Fluttertoast.showToast(msg: state.error.toString());
       return false;
@@ -38,8 +34,13 @@ class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState>
 
   @override
   Widget createBody(final BuildContext context, final ComicState state) {
+    if (state is Initial) {
+      cubit.fetchComicPanels(widget.arguments.comic);
+      return super.createBody(context, state);
+    }
+
     if (!(state is DisplayComic)) {
-      return Container();
+      return super.createBody(context, state);
     }
 
     final Widget panel1 = _createComicPanelWidget(state.comicPanels.panel1);
@@ -50,16 +51,18 @@ class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState>
 
     return SafeArea(
       child: Container(
-        color: Styles.BACKGROUND_COLOR,
-        child: Column(
-          verticalDirection: VerticalDirection.up,
-          children: [
-            panel1,
-            panel2,
-            panel3,
-            panel4,
-            comicTitle
-          ],
+        color: Styles.COLOR_WHITE,
+        child: SingleChildScrollView(
+          child: Column(
+            verticalDirection: VerticalDirection.down,
+            children: [
+              panel1,
+              panel2,
+              panel3,
+              panel4,
+              comicTitle
+            ],
+          )
         )
       )
     );
@@ -81,6 +84,7 @@ class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState>
 
   Widget _createComicTitleWidget(final Comic comic) {
     return Container(
+        width: double.infinity,
         margin: EdgeInsets.only(
           left: 8,
           right: 8,
@@ -93,7 +97,8 @@ class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState>
             [comic.number, comic.title]
           ),
           style: Theme.of(context).textTheme.overline?.apply(
-              fontSizeFactor: 1.6
+            fontSizeFactor: 1.6,
+            color: Styles.COLOR_BLACK
           ),
         )
     );

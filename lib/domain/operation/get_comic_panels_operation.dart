@@ -23,17 +23,15 @@ class GetComicPanelsOperation implements Operation<Stream<ComicPanels>> {
 
   @override
   Stream<ComicPanels> execute() {
-    return _getFromAssets().onErrorResume((assetError, s1) {
-      _logger.error(
-        'Could not get comic panels from the assets. Trying local storage.'
-      );
-      return _getFromLocalStorage().onErrorResume((localStorageError, s2) {
-        _logger.error(
-          'Could not get comic panels from the local storage. Trying API.'
-        );
+    return _getFromAssets()
+      .onErrorResume((error, s) {
+        _logger.error('Could not get comic panels from the assets. Trying local storage.');
+        return _getFromLocalStorage();
+      })
+      .onErrorResume((error, s) {
+        _logger.error('Could not get comic panels from the local storage. Trying API.');
         return _getFromAPI();
       });
-    });
   }
 
   Stream<ComicPanels> _getFromAssets() {

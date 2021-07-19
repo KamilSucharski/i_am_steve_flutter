@@ -20,10 +20,6 @@ class _$ComicStateTearOff {
     return const Initial();
   }
 
-  Reload reload() {
-    return const Reload();
-  }
-
   DisplayComic displayComic(Comic comic, ComicPanels comicPanels) {
     return DisplayComic(
       comic,
@@ -46,7 +42,6 @@ mixin _$ComicState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() reload,
     required TResult Function(Comic comic, ComicPanels comicPanels)
         displayComic,
     required TResult Function(Error error) handleError,
@@ -55,7 +50,6 @@ mixin _$ComicState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? reload,
     TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
     TResult Function(Error error)? handleError,
     required TResult orElse(),
@@ -64,7 +58,6 @@ mixin _$ComicState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Reload value) reload,
     required TResult Function(DisplayComic value) displayComic,
     required TResult Function(HandleError value) handleError,
   }) =>
@@ -72,7 +65,6 @@ mixin _$ComicState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Reload value)? reload,
     TResult Function(DisplayComic value)? displayComic,
     TResult Function(HandleError value)? handleError,
     required TResult orElse(),
@@ -134,7 +126,6 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() reload,
     required TResult Function(Comic comic, ComicPanels comicPanels)
         displayComic,
     required TResult Function(Error error) handleError,
@@ -146,7 +137,6 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? reload,
     TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
     TResult Function(Error error)? handleError,
     required TResult orElse(),
@@ -161,7 +151,6 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Reload value) reload,
     required TResult Function(DisplayComic value) displayComic,
     required TResult Function(HandleError value) handleError,
   }) {
@@ -172,7 +161,6 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Reload value)? reload,
     TResult Function(DisplayComic value)? displayComic,
     TResult Function(HandleError value)? handleError,
     required TResult orElse(),
@@ -186,98 +174,6 @@ class _$Initial implements Initial {
 
 abstract class Initial implements ComicState {
   const factory Initial() = _$Initial;
-}
-
-/// @nodoc
-abstract class $ReloadCopyWith<$Res> {
-  factory $ReloadCopyWith(Reload value, $Res Function(Reload) then) =
-      _$ReloadCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$ReloadCopyWithImpl<$Res> extends _$ComicStateCopyWithImpl<$Res>
-    implements $ReloadCopyWith<$Res> {
-  _$ReloadCopyWithImpl(Reload _value, $Res Function(Reload) _then)
-      : super(_value, (v) => _then(v as Reload));
-
-  @override
-  Reload get _value => super._value as Reload;
-}
-
-/// @nodoc
-
-class _$Reload implements Reload {
-  const _$Reload();
-
-  @override
-  String toString() {
-    return 'ComicState.reload()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Reload);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() reload,
-    required TResult Function(Comic comic, ComicPanels comicPanels)
-        displayComic,
-    required TResult Function(Error error) handleError,
-  }) {
-    return reload();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? reload,
-    TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
-    TResult Function(Error error)? handleError,
-    required TResult orElse(),
-  }) {
-    if (reload != null) {
-      return reload();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Reload value) reload,
-    required TResult Function(DisplayComic value) displayComic,
-    required TResult Function(HandleError value) handleError,
-  }) {
-    return reload(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Reload value)? reload,
-    TResult Function(DisplayComic value)? displayComic,
-    TResult Function(HandleError value)? handleError,
-    required TResult orElse(),
-  }) {
-    if (reload != null) {
-      return reload(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Reload implements ComicState {
-  const factory Reload() = _$Reload;
 }
 
 /// @nodoc
@@ -374,7 +270,6 @@ class _$DisplayComic implements DisplayComic {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() reload,
     required TResult Function(Comic comic, ComicPanels comicPanels)
         displayComic,
     required TResult Function(Error error) handleError,
@@ -386,7 +281,6 @@ class _$DisplayComic implements DisplayComic {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? reload,
     TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
     TResult Function(Error error)? handleError,
     required TResult orElse(),
@@ -401,7 +295,6 @@ class _$DisplayComic implements DisplayComic {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Reload value) reload,
     required TResult Function(DisplayComic value) displayComic,
     required TResult Function(HandleError value) handleError,
   }) {
@@ -412,7 +305,6 @@ class _$DisplayComic implements DisplayComic {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Reload value)? reload,
     TResult Function(DisplayComic value)? displayComic,
     TResult Function(HandleError value)? handleError,
     required TResult orElse(),
@@ -500,7 +392,6 @@ class _$HandleError implements HandleError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() reload,
     required TResult Function(Comic comic, ComicPanels comicPanels)
         displayComic,
     required TResult Function(Error error) handleError,
@@ -512,7 +403,6 @@ class _$HandleError implements HandleError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? reload,
     TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
     TResult Function(Error error)? handleError,
     required TResult orElse(),
@@ -527,7 +417,6 @@ class _$HandleError implements HandleError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Reload value) reload,
     required TResult Function(DisplayComic value) displayComic,
     required TResult Function(HandleError value) handleError,
   }) {
@@ -538,7 +427,6 @@ class _$HandleError implements HandleError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Reload value)? reload,
     TResult Function(DisplayComic value)? displayComic,
     TResult Function(HandleError value)? handleError,
     required TResult orElse(),

@@ -33,8 +33,10 @@ class _$StartStateTearOff {
     );
   }
 
-  NavigateToComics navigateToComics() {
-    return const NavigateToComics();
+  NavigateToComics navigateToComics(List<Comic> comics) {
+    return NavigateToComics(
+      comics,
+    );
   }
 }
 
@@ -48,7 +50,7 @@ mixin _$StartState {
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
     required TResult Function(Error error) handleError,
-    required TResult Function() navigateToComics,
+    required TResult Function(List<Comic> comics) navigateToComics,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -56,7 +58,7 @@ mixin _$StartState {
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
     TResult Function(Error error)? handleError,
-    TResult Function()? navigateToComics,
+    TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -135,7 +137,7 @@ class _$Initial implements Initial {
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
     required TResult Function(Error error) handleError,
-    required TResult Function() navigateToComics,
+    required TResult Function(List<Comic> comics) navigateToComics,
   }) {
     return initial();
   }
@@ -146,7 +148,7 @@ class _$Initial implements Initial {
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
     TResult Function(Error error)? handleError,
-    TResult Function()? navigateToComics,
+    TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -262,7 +264,7 @@ class _$Loading implements Loading {
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
     required TResult Function(Error error) handleError,
-    required TResult Function() navigateToComics,
+    required TResult Function(List<Comic> comics) navigateToComics,
   }) {
     return loading(done, all);
   }
@@ -273,7 +275,7 @@ class _$Loading implements Loading {
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
     TResult Function(Error error)? handleError,
-    TResult Function()? navigateToComics,
+    TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -385,7 +387,7 @@ class _$HandleError implements HandleError {
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
     required TResult Function(Error error) handleError,
-    required TResult Function() navigateToComics,
+    required TResult Function(List<Comic> comics) navigateToComics,
   }) {
     return handleError(error);
   }
@@ -396,7 +398,7 @@ class _$HandleError implements HandleError {
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
     TResult Function(Error error)? handleError,
-    TResult Function()? navigateToComics,
+    TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
     if (handleError != null) {
@@ -446,6 +448,7 @@ abstract class $NavigateToComicsCopyWith<$Res> {
   factory $NavigateToComicsCopyWith(
           NavigateToComics value, $Res Function(NavigateToComics) then) =
       _$NavigateToComicsCopyWithImpl<$Res>;
+  $Res call({List<Comic> comics});
 }
 
 /// @nodoc
@@ -458,25 +461,49 @@ class _$NavigateToComicsCopyWithImpl<$Res>
 
   @override
   NavigateToComics get _value => super._value as NavigateToComics;
+
+  @override
+  $Res call({
+    Object? comics = freezed,
+  }) {
+    return _then(NavigateToComics(
+      comics == freezed
+          ? _value.comics
+          : comics // ignore: cast_nullable_to_non_nullable
+              as List<Comic>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$NavigateToComics implements NavigateToComics {
-  const _$NavigateToComics();
+  const _$NavigateToComics(this.comics);
+
+  @override
+  final List<Comic> comics;
 
   @override
   String toString() {
-    return 'StartState.navigateToComics()';
+    return 'StartState.navigateToComics(comics: $comics)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is NavigateToComics);
+    return identical(this, other) ||
+        (other is NavigateToComics &&
+            (identical(other.comics, comics) ||
+                const DeepCollectionEquality().equals(other.comics, comics)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(comics);
+
+  @JsonKey(ignore: true)
+  @override
+  $NavigateToComicsCopyWith<NavigateToComics> get copyWith =>
+      _$NavigateToComicsCopyWithImpl<NavigateToComics>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -484,9 +511,9 @@ class _$NavigateToComics implements NavigateToComics {
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
     required TResult Function(Error error) handleError,
-    required TResult Function() navigateToComics,
+    required TResult Function(List<Comic> comics) navigateToComics,
   }) {
-    return navigateToComics();
+    return navigateToComics(comics);
   }
 
   @override
@@ -495,11 +522,11 @@ class _$NavigateToComics implements NavigateToComics {
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
     TResult Function(Error error)? handleError,
-    TResult Function()? navigateToComics,
+    TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
     if (navigateToComics != null) {
-      return navigateToComics();
+      return navigateToComics(comics);
     }
     return orElse();
   }
@@ -532,5 +559,10 @@ class _$NavigateToComics implements NavigateToComics {
 }
 
 abstract class NavigateToComics implements StartState {
-  const factory NavigateToComics() = _$NavigateToComics;
+  const factory NavigateToComics(List<Comic> comics) = _$NavigateToComics;
+
+  List<Comic> get comics => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $NavigateToComicsCopyWith<NavigateToComics> get copyWith =>
+      throw _privateConstructorUsedError;
 }

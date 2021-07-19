@@ -16,9 +16,8 @@ class StartCubit extends BaseCubit<StartState> {
     _getComics()
       .flatMap((comics) => _sequentiallyDownloadComicPanels(comics))
       .listen(
-        (data) {},
-        onError: (error) => emit(StartState.handleError(error)),
-        onDone: () => emit(StartState.navigateToComics())
+        (comics) => emit(StartState.navigateToComics(comics)),
+        onError: (error) => emit(StartState.handleError(error))
       )
       .addTo(disposables);
   }
@@ -27,7 +26,7 @@ class StartCubit extends BaseCubit<StartState> {
     return GetComicsOperation().execute();
   }
 
-  Stream _sequentiallyDownloadComicPanels(final List<Comic> comics) {
+  Stream<List<Comic>> _sequentiallyDownloadComicPanels(final List<Comic> comics) {
     Stream sequentialDownloads = Stream.value(null);
     comics.forEach((comic) {
       final Stream nextDownload = GetComicPanelsOperation(comic)
@@ -40,6 +39,6 @@ class StartCubit extends BaseCubit<StartState> {
       });
       sequentialDownloads = sequentialDownloads.flatMap((_) => nextDownload);
     });
-    return sequentialDownloads;
+    return sequentialDownloads.map((_) => comics);
   }
 }

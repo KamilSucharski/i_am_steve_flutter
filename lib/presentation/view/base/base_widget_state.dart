@@ -7,8 +7,13 @@ abstract class BaseWidgetState<WIDGET extends StatefulWidget, CUBIT extends Base
   final CUBIT cubit = GetIt.I.get<CUBIT>();
 
   /** Return true if you want to rebuild the widget */
-  bool onStateChange(final BuildContext context, final STATE state);
-  Widget createBody(final BuildContext context, final STATE state);
+  bool onStateChange(final BuildContext context, final STATE state) {
+    return false;
+  }
+
+  Widget createBody(final BuildContext context, final STATE state) {
+    return Container();
+  }
 
   @override
   Widget build(final BuildContext context) {

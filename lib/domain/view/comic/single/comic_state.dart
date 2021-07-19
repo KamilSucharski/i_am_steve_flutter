@@ -8,8 +8,6 @@ part 'comic_state.freezed.dart';
 abstract class  ComicState with _$ComicState {
   const factory ComicState.initial() = Initial;
 
-  const factory ComicState.reload() = Reload;
-
   const factory ComicState.displayComic(
     final Comic comic,
     final ComicPanels comicPanels

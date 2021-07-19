@@ -14,18 +14,13 @@ class ComicCubit extends BaseCubit<ComicState> {
 
   ComicCubit() : super(ComicState.initial());
 
-  @override
-  Future<void> init() async {
-    emit(ComicState.reload());
-  }
-
   void fetchComicPanels(final Comic comic) {
     GetComicPanelsOperation(comic)
-        .execute()
-        .listen(
-          (comicPanels) => emit(ComicState.displayComic(comic, comicPanels)),
-          onError: (error) => emit(ComicState.handleError(error))
-        )
-        .addTo(disposables);
+      .execute()
+      .listen(
+        (comicPanels) => emit(ComicState.displayComic(comic, comicPanels)),
+        onError: (error) => emit(ComicState.handleError(error))
+      )
+      .addTo(disposables);
   }
 }

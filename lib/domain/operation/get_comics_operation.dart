@@ -18,17 +18,15 @@ class GetComicsOperation implements Operation<Stream<List<Comic>>> {
 
   @override
   Stream<List<Comic>> execute() {
-    return _getFromAPI().onErrorResume((apiError, s1) {
-      _logger.error(
-        'Could not get comics.json from the API. Trying local storage.'
-      );
-      return _getFromLocalStorage().onErrorResume((localStorageError, s2) {
-        _logger.error(
-          'Could not get comics.json from the local storage. Trying assets.'
-        );
+    return _getFromAPI()
+      .onErrorResume((error, s) {
+        _logger.error('Could not get comics.json from the API. Trying local storage.');
+        return _getFromLocalStorage();
+      })
+      .onErrorResume((error, s) {
+        _logger.error('Could not get comics.json from the local storage. Trying assets.');
         return _getFromAssets();
       });
-    });
   }
 
   Stream<List<Comic>> _getFromAPI() {
