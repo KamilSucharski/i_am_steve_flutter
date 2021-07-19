@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/domain/view/base/base_cubit.dart';
 
-abstract class BaseWidgetState<CUBIT extends BaseCubit<STATE>, STATE> extends State<StatefulWidget> {
+abstract class BaseWidgetState<WIDGET extends StatefulWidget, CUBIT extends BaseCubit<STATE>, STATE> extends State<WIDGET> {
   final CUBIT cubit = GetIt.I.get<CUBIT>();
 
   /** Return true if you want to rebuild the widget */

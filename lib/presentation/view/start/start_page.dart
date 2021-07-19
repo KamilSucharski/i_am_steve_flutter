@@ -14,7 +14,7 @@ class StartPage extends StatefulWidget {
   State<StatefulWidget> createState() => _StartPageState();
 }
 
-class _StartPageState extends BaseWidgetState<StartCubit, StartState> with SingleTickerProviderStateMixin {
+class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState> with SingleTickerProviderStateMixin {
   AnimationController? _animationController;
 
   @override

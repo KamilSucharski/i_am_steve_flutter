@@ -17,12 +17,8 @@ class StartCubit extends BaseCubit<StartState> {
       .flatMap((comics) => _sequentiallyDownloadComicPanels(comics))
       .listen(
         (data) {},
-        onError: (error) {
-          emit(StartState.handleError(error));
-        },
-        onDone: () {
-          emit(StartState.navigateToComics());
-        }
+        onError: (error) => emit(StartState.handleError(error)),
+        onDone: () => emit(StartState.navigateToComics())
       )
       .addTo(disposables);
   }
