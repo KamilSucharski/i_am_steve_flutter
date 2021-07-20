@@ -27,26 +27,29 @@ class ComicGalleryPage extends StatefulWidget {
 }
 
 class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGalleryCubit, ComicGalleryState> {
-  final PageController _controller = PageController(keepPage: false);
 
   @override
   Widget createBody(final BuildContext context, final ComicGalleryState state) {
-
+    final List<Comic> comics = widget.arguments.comics;
+    final PageController controller = PageController(
+      initialPage: comics.length - 1,
+      keepPage: false
+    );
     return SafeArea(
       child: Container(
         color: Styles.BACKGROUND_COLOR,
         child: Column(
           verticalDirection: VerticalDirection.up,
           children: [
-            _createButtons(),
-            _createPageView()
+            _createButtons(controller),
+            _createPageView(controller, comics)
           ],
         )
       )
     );
   }
 
-  Widget _createButtons() {
+  Widget _createButtons(final PageController controller) {
     return new Container(
       height: 52,
       child: new Row(
@@ -55,7 +58,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
         children: [
           _createButton(
             Assets.ICON_CHEVRON_LEFT,
-            () => _controller.previousPage(
+            () => controller.previousPage(
               duration: Duration(milliseconds: 100),
               curve: Curves.linear
             )
@@ -66,7 +69,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
           ),
           _createButton(
             Assets.ICON_CHEVRON_RIGHT,
-            () => _controller.nextPage(
+            () => controller.nextPage(
               duration: Duration(milliseconds: 100),
               curve: Curves.linear
             )
@@ -100,17 +103,19 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
     );
   }
 
-  Widget _createPageView() {
-    final List<Widget> pages = widget
-      .arguments
-      .comics
+  Widget _createPageView(
+    final PageController controller,
+    final List<Comic> comics
+  ) {
+    final List<Widget> pages = comics
       .map((comic) => ComicPage(ComicArguments(comic: comic)))
       .toList();
-    return Expanded(
+    final Widget pageView = Expanded(
       child: PageView(
-        controller: _controller,
+        controller: controller,
         children: pages
       )
     );
+    return pageView;
   }
 }
