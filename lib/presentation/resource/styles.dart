@@ -5,6 +5,7 @@ class Styles {
 
   static const Color BACKGROUND_COLOR = Color(0xFF404040);
   static const Color ELEMENT_COLOR = Color(0xFF303030);
+  static const Color BUTTON_COLOR = Color(0xFFC1C1C1);
   static const Color TEXT_COLOR = COLOR_WHITE;
 
   static const Color COLOR_WHITE = Colors.white;
