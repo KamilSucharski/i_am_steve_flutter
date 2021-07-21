@@ -15,8 +15,8 @@ class ComicCubit extends BaseCubit<ComicState> {
   ComicCubit() : super(ComicState.initial());
 
   void fetchComicPanels(final Comic comic) {
-    GetComicPanelsOperation(comic)
-      .execute()
+    GetComicPanelsOperation()
+      .execute(comic)
       .listen(
         (comicPanels) => emit(ComicState.displayComic(comic, comicPanels)),
         onError: (error) => emit(ComicState.handleError(error))

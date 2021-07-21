@@ -1,3 +1,3 @@
-abstract class Operation<T> {
-  T execute();
+abstract class Operation<IN, OUT> {
+  OUT execute(IN input);
 }

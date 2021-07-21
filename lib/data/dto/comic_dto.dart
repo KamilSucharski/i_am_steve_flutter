@@ -4,13 +4,13 @@ part 'comic_dto.freezed.dart';
 part 'comic_dto.g.dart';
 
 @freezed
-abstract class ComicDTO with _$ComicDTO {
+abstract class ComicDto with _$ComicDto {
 
-  const factory ComicDTO({
+  const factory ComicDto({
     required int number,
     required String title,
     required String date
-  }) = _ComicDTO;
+  }) = _ComicDto;
 
-  factory ComicDTO.fromJson(Map<String, dynamic> json) => _$ComicDTOFromJson(json);
+  factory ComicDto.fromJson(Map<String, dynamic> json) => _$ComicDtoFromJson(json);
 }

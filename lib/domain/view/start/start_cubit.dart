@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/operation/get_comic_panels_operation.dart';
@@ -23,14 +24,14 @@ class StartCubit extends BaseCubit<StartState> {
   }
 
   Stream<List<Comic>> _getComics() {
-    return GetComicsOperation().execute();
+    return GetComicsOperation().execute({});
   }
 
   Stream<List<Comic>> _sequentiallyDownloadComicPanels(final List<Comic> comics) {
     Stream sequentialDownloads = Stream.value(null);
     comics.forEach((comic) {
-      final Stream nextDownload = GetComicPanelsOperation(comic)
-        .execute()
+      final Stream nextDownload = GetComicPanelsOperation()
+        .execute(comic)
         .map((comicPanels) {
           emit(StartState.loading(
             comic.number,

@@ -10,9 +10,9 @@ import 'package:i_am_steve_flutter/data/repository/comic_repository_local_impl.d
 import 'package:i_am_steve_flutter/data/repository/comic_repository_remote_impl.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_remote.dart';
-import 'package:i_am_steve_flutter/domain/util/abstraction/asset_reader.dart';
+import 'package:i_am_steve_flutter/data/util/abstraction/asset_reader.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/configuration.dart';
-import 'package:i_am_steve_flutter/domain/util/abstraction/local_storage.dart';
+import 'package:i_am_steve_flutter/data/util/abstraction/local_storage.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/logger.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_cubit.dart';
 import 'package:i_am_steve_flutter/presentation/util/implementation/asset_reader_impl.dart';
@@ -34,7 +34,7 @@ class Injector {
     GetIt.I.registerSingleton(dio);
 
     // API
-    GetIt.I.registerFactory(() => ComicAPI());
+    GetIt.I.registerFactory(() => ComicApi());
 
     // Mapper
     GetIt.I.registerFactory(() => ComicMapper());

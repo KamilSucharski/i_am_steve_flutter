@@ -5,89 +5,71 @@ import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/model/comic_panels.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_remote.dart';
-import 'package:i_am_steve_flutter/domain/util/abstraction/asset_reader.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/logger.dart';
-import 'package:i_am_steve_flutter/domain/util/consts.dart';
 import 'package:i_am_steve_flutter/domain/util/operation.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:sprintf/sprintf.dart';
 
-class GetComicPanelsOperation implements Operation<Stream<ComicPanels>> {
-  final Comic _comic;
+class GetComicPanelsOperation implements Operation<Comic, Stream<ComicPanels>> {
   final ComicRepositoryLocal _comicRepositoryLocal = GetIt.I.get<ComicRepositoryLocal>();
   final ComicRepositoryRemote _comicRepositoryRemote = GetIt.I.get<ComicRepositoryRemote>();
-  final AssetReader _assetReader = GetIt.I.get<AssetReader>();
   final Logger _logger = GetIt.I.get<Logger>();
 
-  GetComicPanelsOperation(this._comic);
-
   @override
-  Stream<ComicPanels> execute() {
-    return _getFromAssets()
+  Stream<ComicPanels> execute(final Comic input) {
+    return _getFromAssets(input.number)
       .onErrorResume((error, s) {
         _logger.error('Could not get comic panels from the assets. Trying local storage.');
-        return _getFromLocalStorage();
+        return _getFromLocalStorage(input.number);
       })
       .onErrorResume((error, s) {
         _logger.error('Could not get comic panels from the local storage. Trying API.');
-        return _getFromAPI();
+        return _getFromAPI(input.number);
       });
   }
 
-  Stream<ComicPanels> _getFromAssets() {
+  Stream<ComicPanels> _getFromAssets(final int comicNumber) {
     return _joinPanels(
-      _getPanelFromAssets(1),
-      _getPanelFromAssets(2),
-      _getPanelFromAssets(3),
-      _getPanelFromAssets(4)
+      _getPanelFromAssets(comicNumber, 1),
+      _getPanelFromAssets(comicNumber, 2),
+      _getPanelFromAssets(comicNumber, 3),
+      _getPanelFromAssets(comicNumber, 4)
     );
   }
 
-  Stream<Uint8List> _getPanelFromAssets(final int panelNumber) {
-    final String fileName = sprintf(
-      Consts.COMIC_PANEL_FILE_NAME_FORMAT,
-      [_comic.number, panelNumber]
-    );
-    return _assetReader
-      .getBytes(Consts.ASSETS_PRELOAD + fileName)
-      .asStream()
-      .map((bytes) => bytes.buffer.asUint8List());
-  }
-
-  Stream<ComicPanels> _getFromLocalStorage() {
-    return _joinPanels(
-      _getPanelFromLocalStorage(1),
-      _getPanelFromLocalStorage(2),
-      _getPanelFromLocalStorage(3),
-      _getPanelFromLocalStorage(4)
-    );
-  }
-
-  Stream<Uint8List> _getPanelFromLocalStorage(final int panelNumber) {
+  Stream<Uint8List> _getPanelFromAssets(final int comicNumber, final int panelNumber) {
     return _comicRepositoryLocal
-      .loadComicPanel(_comic.number, panelNumber)
-      .asStream()
-      .map((file) => file!.readAsBytesSync());
+      .getComicPanelFromAssets(comicNumber, panelNumber);
   }
 
-  Stream<ComicPanels> _getFromAPI() {
+  Stream<ComicPanels> _getFromLocalStorage(final int comicNumber) {
     return _joinPanels(
-      _getPanelFromAPI(1),
-      _getPanelFromAPI(2),
-      _getPanelFromAPI(3),
-      _getPanelFromAPI(4)
+      _getPanelFromLocalStorage(comicNumber, 1),
+      _getPanelFromLocalStorage(comicNumber, 2),
+      _getPanelFromLocalStorage(comicNumber, 3),
+      _getPanelFromLocalStorage(comicNumber, 4)
     );
   }
 
-  Stream<Uint8List> _getPanelFromAPI(final int panelNumber) {
+  Stream<Uint8List> _getPanelFromLocalStorage(final int comicNumber, final int panelNumber) {
+    return _comicRepositoryLocal
+      .getComicPanelFromLocalStorage(comicNumber, panelNumber);
+  }
+
+  Stream<ComicPanels> _getFromAPI(final int comicNumber) {
+    return _joinPanels(
+      _getPanelFromAPI(comicNumber, 1),
+      _getPanelFromAPI(comicNumber, 2),
+      _getPanelFromAPI(comicNumber, 3),
+      _getPanelFromAPI(comicNumber, 4)
+    );
+  }
+
+  Stream<Uint8List> _getPanelFromAPI(final int comicNumber, final int panelNumber) {
     return _comicRepositoryRemote
-      .getComicPanel(_comic.number, panelNumber)
-      .asStream()
+      .getComicPanel(comicNumber, panelNumber)
       .flatMap((panelString) =>_comicRepositoryLocal
-        .saveComicPanel(_comic.number, panelNumber, panelString)
-        .asStream()
-      )
-      .map((file) => file.readAsBytesSync());
+        .saveComicPanelToLocalStorage(comicNumber, panelNumber, panelString)
+      );
   }
 
   Stream<ComicPanels> _joinPanels(

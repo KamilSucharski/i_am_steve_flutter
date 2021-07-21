@@ -1,0 +1,2 @@
+class NoComicPanelError extends Error {
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:i_am_steve_flutter/domain/util/abstraction/asset_reader.dart';
+import 'package:i_am_steve_flutter/data/util/abstraction/asset_reader.dart';
 
 class AssetReaderImpl implements AssetReader {
 

@@ -1,130 +1,144 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'dart:typed_data';
 
-import 'package:i_am_steve_flutter/domain/util/abstraction/local_storage.dart';
+import 'package:i_am_steve_flutter/data/util/abstraction/local_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageImpl implements LocalStorage {
-
   @override
-  Future<bool> containsEntry(final String key) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.containsKey(key);
+  Stream<bool> containsEntry(final String key) {
+    return SharedPreferences
+      .getInstance()
+      .asStream()
+      .map((prefs) => prefs.containsKey(key));
   }
 
   @override
-  Future<bool> containsFile(final String key) async {
-    final File file = await _getFile(key);
-    return file.exists();
+  Stream<bool> containsFile(final String key) {
+    return _getFile(key)
+      .flatMap((file) => file.exists().asStream());
   }
 
   @override
-  Future<bool> removeEntry(final String key) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.remove(key);
+  Stream<bool> removeEntry(final String key) {
+    return SharedPreferences
+      .getInstance()
+      .asStream()
+      .flatMap((prefs) => prefs.remove(key).asStream());
   }
 
   @override
-  Future<void> removeFile(final String key) async {
-    final File file = await _getFile(key);
-    if (await file.exists()) {
-      await file.delete();
-    }
+  Stream<void> removeFile(final String key) {
+    return _getFile(key)
+      .map((file) {
+        if (file.existsSync()) {
+          file.deleteSync();
+        }
+      });
   }
 
   @override
-  Future<bool> putBool(final String key, final bool value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setBool(key, value);
+  Stream<bool> putBool(final String key, final bool value) {
+    return SharedPreferences
+      .getInstance()
+      .asStream()
+      .flatMap((prefs) => prefs.setBool(key, value).asStream());
   }
 
   @override
-  Future<bool> putInt(final String key, final int value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setInt(key, value);
+  Stream<bool> putInt(final String key, final int value) {
+    return SharedPreferences
+      .getInstance()
+      .asStream()
+      .flatMap((prefs) => prefs.setInt(key, value).asStream());
   }
 
   @override
-  Future<bool> putString(final String key, final String value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(key, value);
+  Stream<bool> putString(final String key, final String value) {
+    return SharedPreferences
+        .getInstance()
+        .asStream()
+        .flatMap((prefs) => prefs.setString(key, value).asStream());
   }
 
   @override
-  Future<bool> putObject(final String key, final Object object) {
+  Stream<bool> putObject(final String key, final Object object) {
     final String json = jsonEncode(object);
     return putString(key, json);
   }
 
   @override
-  Future<File> putFileBytes(final String key, final ByteData bytes) async {
-    final File file = await _getFile(key);
-    if (await file.exists() == false) {
-      await file.create(recursive: true);
-    }
-    final ByteBuffer buffer = bytes.buffer;
-    return await file.writeAsBytes(buffer.asUint8List(
-        bytes.offsetInBytes,
-        bytes.lengthInBytes
-    ));
+  Stream<File> putFile(final String key, final Uint8List bytes) {
+    return _getFile(key)
+      .map((file) {
+          if (!file.existsSync()) {
+            file.createSync(recursive: true);
+          }
+          file.writeAsBytesSync(bytes);
+          return file;
+      });
   }
 
   @override
-  Future<File> putFileString(final String key, final String data) async {
-    final File file = await _getFile(key);
-    if (await file.exists() == false) {
-      await file.create(recursive: true);
-    }
-    return file.writeAsString(data);
+  Stream<bool?> getBoolean(final String key) {
+    return SharedPreferences
+        .getInstance()
+        .asStream()
+        .map((prefs) => prefs.getBool(key));
   }
 
   @override
-  Future<bool?> getBoolean(final String key) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(key);
+  Stream<int?> getInt(final String key) {
+    return SharedPreferences
+        .getInstance()
+        .asStream()
+        .map((prefs) => prefs.getInt(key));
   }
 
   @override
-  Future<int?> getInt(final String key) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(key);
+  Stream<String?> getString(final String key) {
+    return SharedPreferences
+        .getInstance()
+        .asStream()
+        .map((prefs) => prefs.getString(key));
   }
 
   @override
-  Future<String?> getString(final String key) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key);
+  Stream<T?> getObject<T>(final String key) {
+    return getString(key)
+      .map((json) {
+        if (json != null) {
+          return jsonDecode(json) as T;
+        } else {
+          return null;
+        }
+      });
   }
 
   @override
-  Future<T?> getObject<T>(final String key) async {
-    final String? json = await getString(key);
-    if (json != null) {
-      return jsonDecode(json) as T;
-    } else {
-      return null;
-    }
+  Stream<File?> getFile(final String key) {
+    return _getFile(key)
+      .map((file) {
+        if (file.existsSync()) {
+          return file;
+        } else {
+          return null;
+        }
+      });
   }
 
-  @override
-  Future<File?> getFile(final String key) async {
-    final File file = await _getFile(key);
-    if (await file.exists()) {
-      return file;
-    } else {
-      return null;
-    }
-  }
-
-  Future<File> _getFile(final String key) async {
-    final Directory directory = await getApplicationSupportDirectory();
-    if (await directory.exists() == false) {
-      await directory.create(recursive: true);
-    }
-    final String path = directory.path;
-    return File('$path/$key');
+  Stream<File> _getFile(final String key) {
+    return getApplicationSupportDirectory()
+      .asStream()
+      .map((directory) {
+        if (!directory.existsSync()) {
+          directory.createSync(recursive: true);
+        }
+        final String path = directory.path;
+        return File('$path/$key');
+      });
   }
 }

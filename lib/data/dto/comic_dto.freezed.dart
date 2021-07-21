@@ -12,57 +12,57 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ComicDTO _$ComicDTOFromJson(Map<String, dynamic> json) {
-  return _ComicDTO.fromJson(json);
+ComicDto _$ComicDtoFromJson(Map<String, dynamic> json) {
+  return _ComicDto.fromJson(json);
 }
 
 /// @nodoc
-class _$ComicDTOTearOff {
-  const _$ComicDTOTearOff();
+class _$ComicDtoTearOff {
+  const _$ComicDtoTearOff();
 
-  _ComicDTO call(
+  _ComicDto call(
       {required int number, required String title, required String date}) {
-    return _ComicDTO(
+    return _ComicDto(
       number: number,
       title: title,
       date: date,
     );
   }
 
-  ComicDTO fromJson(Map<String, Object> json) {
-    return ComicDTO.fromJson(json);
+  ComicDto fromJson(Map<String, Object> json) {
+    return ComicDto.fromJson(json);
   }
 }
 
 /// @nodoc
-const $ComicDTO = _$ComicDTOTearOff();
+const $ComicDto = _$ComicDtoTearOff();
 
 /// @nodoc
-mixin _$ComicDTO {
+mixin _$ComicDto {
   int get number => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ComicDTOCopyWith<ComicDTO> get copyWith =>
+  $ComicDtoCopyWith<ComicDto> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ComicDTOCopyWith<$Res> {
-  factory $ComicDTOCopyWith(ComicDTO value, $Res Function(ComicDTO) then) =
-      _$ComicDTOCopyWithImpl<$Res>;
+abstract class $ComicDtoCopyWith<$Res> {
+  factory $ComicDtoCopyWith(ComicDto value, $Res Function(ComicDto) then) =
+      _$ComicDtoCopyWithImpl<$Res>;
   $Res call({int number, String title, String date});
 }
 
 /// @nodoc
-class _$ComicDTOCopyWithImpl<$Res> implements $ComicDTOCopyWith<$Res> {
-  _$ComicDTOCopyWithImpl(this._value, this._then);
+class _$ComicDtoCopyWithImpl<$Res> implements $ComicDtoCopyWith<$Res> {
+  _$ComicDtoCopyWithImpl(this._value, this._then);
 
-  final ComicDTO _value;
+  final ComicDto _value;
   // ignore: unused_field
-  final $Res Function(ComicDTO) _then;
+  final $Res Function(ComicDto) _then;
 
   @override
   $Res call({
@@ -88,21 +88,21 @@ class _$ComicDTOCopyWithImpl<$Res> implements $ComicDTOCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ComicDTOCopyWith<$Res> implements $ComicDTOCopyWith<$Res> {
-  factory _$ComicDTOCopyWith(_ComicDTO value, $Res Function(_ComicDTO) then) =
-      __$ComicDTOCopyWithImpl<$Res>;
+abstract class _$ComicDtoCopyWith<$Res> implements $ComicDtoCopyWith<$Res> {
+  factory _$ComicDtoCopyWith(_ComicDto value, $Res Function(_ComicDto) then) =
+      __$ComicDtoCopyWithImpl<$Res>;
   @override
   $Res call({int number, String title, String date});
 }
 
 /// @nodoc
-class __$ComicDTOCopyWithImpl<$Res> extends _$ComicDTOCopyWithImpl<$Res>
-    implements _$ComicDTOCopyWith<$Res> {
-  __$ComicDTOCopyWithImpl(_ComicDTO _value, $Res Function(_ComicDTO) _then)
-      : super(_value, (v) => _then(v as _ComicDTO));
+class __$ComicDtoCopyWithImpl<$Res> extends _$ComicDtoCopyWithImpl<$Res>
+    implements _$ComicDtoCopyWith<$Res> {
+  __$ComicDtoCopyWithImpl(_ComicDto _value, $Res Function(_ComicDto) _then)
+      : super(_value, (v) => _then(v as _ComicDto));
 
   @override
-  _ComicDTO get _value => super._value as _ComicDTO;
+  _ComicDto get _value => super._value as _ComicDto;
 
   @override
   $Res call({
@@ -110,7 +110,7 @@ class __$ComicDTOCopyWithImpl<$Res> extends _$ComicDTOCopyWithImpl<$Res>
     Object? title = freezed,
     Object? date = freezed,
   }) {
-    return _then(_ComicDTO(
+    return _then(_ComicDto(
       number: number == freezed
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
@@ -129,12 +129,12 @@ class __$ComicDTOCopyWithImpl<$Res> extends _$ComicDTOCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ComicDTO implements _ComicDTO {
-  const _$_ComicDTO(
+class _$_ComicDto implements _ComicDto {
+  const _$_ComicDto(
       {required this.number, required this.title, required this.date});
 
-  factory _$_ComicDTO.fromJson(Map<String, dynamic> json) =>
-      _$_$_ComicDTOFromJson(json);
+  factory _$_ComicDto.fromJson(Map<String, dynamic> json) =>
+      _$_$_ComicDtoFromJson(json);
 
   @override
   final int number;
@@ -145,13 +145,13 @@ class _$_ComicDTO implements _ComicDTO {
 
   @override
   String toString() {
-    return 'ComicDTO(number: $number, title: $title, date: $date)';
+    return 'ComicDto(number: $number, title: $title, date: $date)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ComicDTO &&
+        (other is _ComicDto &&
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
             (identical(other.title, title) ||
@@ -169,22 +169,22 @@ class _$_ComicDTO implements _ComicDTO {
 
   @JsonKey(ignore: true)
   @override
-  _$ComicDTOCopyWith<_ComicDTO> get copyWith =>
-      __$ComicDTOCopyWithImpl<_ComicDTO>(this, _$identity);
+  _$ComicDtoCopyWith<_ComicDto> get copyWith =>
+      __$ComicDtoCopyWithImpl<_ComicDto>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ComicDTOToJson(this);
+    return _$_$_ComicDtoToJson(this);
   }
 }
 
-abstract class _ComicDTO implements ComicDTO {
-  const factory _ComicDTO(
+abstract class _ComicDto implements ComicDto {
+  const factory _ComicDto(
       {required int number,
       required String title,
-      required String date}) = _$_ComicDTO;
+      required String date}) = _$_ComicDto;
 
-  factory _ComicDTO.fromJson(Map<String, dynamic> json) = _$_ComicDTO.fromJson;
+  factory _ComicDto.fromJson(Map<String, dynamic> json) = _$_ComicDto.fromJson;
 
   @override
   int get number => throw _privateConstructorUsedError;
@@ -194,6 +194,6 @@ abstract class _ComicDTO implements ComicDTO {
   String get date => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ComicDTOCopyWith<_ComicDTO> get copyWith =>
+  _$ComicDtoCopyWith<_ComicDto> get copyWith =>
       throw _privateConstructorUsedError;
 }

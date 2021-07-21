@@ -6,15 +6,15 @@ part of 'comic_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ComicDTO _$_$_ComicDTOFromJson(Map<String, dynamic> json) {
-  return _$_ComicDTO(
+_$_ComicDto _$_$_ComicDtoFromJson(Map<String, dynamic> json) {
+  return _$_ComicDto(
     number: json['number'] as int,
     title: json['title'] as String,
     date: json['date'] as String,
   );
 }
 
-Map<String, dynamic> _$_$_ComicDTOToJson(_$_ComicDTO instance) =>
+Map<String, dynamic> _$_$_ComicDtoToJson(_$_ComicDto instance) =>
     <String, dynamic>{
       'number': instance.number,
       'title': instance.title,

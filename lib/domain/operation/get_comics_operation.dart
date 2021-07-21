@@ -1,8 +1,4 @@
-import 'dart:convert';
-
 import 'package:get_it/get_it.dart';
-import 'package:i_am_steve_flutter/domain/util/abstraction/asset_reader.dart';
-import 'package:i_am_steve_flutter/domain/util/consts.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
@@ -10,14 +6,13 @@ import 'package:i_am_steve_flutter/domain/repository/comic_repository_remote.dar
 import 'package:i_am_steve_flutter/domain/util/abstraction/logger.dart';
 import 'package:i_am_steve_flutter/domain/util/operation.dart';
 
-class GetComicsOperation implements Operation<Stream<List<Comic>>> {
+class GetComicsOperation implements Operation<void, Stream<List<Comic>>> {
   final ComicRepositoryLocal _comicRepositoryLocal = GetIt.I.get<ComicRepositoryLocal>();
   final ComicRepositoryRemote _comicRepositoryRemote = GetIt.I.get<ComicRepositoryRemote>();
-  final AssetReader _assetReader = GetIt.I.get<AssetReader>();
   final Logger _logger = GetIt.I.get<Logger>();
 
   @override
-  Stream<List<Comic>> execute() {
+  Stream<List<Comic>> execute(final void input) {
     return _getFromAPI()
       .onErrorResume((error, s) {
         _logger.error('Could not get comics.json from the API. Trying local storage.');
@@ -32,29 +27,19 @@ class GetComicsOperation implements Operation<Stream<List<Comic>>> {
   Stream<List<Comic>> _getFromAPI() {
     return _comicRepositoryRemote
       .getComics()
-      .asStream()
       .flatMap((comics) => _comicRepositoryLocal
-        .saveComics(comics)
-        .asStream()
+        .saveComicsToLocalStorage(comics)
         .map((_) => comics)
       );
   }
 
   Stream<List<Comic>> _getFromLocalStorage() {
     return _comicRepositoryLocal
-      .loadComics()
-      .asStream()
-      .map((comics) => comics!);
+      .getComicsFromLocalStorage();
   }
 
   Stream<List<Comic>> _getFromAssets() {
-    return _assetReader
-      .getString(Consts.ASSETS_PRELOAD + Consts.COMIC_METADATA_FILE_NAME)
-      .asStream()
-      .map((comicsJson) => (jsonDecode(comicsJson) as List))
-      .flatMapIterable((value) => Stream.value(value))
-      .map((item) => Comic.fromJson(item))
-      .toList()
-      .asStream();
+    return _comicRepositoryLocal
+      .getComicsFromAssets();
   }
 }
