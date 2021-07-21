@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:i_am_steve_flutter/domain/error/invalid_route_error.dart';
+import 'package:i_am_steve_flutter/presentation/view/archive/archive_arguments.dart';
+import 'package:i_am_steve_flutter/presentation/view/archive/archive_page.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/gallery/comic_gallery_arguments.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/gallery/comic_gallery_page.dart';
 import 'package:i_am_steve_flutter/presentation/view/start/start_page.dart';
@@ -26,7 +28,7 @@ class Routes {
         break;
       }
       case ARCHIVE: {
-        page = null;
+        page = ArchivePage(settings.arguments as ArchiveArguments);
         break;
       }
     }

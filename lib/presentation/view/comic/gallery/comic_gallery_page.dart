@@ -9,8 +9,10 @@ import 'package:i_am_steve_flutter/domain/view/comic/gallery/comic_gallery_state
 import 'package:i_am_steve_flutter/domain/view/comic/single/comic_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/comic/single/comic_state.dart';
 import 'package:i_am_steve_flutter/presentation/resource/assets.dart';
+import 'package:i_am_steve_flutter/presentation/resource/routes.dart';
 import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
 import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
+import 'package:i_am_steve_flutter/presentation/view/archive/archive_arguments.dart';
 import 'package:i_am_steve_flutter/presentation/view/base/base_widget_state.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/gallery/comic_gallery_arguments.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/single/comic_arguments.dart';
@@ -41,7 +43,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
         child: Column(
           verticalDirection: VerticalDirection.up,
           children: [
-            _createButtons(controller),
+            _createButtons(controller, comics),
             _createPageView(controller, comics)
           ],
         )
@@ -49,7 +51,10 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
     );
   }
 
-  Widget _createButtons(final PageController controller) {
+  Widget _createButtons(
+    final PageController controller,
+    final List<Comic> comics
+  ) {
     return new Container(
       height: 52,
       child: new Row(
@@ -65,7 +70,10 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
           ),
           _createButton(
             Assets.ICON_ARCHIVE,
-            () => Fluttertoast.showToast(msg: 'Archive')
+            () => Navigator.of(context).pushNamed(
+              Routes.ARCHIVE,
+              arguments: ArchiveArguments(comics: comics),
+            )
           ),
           _createButton(
             Assets.ICON_CHEVRON_RIGHT,
