@@ -27,7 +27,7 @@ class _$StartStateTearOff {
     );
   }
 
-  HandleError handleError(Error error) {
+  HandleError handleError(dynamic error) {
     return HandleError(
       error,
     );
@@ -49,7 +49,7 @@ mixin _$StartState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Error error) handleError,
+    required TResult Function(dynamic error) handleError,
     required TResult Function(List<Comic> comics) navigateToComics,
   }) =>
       throw _privateConstructorUsedError;
@@ -57,7 +57,7 @@ mixin _$StartState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Error error)? handleError,
+    TResult Function(dynamic error)? handleError,
     TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) =>
@@ -136,7 +136,7 @@ class _$Initial implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Error error) handleError,
+    required TResult Function(dynamic error) handleError,
     required TResult Function(List<Comic> comics) navigateToComics,
   }) {
     return initial();
@@ -147,7 +147,7 @@ class _$Initial implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Error error)? handleError,
+    TResult Function(dynamic error)? handleError,
     TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
@@ -263,7 +263,7 @@ class _$Loading implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Error error) handleError,
+    required TResult Function(dynamic error) handleError,
     required TResult Function(List<Comic> comics) navigateToComics,
   }) {
     return loading(done, all);
@@ -274,7 +274,7 @@ class _$Loading implements Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Error error)? handleError,
+    TResult Function(dynamic error)? handleError,
     TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
@@ -325,7 +325,7 @@ abstract class $HandleErrorCopyWith<$Res> {
   factory $HandleErrorCopyWith(
           HandleError value, $Res Function(HandleError) then) =
       _$HandleErrorCopyWithImpl<$Res>;
-  $Res call({Error error});
+  $Res call({dynamic error});
 }
 
 /// @nodoc
@@ -346,7 +346,7 @@ class _$HandleErrorCopyWithImpl<$Res> extends _$StartStateCopyWithImpl<$Res>
       error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as Error,
+              as dynamic,
     ));
   }
 }
@@ -357,7 +357,7 @@ class _$HandleError implements HandleError {
   const _$HandleError(this.error);
 
   @override
-  final Error error;
+  final dynamic error;
 
   @override
   String toString() {
@@ -386,7 +386,7 @@ class _$HandleError implements HandleError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Error error) handleError,
+    required TResult Function(dynamic error) handleError,
     required TResult Function(List<Comic> comics) navigateToComics,
   }) {
     return handleError(error);
@@ -397,7 +397,7 @@ class _$HandleError implements HandleError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Error error)? handleError,
+    TResult Function(dynamic error)? handleError,
     TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
@@ -435,9 +435,9 @@ class _$HandleError implements HandleError {
 }
 
 abstract class HandleError implements StartState {
-  const factory HandleError(Error error) = _$HandleError;
+  const factory HandleError(dynamic error) = _$HandleError;
 
-  Error get error => throw _privateConstructorUsedError;
+  dynamic get error => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $HandleErrorCopyWith<HandleError> get copyWith =>
       throw _privateConstructorUsedError;
@@ -510,7 +510,7 @@ class _$NavigateToComics implements NavigateToComics {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(int done, int all) loading,
-    required TResult Function(Error error) handleError,
+    required TResult Function(dynamic error) handleError,
     required TResult Function(List<Comic> comics) navigateToComics,
   }) {
     return navigateToComics(comics);
@@ -521,7 +521,7 @@ class _$NavigateToComics implements NavigateToComics {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(int done, int all)? loading,
-    TResult Function(Error error)? handleError,
+    TResult Function(dynamic error)? handleError,
     TResult Function(List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {

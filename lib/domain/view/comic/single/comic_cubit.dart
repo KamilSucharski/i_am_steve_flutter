@@ -15,7 +15,7 @@ class ComicCubit extends BaseCubit<ComicState> {
       .execute(comic)
       .listen(
         (comicPanels) => emit(ComicState.displayComic(comic, comicPanels)),
-        onError: (error) => emit(ComicState.handleError(error))
+        onError: (dynamic error) => emit(ComicState.handleError(error))
       )
       .addTo(disposables);
   }

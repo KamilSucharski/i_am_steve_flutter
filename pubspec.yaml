@@ -21,7 +21,6 @@ dependencies:
 
   # Data
   dio: 4.0.0
-  pretty_dio_logger: 1.2.0-beta-1
   freezed_annotation: 0.14.2
   shared_preferences: 2.0.6
 
@@ -37,7 +36,7 @@ dev_dependencies:
   freezed: 0.14.2
   build_runner: 2.0.6
   json_serializable: 4.1.4
-
+  pedantic: 1.11.1
 
 flutter:
   uses-material-design: true

@@ -5,7 +5,7 @@ import 'package:i_am_steve_flutter/domain/model/comic_panels.dart';
 part 'comic_state.freezed.dart';
 
 @freezed
-abstract class  ComicState with _$ComicState {
+class ComicState with _$ComicState {
   const factory ComicState.initial() = Initial;
 
   const factory ComicState.displayComic(
@@ -14,6 +14,6 @@ abstract class  ComicState with _$ComicState {
   ) = DisplayComic;
 
   const factory ComicState.handleError(
-    final Error error
+    final dynamic error
   ) = HandleError;
 }

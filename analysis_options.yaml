@@ -1,4 +1,32 @@
+include: package:pedantic/analysis_options.yaml
+
 analyzer:
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+  errors:
+    # treat missing required parameters as an error (not a hint)
+    missing_required_param: error
+    # treat missing returns as an error (not a hint)
+    missing_return: error
   exclude:
     - lib/**/*.g.dart # json_serializable uses dynamic instead of Object
     - lib/**/*.freezed.dart
+
+linter:
+  rules:
+    - prefer_final_fields
+    - prefer_final_in_for_each
+    - prefer_final_locals
+    - prefer_const_constructors_in_immutables
+    - unnecessary_getters_setters
+    - file_names
+    - camel_case_types
+    - non_constant_identifier_names
+    - constant_identifier_names
+    - avoid_void_async
+    - await_only_futures
+    - unawaited_futures
+    - sort_child_properties_last
+    - avoid_unnecessary_containers
+    - sized_box_for_whitespace

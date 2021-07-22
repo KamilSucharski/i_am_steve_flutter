@@ -4,7 +4,7 @@ part 'comic.freezed.dart';
 part 'comic.g.dart';
 
 @freezed
-abstract class Comic with _$Comic {
+class Comic with _$Comic {
 
   const factory Comic({
     required int number,

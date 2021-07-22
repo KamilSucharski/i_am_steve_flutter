@@ -23,9 +23,9 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     return _assetReader
       .getString(Consts.ASSETS_PRELOAD + Consts.COMIC_METADATA_FILE_NAME)
       .asStream()
-      .map((comicsJson) => (jsonDecode(comicsJson) as List))
-      .flatMapIterable((value) => Stream.value(value))
-      .map((item) => Comic.fromJson(item))
+      .map((comicsJson) => (jsonDecode(comicsJson) as List<dynamic>))
+      .flatMapIterable<dynamic>((value) => Stream.value(value))
+      .map((dynamic item) => Comic.fromJson(item as Map<String, dynamic>))
       .toList()
       .asStream();
   }
@@ -33,7 +33,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   @override
   Stream<List<Comic>> getComicsFromLocalStorage() {
     return _localStorage
-      .getObject<List>(Consts.KEY_COMIC_LIST)
+      .getObject<List<Map<String, dynamic>>>(Consts.KEY_COMIC_LIST)
       .map((list) {
         if (list == null) {
           throw NoComicsError();

@@ -22,19 +22,21 @@ class StartCubit extends BaseCubit<StartState> {
       .flatMap((comics) => _sequentiallyDownloadComicPanels(comics))
       .listen(
         (comics) => emit(StartState.navigateToComics(comics)),
-        onError: (error) => emit(StartState.handleError(error))
+        onError: (dynamic error) {
+          emit(StartState.handleError(error));
+        }
       )
       .addTo(disposables);
   }
 
   Stream<List<Comic>> _getComics() {
-    return _getComicsOperation.execute({});
+    return _getComicsOperation.execute(null);
   }
 
   Stream<List<Comic>> _sequentiallyDownloadComicPanels(final List<Comic> comics) {
-    Stream sequentialDownloads = Stream.value(null);
+    var sequentialDownloads = Stream.value(null);
     comics.forEach((comic) {
-      final Stream nextDownload = _getComicPanelsOperation
+      final nextDownload = _getComicPanelsOperation
         .execute(comic)
         .map((comicPanels) {
           emit(StartState.loading(

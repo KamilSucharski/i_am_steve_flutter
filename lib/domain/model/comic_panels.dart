@@ -1,10 +1,11 @@
 import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'comic_panels.freezed.dart';
 
 @freezed
-abstract class ComicPanels with _$ComicPanels {
+class ComicPanels with _$ComicPanels {
 
   const factory ComicPanels({
     required Uint8List panel1,

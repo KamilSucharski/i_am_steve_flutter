@@ -27,7 +27,7 @@ class _$ComicStateTearOff {
     );
   }
 
-  HandleError handleError(Error error) {
+  HandleError handleError(dynamic error) {
     return HandleError(
       error,
     );
@@ -44,14 +44,14 @@ mixin _$ComicState {
     required TResult Function() initial,
     required TResult Function(Comic comic, ComicPanels comicPanels)
         displayComic,
-    required TResult Function(Error error) handleError,
+    required TResult Function(dynamic error) handleError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
-    TResult Function(Error error)? handleError,
+    TResult Function(dynamic error)? handleError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -128,7 +128,7 @@ class _$Initial implements Initial {
     required TResult Function() initial,
     required TResult Function(Comic comic, ComicPanels comicPanels)
         displayComic,
-    required TResult Function(Error error) handleError,
+    required TResult Function(dynamic error) handleError,
   }) {
     return initial();
   }
@@ -138,7 +138,7 @@ class _$Initial implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
-    TResult Function(Error error)? handleError,
+    TResult Function(dynamic error)? handleError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -272,7 +272,7 @@ class _$DisplayComic implements DisplayComic {
     required TResult Function() initial,
     required TResult Function(Comic comic, ComicPanels comicPanels)
         displayComic,
-    required TResult Function(Error error) handleError,
+    required TResult Function(dynamic error) handleError,
   }) {
     return displayComic(comic, comicPanels);
   }
@@ -282,7 +282,7 @@ class _$DisplayComic implements DisplayComic {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
-    TResult Function(Error error)? handleError,
+    TResult Function(dynamic error)? handleError,
     required TResult orElse(),
   }) {
     if (displayComic != null) {
@@ -332,7 +332,7 @@ abstract class $HandleErrorCopyWith<$Res> {
   factory $HandleErrorCopyWith(
           HandleError value, $Res Function(HandleError) then) =
       _$HandleErrorCopyWithImpl<$Res>;
-  $Res call({Error error});
+  $Res call({dynamic error});
 }
 
 /// @nodoc
@@ -353,7 +353,7 @@ class _$HandleErrorCopyWithImpl<$Res> extends _$ComicStateCopyWithImpl<$Res>
       error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as Error,
+              as dynamic,
     ));
   }
 }
@@ -364,7 +364,7 @@ class _$HandleError implements HandleError {
   const _$HandleError(this.error);
 
   @override
-  final Error error;
+  final dynamic error;
 
   @override
   String toString() {
@@ -394,7 +394,7 @@ class _$HandleError implements HandleError {
     required TResult Function() initial,
     required TResult Function(Comic comic, ComicPanels comicPanels)
         displayComic,
-    required TResult Function(Error error) handleError,
+    required TResult Function(dynamic error) handleError,
   }) {
     return handleError(error);
   }
@@ -404,7 +404,7 @@ class _$HandleError implements HandleError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
-    TResult Function(Error error)? handleError,
+    TResult Function(dynamic error)? handleError,
     required TResult orElse(),
   }) {
     if (handleError != null) {
@@ -439,9 +439,9 @@ class _$HandleError implements HandleError {
 }
 
 abstract class HandleError implements ComicState {
-  const factory HandleError(Error error) = _$HandleError;
+  const factory HandleError(dynamic error) = _$HandleError;
 
-  Error get error => throw _privateConstructorUsedError;
+  dynamic get error => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $HandleErrorCopyWith<HandleError> get copyWith =>
       throw _privateConstructorUsedError;

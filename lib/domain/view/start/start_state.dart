@@ -4,7 +4,7 @@ import 'package:i_am_steve_flutter/domain/model/comic.dart';
 part 'start_state.freezed.dart';
 
 @freezed
-abstract class  StartState with _$StartState {
+class StartState with _$StartState {
   const factory StartState.initial() = Initial;
 
   const factory StartState.loading(
@@ -13,7 +13,7 @@ abstract class  StartState with _$StartState {
   ) = Loading;
 
   const factory StartState.handleError(
-    final Error error
+    final dynamic error
   ) = HandleError;
 
   const factory StartState.navigateToComics(final List<Comic> comics) = NavigateToComics;
