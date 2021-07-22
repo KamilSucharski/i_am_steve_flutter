@@ -1,16 +1,9 @@
-# i_am_steve_flutter
+### i am steve
+<img src="web/screenshot_1.png" alt="screenshot 1" width="175" />&nbsp;<img src="web/screenshot_2.png" alt="screenshot 2" width="175" />&nbsp;<img src="web/screenshot_3.png" alt="screenshot 3" width="175" />&nbsp;<img src="web/screenshot_4.png" alt="screenshot 4" width="175" />
 
-i am steve Flutter app
+A Flutter app for reading the "i am steve" web comic with offline support. Based on the Android version. Things missing from this one are:
+- Different themes based on light/dark mode
+- Fading edges on comic
+- Disappearing arrows at the start and end of comic gallery
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+In order to deploy it, an additional run argument "--no-sound-null-safety" needs to be added in "Edit Configurations".
