@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/data/dto/comic_dto.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/configuration.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ComicApi {
 
-  final Dio _dio = GetIt.I.get<Dio>();
-  final Configuration _configuration = GetIt.I.get<Configuration>();
+  final Dio _dio;
+  final Configuration _configuration;
+
+  ComicApi(this._dio, this._configuration);
 
   Future<List<ComicDto>> getComics() => _dio
     .get(_configuration.getBaseUrl() + Consts.COMIC_METADATA_FILE_NAME)

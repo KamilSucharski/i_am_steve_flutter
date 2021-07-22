@@ -1,16 +1,20 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/operation/get_comic_panels_operation.dart';
 import 'package:i_am_steve_flutter/domain/operation/get_comics_operation.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:i_am_steve_flutter/domain/view/base/base_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_state.dart';
+import 'package:rxdart/rxdart.dart';
 
 class StartCubit extends BaseCubit<StartState> {
+  final GetComicsOperation _getComicsOperation;
+  final GetComicPanelsOperation _getComicPanelsOperation;
 
-  StartCubit() : super(StartState.initial());
+  StartCubit(
+    this._getComicsOperation,
+    this._getComicPanelsOperation
+  ) : super(StartState.initial());
 
   @override
   Future<void> init() async {
@@ -24,13 +28,13 @@ class StartCubit extends BaseCubit<StartState> {
   }
 
   Stream<List<Comic>> _getComics() {
-    return GetComicsOperation().execute({});
+    return _getComicsOperation.execute({});
   }
 
   Stream<List<Comic>> _sequentiallyDownloadComicPanels(final List<Comic> comics) {
     Stream sequentialDownloads = Stream.value(null);
     comics.forEach((comic) {
-      final Stream nextDownload = GetComicPanelsOperation()
+      final Stream nextDownload = _getComicPanelsOperation
         .execute(comic)
         .map((comicPanels) {
           emit(StartState.loading(

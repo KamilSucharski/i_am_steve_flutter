@@ -1,16 +1,17 @@
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/operation/get_comic_panels_operation.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:i_am_steve_flutter/domain/view/base/base_cubit.dart';
+import 'package:rxdart/rxdart.dart';
 
 import 'comic_state.dart';
 
 class ComicCubit extends BaseCubit<ComicState> {
+  final GetComicPanelsOperation _getComicPanelsOperation;
 
-  ComicCubit() : super(ComicState.initial());
+  ComicCubit(this._getComicPanelsOperation) : super(ComicState.initial());
 
   void fetchComicPanels(final Comic comic) {
-    GetComicPanelsOperation()
+    _getComicPanelsOperation
       .execute(comic)
       .listen(
         (comicPanels) => emit(ComicState.displayComic(comic, comicPanels)),

@@ -18,6 +18,9 @@ class NetworkModule implements InjectorModule {
     }
     getIt.registerSingleton(dio);
 
-    getIt.registerFactory(() => ComicApi());
+    getIt.registerFactory(() => ComicApi(
+      getIt.get(),
+      getIt.get()
+    ));
   }
 }

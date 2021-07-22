@@ -6,6 +6,6 @@ class MapperModule implements InjectorModule {
 
   @override
   void initialize(final GetIt getIt) {
-    GetIt.I.registerFactory(() => ComicMapper());
+    getIt.registerFactory(() => ComicMapper());
   }
 }

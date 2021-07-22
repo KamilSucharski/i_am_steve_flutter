@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/model/comic_panels.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
@@ -10,9 +9,11 @@ import 'package:i_am_steve_flutter/domain/util/operation.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GetComicPanelsOperation implements Operation<Comic, Stream<ComicPanels>> {
-  final ComicRepositoryLocal _comicRepositoryLocal = GetIt.I.get<ComicRepositoryLocal>();
-  final ComicRepositoryRemote _comicRepositoryRemote = GetIt.I.get<ComicRepositoryRemote>();
-  final Logger _logger = GetIt.I.get<Logger>();
+  final ComicRepositoryLocal _comicRepositoryLocal;
+  final ComicRepositoryRemote _comicRepositoryRemote;
+  final Logger _logger;
+
+  GetComicPanelsOperation(this._comicRepositoryLocal, this._comicRepositoryRemote, this._logger);
 
   @override
   Stream<ComicPanels> execute(final Comic input) {

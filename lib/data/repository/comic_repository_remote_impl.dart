@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/data/api/comic_api.dart';
 import 'package:i_am_steve_flutter/data/mapper/comic_mapper.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
@@ -10,8 +9,10 @@ import 'package:sprintf/sprintf.dart';
 
 class ComicRepositoryRemoteImpl implements ComicRepositoryRemote {
   
-  final ComicApi _comicApi = GetIt.I.get<ComicApi>();
-  final ComicMapper _comicMapper = GetIt.I.get<ComicMapper>();
+  final ComicApi _comicApi;
+  final ComicMapper _comicMapper;
+
+  ComicRepositoryRemoteImpl(this._comicApi, this._comicMapper);
 
   @override
   Stream<List<Comic>> getComics() {
