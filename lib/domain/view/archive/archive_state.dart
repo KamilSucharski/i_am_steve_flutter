@@ -7,10 +7,6 @@ part 'archive_state.freezed.dart';
 abstract class  ArchiveState with _$ArchiveState {
   const factory ArchiveState.initial() = Initial;
 
-  const factory ArchiveState.displayComics(
-    final List<Comic> comics
-  ) = DisplayComics;
-
   const factory ArchiveState.navigateToComic(
     final Comic comic
   ) = NavigateToComic;

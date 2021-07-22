@@ -63,24 +63,15 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
         children: [
           _createButton(
             Assets.ICON_CHEVRON_LEFT,
-            () => controller.previousPage(
-              duration: Duration(milliseconds: 100),
-              curve: Curves.linear
-            )
+            () => _goToPreviousPage(controller)
           ),
           _createButton(
             Assets.ICON_ARCHIVE,
-            () => Navigator.of(context).pushNamed(
-              Routes.ARCHIVE,
-              arguments: ArchiveArguments(comics: comics),
-            )
+            () => _navigateToArchive(controller, comics)
           ),
           _createButton(
             Assets.ICON_CHEVRON_RIGHT,
-            () => controller.nextPage(
-              duration: Duration(milliseconds: 100),
-              curve: Curves.linear
-            )
+            () => _goToNextPage(controller)
           )
         ]
       )
@@ -125,5 +116,33 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
       )
     );
     return pageView;
+  }
+
+  void _goToPreviousPage(final PageController controller) {
+    controller.previousPage(
+      duration: Duration(milliseconds: 100),
+      curve: Curves.linear
+    );
+  }
+
+  void _goToNextPage(final PageController controller) {
+    controller.nextPage(
+      duration: Duration(milliseconds: 100),
+      curve: Curves.linear
+    );
+  }
+
+  void _navigateToArchive(
+    final PageController controller,
+    final List<Comic> comics
+  ) {
+    Navigator.of(context).pushNamed(
+      Routes.ARCHIVE,
+      arguments: ArchiveArguments(comics: comics),
+    ).then((result) {
+      if (result is Comic) {
+        controller.jumpToPage(comics.indexOf(result));
+      }
+    });
   }
 }

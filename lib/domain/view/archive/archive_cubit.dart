@@ -7,10 +7,6 @@ class ArchiveCubit extends BaseCubit<ArchiveState> {
 
   ArchiveCubit() : super(ArchiveState.initial());
 
-  void displayComics(final List<Comic> comics) {
-    emit(ArchiveState.displayComics(comics));
-  }
-
   void onComicClicked(final Comic comic) {
     emit(ArchiveState.navigateToComic(comic));
   }
