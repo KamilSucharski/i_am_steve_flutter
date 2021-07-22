@@ -7,27 +7,27 @@ import 'package:i_am_steve_flutter/presentation/view/comic/gallery/comic_gallery
 import 'package:i_am_steve_flutter/presentation/view/start/start_page.dart';
 
 class Routes {
-  static const String START = 'start';
-  static const String COMICS = 'comics';
-  static const String ARCHIVE = 'archive';
+  static const String start = 'start';
+  static const String comics = 'comics';
+  static const String archive = 'archive';
 
   static PageRoute<Object> onGenerateRoute(final RouteSettings settings) {
     if (settings.name == null) {
       throw InvalidRouteError();
     }
-    final String name = Uri.parse(settings.name!).pathSegments[0];
-    Widget? page = null;
+    final name = Uri.parse(settings.name!).pathSegments[0];
+    Widget? page;
 
     switch (name) {
-      case START: {
+      case start: {
         page = StartPage();
         break;
       }
-      case COMICS: {
+      case comics: {
         page = ComicGalleryPage(settings.arguments as ComicGalleryArguments);
         break;
       }
-      case ARCHIVE: {
+      case archive: {
         page = ArchivePage(settings.arguments as ArchiveArguments);
         break;
       }

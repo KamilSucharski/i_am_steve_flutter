@@ -3,6 +3,7 @@
 
 A Flutter app for reading the "i am steve" web comic with offline support. Based on the Android version. Things missing from this one are:
 - Different themes based on light/dark mode
+- Build variants
 - Fading edges on comic
 - Disappearing arrows at the start and end of comic gallery
 

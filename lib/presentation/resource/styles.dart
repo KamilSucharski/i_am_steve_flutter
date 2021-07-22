@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 class Styles {
   Styles._();
 
-  static const Color BACKGROUND_COLOR = Color(0xFF404040);
-  static const Color ELEMENT_COLOR = Color(0xFF303030);
-  static const Color BUTTON_COLOR = Color(0xFFC1C1C1);
-  static const Color TEXT_COLOR = COLOR_WHITE;
+  static const Color backgroundColor = Color(0xFF404040);
+  static const Color elementColor = Color(0xFF303030);
+  static const Color buttonColor = Color(0xFFC1C1C1);
+  static const Color textColor = colorWhite;
 
-  static const Color COLOR_WHITE = Colors.white;
-  static const Color COLOR_BLACK = Colors.black;
+  static const Color colorWhite = Colors.white;
+  static const Color colorBlack = Colors.black;
 
   static ThemeData getAppTheme(final BuildContext context) =>
     ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       textTheme: Theme.of(context).textTheme.apply(
         fontFamily: 'Komika',
-        bodyColor: TEXT_COLOR,
-        displayColor: TEXT_COLOR,
+        bodyColor: textColor,
+        displayColor: textColor,
       )
     );
 }

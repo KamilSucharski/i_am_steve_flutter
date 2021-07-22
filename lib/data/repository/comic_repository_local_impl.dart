@@ -21,7 +21,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   @override
   Stream<List<Comic>> getComicsFromAssets() {
     return _assetReader
-      .getString(Consts.ASSETS_PRELOAD + Consts.COMIC_METADATA_FILE_NAME)
+      .getString(Consts.assetsPreload + Consts.comicMetadataFileName)
       .asStream()
       .map((comicsJson) => (jsonDecode(comicsJson) as List<dynamic>))
       .flatMapIterable<dynamic>((value) => Stream.value(value))
@@ -33,7 +33,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   @override
   Stream<List<Comic>> getComicsFromLocalStorage() {
     return _localStorage
-      .getObject<List<Map<String, dynamic>>>(Consts.KEY_COMIC_LIST)
+      .getObject<List<Map<String, dynamic>>>(Consts.keyComicList)
       .map((list) {
         if (list == null) {
           throw NoComicsError();
@@ -49,7 +49,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   @override
   Stream<bool> saveComicsToLocalStorage(final List<Comic> comics) {
     return _localStorage.putObject(
-      Consts.KEY_COMIC_LIST,
+      Consts.keyComicList,
       comics
     );
   }
@@ -60,11 +60,11 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     final int panelNumber
   ) {
     final String fileName = sprintf(
-      Consts.COMIC_PANEL_FILE_NAME_FORMAT,
+      Consts.comicPanelFileNameFormat,
       [comicNumber, panelNumber]
     );
     return _assetReader
-      .getBytes(Consts.ASSETS_PRELOAD + fileName)
+      .getBytes(Consts.assetsPreload + fileName)
       .asStream()
       .map((bytes) => bytes.buffer.asUint8List());
   }
@@ -75,7 +75,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     final int panelNumber
   ) {
     final String fileName = sprintf(
-      Consts.COMIC_PANEL_FILE_NAME_FORMAT,
+      Consts.comicPanelFileNameFormat,
       [comicNumber, panelNumber]
     );
     return _localStorage
@@ -95,7 +95,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     final Uint8List bytes
   ) {
     final String fileName = sprintf(
-      Consts.COMIC_PANEL_FILE_NAME_FORMAT,
+      Consts.comicPanelFileNameFormat,
       [comicNumber, panelNumber]
     );
     return _localStorage

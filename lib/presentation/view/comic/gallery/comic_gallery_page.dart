@@ -1,23 +1,17 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/view/comic/gallery/comic_gallery_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/comic/gallery/comic_gallery_state.dart';
-import 'package:i_am_steve_flutter/domain/view/comic/single/comic_cubit.dart';
-import 'package:i_am_steve_flutter/domain/view/comic/single/comic_state.dart';
 import 'package:i_am_steve_flutter/presentation/resource/assets.dart';
 import 'package:i_am_steve_flutter/presentation/resource/routes.dart';
-import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
 import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
 import 'package:i_am_steve_flutter/presentation/view/archive/archive_arguments.dart';
 import 'package:i_am_steve_flutter/presentation/view/base/base_widget_state.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/gallery/comic_gallery_arguments.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/single/comic_arguments.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/single/comic_page.dart';
-import 'package:sprintf/sprintf.dart';
 
 class ComicGalleryPage extends StatefulWidget {
   final ComicGalleryArguments arguments;
@@ -39,7 +33,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
     );
     return SafeArea(
       child: Container(
-        color: Styles.BACKGROUND_COLOR,
+        color: Styles.backgroundColor,
         child: Column(
           verticalDirection: VerticalDirection.up,
           children: [
@@ -62,15 +56,15 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _createButton(
-            Assets.ICON_CHEVRON_LEFT,
+            Assets.iconChevronLeft,
             () => _goToPreviousPage(controller)
           ),
           _createButton(
-            Assets.ICON_ARCHIVE,
+            Assets.iconArchive,
             () => _navigateToArchive(controller, comics)
           ),
           _createButton(
-            Assets.ICON_CHEVRON_RIGHT,
+            Assets.iconChevronRight,
             () => _goToNextPage(controller)
           )
         ]
@@ -84,7 +78,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
   ) {
     return Expanded(
       child: Material(
-        color: Styles.BACKGROUND_COLOR,
+        color: Styles.backgroundColor,
         child: InkWell(
           onTap: onClick,
           child: Container(
@@ -92,7 +86,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
             height: double.infinity,
             child: SvgPicture.asset(
               asset,
-              color: Styles.BUTTON_COLOR,
+              color: Styles.buttonColor,
               height: 24,
               width: 24
             )
@@ -137,7 +131,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
     final List<Comic> comics
   ) {
     Navigator.of(context).pushNamed(
-      Routes.ARCHIVE,
+      Routes.archive,
       arguments: ArchiveArguments(comics: comics),
     ).then((result) {
       if (result is Comic) {

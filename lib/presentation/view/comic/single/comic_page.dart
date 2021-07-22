@@ -51,7 +51,7 @@ class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState>
 
     return SafeArea(
       child: Container(
-        color: Styles.COLOR_WHITE,
+        color: Styles.colorWhite,
         child: SingleChildScrollView(
           child: Column(
             verticalDirection: VerticalDirection.down,
@@ -77,7 +77,7 @@ class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState>
         top: 2
       ),
       padding: EdgeInsets.all(2),
-      color: Styles.COLOR_BLACK,
+      color: Styles.colorBlack,
       child: Image.memory(panel),
     );
   }
@@ -93,12 +93,12 @@ class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState>
         ),
         child: Text(
           sprintf(
-            Strings.COMIC_TITLE_FORMAT,
+            Strings.comicTitleFormat,
             [comic.number, comic.title]
           ),
           style: Theme.of(context).textTheme.overline?.apply(
             fontSizeFactor: 1.6,
-            color: Styles.COLOR_BLACK
+            color: Styles.colorBlack
           ),
         )
     );

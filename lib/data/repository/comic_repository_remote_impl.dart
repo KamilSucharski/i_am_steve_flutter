@@ -32,7 +32,7 @@ class ComicRepositoryRemoteImpl implements ComicRepositoryRemote {
   ) {
     return _comicApi
       .getComicPanel(sprintf(
-        Consts.COMIC_PANEL_FILE_NAME_FORMAT,
+        Consts.comicPanelFileNameFormat,
         [comicNumber, panelNumber]
       ))
       .asStream();

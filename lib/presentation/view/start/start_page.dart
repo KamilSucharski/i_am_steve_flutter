@@ -43,7 +43,7 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
 
     if (state is NavigateToComics) {
       Navigator.of(context).pushReplacementNamed(
-        Routes.COMICS,
+        Routes.comics,
         arguments: ComicGalleryArguments(comics: state.comics),
       );
       return false;
@@ -56,10 +56,10 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
   Widget createBody(final BuildContext context, final StartState state) {
     final String progressText = state.maybeMap(
       loading: (state) => sprintf(
-        Strings.START_BODY_WITH_PROGRESS,
+        Strings.startBodyWithProgress,
         [state.done, state.all]
       ),
-      orElse: () => Strings.START_BODY_WITHOUT_PROGRESS
+      orElse: () => Strings.startBodyWithoutProgress
     );
 
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
@@ -77,7 +77,7 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
     );
 
     Widget icon = SvgPicture.asset(
-      Assets.ICON_STEVE,
+      Assets.iconSteve,
       width: mediaQueryData.size.width * 0.5,
       height: mediaQueryData.size.width * 0.5
     );
@@ -99,7 +99,7 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
 
     return SafeArea(
       child: Container(
-        color: Styles.BACKGROUND_COLOR,
+        color: Styles.backgroundColor,
         child: Column(
           verticalDirection: VerticalDirection.up,
           children: [

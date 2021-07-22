@@ -14,7 +14,7 @@ class ComicApi {
   ComicApi(this._dio, this._configuration);
 
   Future<List<ComicDto>> getComics() => _dio
-    .get<List<dynamic>>(_configuration.getBaseUrl() + Consts.COMIC_METADATA_FILE_NAME)
+    .get<List<dynamic>>(_configuration.getBaseUrl() + Consts.comicMetadataFileName)
     .then((response) => response.data as List<dynamic>)
     .asStream()
     .flatMapIterable<dynamic>((item) => Stream.value(item))

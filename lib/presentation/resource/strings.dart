@@ -2,12 +2,12 @@ class Strings {
   Strings._();
 
   // Start
-  static const String START_BODY_WITHOUT_PROGRESS = 'Updating…';
-  static const String START_BODY_WITH_PROGRESS = 'Updating…\n(%d / %d)';
+  static const String startBodyWithoutProgress = 'Updating…';
+  static const String startBodyWithProgress = 'Updating…\n(%d / %d)';
 
   // Comic
-  static const String COMIC_TITLE_FORMAT = '#%d %s';
+  static const String comicTitleFormat = '#%d %s';
 
   // Archive
-  static const String COMIC_ARCHIVE_FORMAT = '#%d %s (%s)';
+  static const String comicArchiveFormat = '#%d %s (%s)';
 }

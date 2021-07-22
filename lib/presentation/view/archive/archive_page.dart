@@ -35,7 +35,7 @@ class _ArchivePageState extends BaseWidgetState<ArchivePage, ArchiveCubit, Archi
     final List<Comic> comics = widget.arguments.comics;
     return SafeArea(
       child: Container(
-        color: Styles.BACKGROUND_COLOR,
+        color: Styles.backgroundColor,
         child: ListView.builder(
           padding: EdgeInsets.zero,
           itemCount: comics.length,
@@ -54,24 +54,24 @@ class _ArchivePageState extends BaseWidgetState<ArchivePage, ArchiveCubit, Archi
   ) {
     return Container(
       width: double.infinity,
-      color: Styles.BACKGROUND_COLOR,
+      color: Styles.backgroundColor,
       margin: EdgeInsets.only(
         bottom: 1
       ),
       child: Material(
-        color: Styles.ELEMENT_COLOR,
+        color: Styles.elementColor,
         child: InkWell(
           onTap: () => onClick(comic),
           child: Padding(
             padding: EdgeInsets.all(12),
             child: Text(
               sprintf(
-                Strings.COMIC_ARCHIVE_FORMAT,
+                Strings.comicArchiveFormat,
                 [comic.number, comic.title, comic.date]
               ),
               style: Theme.of(context).textTheme.overline?.apply(
                 fontSizeFactor: 1.6,
-                color: Styles.COLOR_WHITE
+                color: Styles.colorWhite
               )
             ),
           )

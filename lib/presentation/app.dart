@@ -10,7 +10,7 @@ class App extends StatelessWidget {
       title: 'i am steve',
       theme: Styles.getAppTheme(context),
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.START,
+      initialRoute: Routes.start,
       onGenerateRoute: Routes.onGenerateRoute,
       home: StartPage(),
     );
