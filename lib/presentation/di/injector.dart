@@ -8,10 +8,9 @@ import 'package:i_am_steve_flutter/presentation/di/module/repository_module.dart
 import 'module/network_module.dart';
 
 class Injector {
-
-  static void initialize() {
+  static void initialize(final String baseUrl) {
     [
-      ImplementationModule(),
+      ImplementationModule(baseUrl),
       MapperModule(),
       NetworkModule(),
       RepositoryModule(),

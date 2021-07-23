@@ -3,8 +3,9 @@
 
 A Flutter app for reading the "i am steve" web comic with offline support. Based on the Android version. Things missing from this one are:
 - Different themes based on light/dark mode
-- Build variants
 - Fading edges on comic
 - Disappearing arrows at the start and end of comic gallery
 
-In order to deploy it, an additional run argument "--no-sound-null-safety" needs to be added in "Edit Configurations".
+In order to deploy it, set the following in "Edit Configurations":
+- Dart entrypoint: ${YOUR_PATH_TO_PROJECT}\i_am_steve_flutter\lib\main_neocities.dart
+- Additional run args: --no-sound-null-safety

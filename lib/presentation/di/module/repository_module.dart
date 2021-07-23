@@ -3,7 +3,7 @@ import 'package:i_am_steve_flutter/data/repository/comic_repository_local_impl.d
 import 'package:i_am_steve_flutter/data/repository/comic_repository_remote_impl.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_remote.dart';
-import 'package:i_am_steve_flutter/presentation/di/InjectorModule.dart';
+import 'package:i_am_steve_flutter/presentation/di/injector_module.dart';
 
 class RepositoryModule implements InjectorModule {
 

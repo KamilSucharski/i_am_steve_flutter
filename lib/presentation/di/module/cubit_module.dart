@@ -3,7 +3,7 @@ import 'package:i_am_steve_flutter/domain/view/archive/archive_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/comic/gallery/comic_gallery_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/comic/single/comic_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_cubit.dart';
-import 'package:i_am_steve_flutter/presentation/di/InjectorModule.dart';
+import 'package:i_am_steve_flutter/presentation/di/injector_module.dart';
 
 class CubitModule implements InjectorModule {
 

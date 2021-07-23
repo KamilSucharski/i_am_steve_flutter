@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/domain/operation/get_comic_panels_operation.dart';
 import 'package:i_am_steve_flutter/domain/operation/get_comics_operation.dart';
-import 'package:i_am_steve_flutter/presentation/di/InjectorModule.dart';
+import 'package:i_am_steve_flutter/presentation/di/injector_module.dart';
 
 class OperationModule implements InjectorModule {
 
