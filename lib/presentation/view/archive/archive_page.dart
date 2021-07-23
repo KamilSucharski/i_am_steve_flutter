@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/view/archive/archive_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/archive/archive_state.dart';
-import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
 import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
 import 'package:i_am_steve_flutter/presentation/view/base/base_widget_state.dart';
-import 'package:sprintf/sprintf.dart';
 
 import 'archive_arguments.dart';
+import 'archive_list_mapper.dart';
 
 class ArchivePage extends StatefulWidget {
   final ArchiveArguments arguments;
@@ -32,60 +30,17 @@ class _ArchivePageState extends BaseWidgetState<ArchivePage, ArchiveCubit, Archi
 
   @override
   Widget createBody(final BuildContext context, final ArchiveState state) {
-    final comics = widget.arguments.comics;
+    final listItems = ArchiveListMapper((comic) => cubit.onComicClicked(comic))
+      .map(widget.arguments.comics);
     return SafeArea(
       child: Container(
         color: Styles.backgroundColor,
         child: ListView.builder(
           padding: EdgeInsets.zero,
-          itemCount: comics.length,
-          itemBuilder: (context, index) => _getArchiveItem(
-            comics[index],
-            (comic) => cubit.onComicClicked(comic)
-          ),
+          itemCount: listItems.length,
+          itemBuilder: (context, index) => listItems[index].toWidget(context),
         ).build(context)
       )
-    );
-  }
-
-  Widget _getArchiveItem(
-    final Comic comic,
-    final void Function(Comic) onClick
-  ) {
-    final button = Container(
-      width: double.infinity,
-      child: Material(
-        color: Styles.backgroundColor,
-        child: InkWell(
-          onTap: () => onClick(comic),
-          child: Padding(
-            padding: EdgeInsets.all(12),
-            child: Text(
-              sprintf(
-                Strings.comicArchiveFormat,
-                [comic.number, comic.title, comic.date]
-              ),
-              style: Theme.of(context).textTheme.overline?.apply(
-                fontSizeFactor: 1.6,
-                color: Styles.colorWhite
-              )
-            ),
-          )
-        )
-      )
-    );
-
-    final separator = Container(
-      height: 1,
-      width: double.infinity,
-      color: Styles.darkerBackgroundColor
-    );
-
-    return Column(
-      children: [
-        button,
-        separator
-      ],
     );
   }
 }
