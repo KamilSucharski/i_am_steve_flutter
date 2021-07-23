@@ -54,7 +54,7 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
 
   @override
   Widget createBody(final BuildContext context, final StartState state) {
-    final String progressText = state.maybeMap(
+    final progressText = state.maybeMap(
       loading: (state) => sprintf(
         Strings.startBodyWithProgress,
         [state.done, state.all]
@@ -62,7 +62,7 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
       orElse: () => Strings.startBodyWithoutProgress
     );
 
-    final MediaQueryData mediaQueryData = MediaQuery.of(context);
+    final mediaQueryData = MediaQuery.of(context);
     final Widget textContainer = Container(
       width: mediaQueryData.size.width,
       height: mediaQueryData.size.height * 0.5,

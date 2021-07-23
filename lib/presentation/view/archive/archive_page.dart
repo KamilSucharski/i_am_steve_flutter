@@ -32,7 +32,7 @@ class _ArchivePageState extends BaseWidgetState<ArchivePage, ArchiveCubit, Archi
 
   @override
   Widget createBody(final BuildContext context, final ArchiveState state) {
-    final List<Comic> comics = widget.arguments.comics;
+    final comics = widget.arguments.comics;
     return SafeArea(
       child: Container(
         color: Styles.backgroundColor,
@@ -52,14 +52,10 @@ class _ArchivePageState extends BaseWidgetState<ArchivePage, ArchiveCubit, Archi
     final Comic comic,
     final void Function(Comic) onClick
   ) {
-    return Container(
+    final button = Container(
       width: double.infinity,
-      color: Styles.backgroundColor,
-      margin: EdgeInsets.only(
-        bottom: 1
-      ),
       child: Material(
-        color: Styles.elementColor,
+        color: Styles.backgroundColor,
         child: InkWell(
           onTap: () => onClick(comic),
           child: Padding(
@@ -77,6 +73,19 @@ class _ArchivePageState extends BaseWidgetState<ArchivePage, ArchiveCubit, Archi
           )
         )
       )
+    );
+
+    final separator = Container(
+      height: 1,
+      width: double.infinity,
+      color: Styles.darkerBackgroundColor
+    );
+
+    return Column(
+      children: [
+        button,
+        separator
+      ],
     );
   }
 }

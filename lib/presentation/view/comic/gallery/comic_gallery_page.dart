@@ -26,8 +26,8 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
 
   @override
   Widget createBody(final BuildContext context, final ComicGalleryState state) {
-    final List<Comic> comics = widget.arguments.comics;
-    final PageController controller = PageController(
+    final comics = widget.arguments.comics;
+    final controller = PageController(
       initialPage: comics.length - 1,
       keepPage: false
     );
@@ -49,9 +49,9 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
     final PageController controller,
     final List<Comic> comics
   ) {
-    return new Container(
+    return Container(
       height: 52,
-      child: new Row(
+      child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

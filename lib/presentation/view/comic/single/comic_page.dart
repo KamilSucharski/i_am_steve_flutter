@@ -43,11 +43,11 @@ class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState>
       return super.createBody(context, state);
     }
 
-    final Widget panel1 = _createComicPanelWidget(state.comicPanels.panel1);
-    final Widget panel2 = _createComicPanelWidget(state.comicPanels.panel2);
-    final Widget panel3 = _createComicPanelWidget(state.comicPanels.panel3);
-    final Widget panel4 = _createComicPanelWidget(state.comicPanels.panel4);
-    final Widget comicTitle = _createComicTitleWidget(state.comic);
+    final panel1 = _createComicPanelWidget(state.comicPanels.panel1);
+    final panel2 = _createComicPanelWidget(state.comicPanels.panel2);
+    final panel3 = _createComicPanelWidget(state.comicPanels.panel3);
+    final panel4 = _createComicPanelWidget(state.comicPanels.panel4);
+    final comicTitle = _createComicTitleWidget(state.comic);
 
     return SafeArea(
       child: Container(
