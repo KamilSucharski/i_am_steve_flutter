@@ -102,4 +102,16 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
       .putFile(fileName, bytes)
       .map((file) => bytes);
   }
+
+  @override
+  Stream<void> removeComicPanelFromLocalStorage(
+    final int comicNumber,
+    final int panelNumber
+  ) {
+    final String fileName = sprintf(
+      Consts.comicPanelFileNameFormat,
+      [comicNumber, panelNumber]
+    );
+    return _localStorage.removeFile(fileName);
+  }
 }

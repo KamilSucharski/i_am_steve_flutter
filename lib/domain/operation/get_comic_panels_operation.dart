@@ -39,7 +39,11 @@ class GetComicPanelsOperation implements Operation<Comic, Stream<ComicPanels>> {
 
   Stream<Uint8List> _getPanelFromAssets(final int comicNumber, final int panelNumber) {
     return _comicRepositoryLocal
-      .getComicPanelFromAssets(comicNumber, panelNumber);
+      .getComicPanelFromAssets(comicNumber, panelNumber)
+      .flatMap((panel) => _comicRepositoryLocal
+        .removeComicPanelFromLocalStorage(comicNumber, panelNumber)
+        .map((_) => panel)
+      );
   }
 
   Stream<ComicPanels> _getFromLocalStorage(final int comicNumber) {

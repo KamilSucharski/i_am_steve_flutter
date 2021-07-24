@@ -21,4 +21,8 @@ abstract class ComicRepositoryLocal {
     final int panelNumber,
     final Uint8List bytes
   );
+  Stream<void> removeComicPanelFromLocalStorage(
+    final int comicNumber,
+    final int panelNumber,
+  );
 }
