@@ -8,7 +8,6 @@ import 'package:i_am_steve_flutter/domain/error/no_comics_error.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:sprintf/sprintf.dart';
 
 class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
@@ -19,35 +18,31 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   ComicRepositoryLocalImpl(this._assetReader, this._localStorage);
 
   @override
-  Stream<List<Comic>> getComicsFromAssets() {
+  Future<List<Comic>> getComicsFromAssets() {
     return _assetReader
       .getString(Consts.assetsPreload + Consts.comicMetadataFileName)
-      .asStream()
-      .map((comicsJson) => (jsonDecode(comicsJson) as List<dynamic>))
-      .flatMapIterable<dynamic>((value) => Stream.value(value))
-      .map((dynamic item) => Comic.fromJson(item as Map<String, dynamic>))
-      .toList()
-      .asStream();
+      .then((comicsJson) => (jsonDecode(comicsJson) as List<dynamic>)
+        .map((dynamic item) => Comic.fromJson(item as Map<String, dynamic>))
+        .toList()
+      );
   }
 
   @override
-  Stream<List<Comic>> getComicsFromLocalStorage() {
+  Future<List<Comic>> getComicsFromLocalStorage() {
     return _localStorage
       .getObject<List<Map<String, dynamic>>>(Consts.keyComicList)
-      .map((list) {
+      .then((list) {
         if (list == null) {
           throw NoComicsError();
         }
-        return list;
-      })
-      .flatMapIterable((item) => Stream.value(item))
-      .map((item) => Comic.fromJson(item))
-      .toList()
-      .asStream();
+        return list
+          .map((item) => Comic.fromJson(item))
+          .toList();
+      });
   }
   
   @override
-  Stream<bool> saveComicsToLocalStorage(final List<Comic> comics) {
+  Future<bool> saveComicsToLocalStorage(final List<Comic> comics) {
     return _localStorage.putObject(
       Consts.keyComicList,
       comics
@@ -55,7 +50,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   }
   
   @override
-  Stream<Uint8List> getComicPanelFromAssets(
+  Future<Uint8List> getComicPanelFromAssets(
     final int comicNumber,
     final int panelNumber
   ) {
@@ -65,12 +60,11 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     );
     return _assetReader
       .getBytes(Consts.assetsPreload + fileName)
-      .asStream()
-      .map((bytes) => bytes.buffer.asUint8List());
+      .then((bytes) => bytes.buffer.asUint8List());
   }
 
   @override
-  Stream<Uint8List> getComicPanelFromLocalStorage(
+  Future<Uint8List> getComicPanelFromLocalStorage(
     final int comicNumber,
     final int panelNumber
   ) {
@@ -80,7 +74,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     );
     return _localStorage
       .getFile(fileName)
-      .map((file) {
+      .then((file) {
         if (file == null) {
           throw NoComicPanelError();
         }
@@ -89,7 +83,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   }
 
   @override
-  Stream<Uint8List> saveComicPanelToLocalStorage(
+  Future<Uint8List> saveComicPanelToLocalStorage(
     final int comicNumber,
     final int panelNumber,
     final Uint8List bytes
@@ -100,11 +94,11 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     );
     return _localStorage
       .putFile(fileName, bytes)
-      .map((file) => bytes);
+      .then((file) => bytes);
   }
 
   @override
-  Stream<void> removeComicPanelFromLocalStorage(
+  Future<void> removeComicPanelFromLocalStorage(
     final int comicNumber,
     final int panelNumber
   ) {

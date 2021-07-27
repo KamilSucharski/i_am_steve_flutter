@@ -13,6 +13,7 @@ class ComicCubit extends BaseCubit<ComicState> {
   void fetchComicPanels(final Comic comic) {
     _getComicPanelsOperation
       .execute(comic)
+      .asStream()
       .listen(
         (comicPanels) => emit(ComicState.displayComic(comic, comicPanels)),
         onError: (dynamic error) => emit(ComicState.handleError(error))

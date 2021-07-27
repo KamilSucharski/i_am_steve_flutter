@@ -19,6 +19,7 @@ class StartCubit extends BaseCubit<StartState> {
   @override
   Future<void> init() async {
     _getComics()
+      .asStream()
       .flatMap((comics) => _sequentiallyDownloadComicPanels(comics))
       .listen(
         (comics) => emit(StartState.navigateToComics(comics)),
@@ -29,7 +30,7 @@ class StartCubit extends BaseCubit<StartState> {
       .addTo(disposables);
   }
 
-  Stream<List<Comic>> _getComics() {
+  Future<List<Comic>> _getComics() {
     return _getComicsOperation.execute(null);
   }
 
@@ -38,6 +39,7 @@ class StartCubit extends BaseCubit<StartState> {
     comics.forEach((comic) {
       final nextDownload = _getComicPanelsOperation
         .execute(comic)
+        .asStream()
         .map((comicPanels) {
           emit(StartState.loading(
             comic.number,

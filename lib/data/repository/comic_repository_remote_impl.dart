@@ -8,33 +8,28 @@ import 'package:i_am_steve_flutter/domain/util/consts.dart';
 import 'package:sprintf/sprintf.dart';
 
 class ComicRepositoryRemoteImpl implements ComicRepositoryRemote {
-  
   final ComicApi _comicApi;
   final ComicMapper _comicMapper;
 
   ComicRepositoryRemoteImpl(this._comicApi, this._comicMapper);
 
   @override
-  Stream<List<Comic>> getComics() {
+  Future<List<Comic>> getComics() {
     return _comicApi
       .getComics()
-      .asStream()
-      .map((comics) => comics
-        .map((comic) => _comicMapper.map(comic))
-        .toList()
-    );
+      .then((comics) => comics
+        .map((comic) => _comicMapper.map(comic)).toList()
+      );
   }
 
   @override
-  Stream<Uint8List> getComicPanel(
+  Future<Uint8List> getComicPanel(
     final int comicNumber,
-    final int panelNumber
+    final int panelNumber,
   ) {
-    return _comicApi
-      .getComicPanel(sprintf(
-        Consts.comicPanelFileNameFormat,
-        [comicNumber, panelNumber]
-      ))
-      .asStream();
+    return _comicApi.getComicPanel(sprintf(
+      Consts.comicPanelFileNameFormat,
+      [comicNumber, panelNumber],
+    ));
   }
 }

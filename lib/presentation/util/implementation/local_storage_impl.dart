@@ -4,36 +4,33 @@ import 'dart:typed_data';
 
 import 'package:i_am_steve_flutter/data/util/abstraction/local_storage.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageImpl implements LocalStorage {
   @override
-  Stream<bool> containsEntry(final String key) {
+  Future<bool> containsEntry(final String key) {
     return SharedPreferences
       .getInstance()
-      .asStream()
-      .map((prefs) => prefs.containsKey(key));
+      .then((prefs) => prefs.containsKey(key));
   }
 
   @override
-  Stream<bool> containsFile(final String key) {
+  Future<bool> containsFile(final String key) {
     return _getFile(key)
-      .flatMap((file) => file.exists().asStream());
+      .then((file) => file.existsSync());
   }
 
   @override
-  Stream<bool> removeEntry(final String key) {
+  Future<bool> removeEntry(final String key) {
     return SharedPreferences
       .getInstance()
-      .asStream()
-      .flatMap((prefs) => prefs.remove(key).asStream());
+      .then((prefs) => prefs.remove(key));
   }
 
   @override
-  Stream<void> removeFile(final String key) {
+  Future<void> removeFile(final String key) {
     return _getFile(key)
-      .map((file) {
+      .then((file) {
         if (file.existsSync()) {
           file.deleteSync();
         }
@@ -41,39 +38,36 @@ class LocalStorageImpl implements LocalStorage {
   }
 
   @override
-  Stream<bool> putBool(final String key, final bool value) {
+  Future<bool> putBool(final String key, final bool value) {
     return SharedPreferences
       .getInstance()
-      .asStream()
-      .flatMap((prefs) => prefs.setBool(key, value).asStream());
+      .then((prefs) => prefs.setBool(key, value));
   }
 
   @override
-  Stream<bool> putInt(final String key, final int value) {
+  Future<bool> putInt(final String key, final int value) {
     return SharedPreferences
       .getInstance()
-      .asStream()
-      .flatMap((prefs) => prefs.setInt(key, value).asStream());
+      .then((prefs) => prefs.setInt(key, value));
   }
 
   @override
-  Stream<bool> putString(final String key, final String value) {
+  Future<bool> putString(final String key, final String value) {
     return SharedPreferences
         .getInstance()
-        .asStream()
-        .flatMap((prefs) => prefs.setString(key, value).asStream());
+        .then((prefs) => prefs.setString(key, value));
   }
 
   @override
-  Stream<bool> putObject(final String key, final Object object) {
-    final String json = jsonEncode(object);
+  Future<bool> putObject(final String key, final Object object) {
+    final json = jsonEncode(object);
     return putString(key, json);
   }
 
   @override
-  Stream<File> putFile(final String key, final Uint8List bytes) {
+  Future<File> putFile(final String key, final Uint8List bytes) {
     return _getFile(key)
-      .map((file) {
+      .then((file) {
           if (!file.existsSync()) {
             file.createSync(recursive: true);
           }
@@ -83,33 +77,30 @@ class LocalStorageImpl implements LocalStorage {
   }
 
   @override
-  Stream<bool?> getBoolean(final String key) {
+  Future<bool?> getBoolean(final String key) {
     return SharedPreferences
         .getInstance()
-        .asStream()
-        .map((prefs) => prefs.getBool(key));
+        .then((prefs) => prefs.getBool(key));
   }
 
   @override
-  Stream<int?> getInt(final String key) {
+  Future<int?> getInt(final String key) {
     return SharedPreferences
         .getInstance()
-        .asStream()
-        .map((prefs) => prefs.getInt(key));
+        .then((prefs) => prefs.getInt(key));
   }
 
   @override
-  Stream<String?> getString(final String key) {
+  Future<String?> getString(final String key) {
     return SharedPreferences
         .getInstance()
-        .asStream()
-        .map((prefs) => prefs.getString(key));
+        .then((prefs) => prefs.getString(key));
   }
 
   @override
-  Stream<T?> getObject<T>(final String key) {
+  Future<T?> getObject<T>(final String key) {
     return getString(key)
-      .map((json) {
+      .then((json) {
         if (json != null) {
           return jsonDecode(json) as T;
         } else {
@@ -119,9 +110,9 @@ class LocalStorageImpl implements LocalStorage {
   }
 
   @override
-  Stream<File?> getFile(final String key) {
+  Future<File?> getFile(final String key) {
     return _getFile(key)
-      .map((file) {
+      .then((file) {
         if (file.existsSync()) {
           return file;
         } else {
@@ -130,15 +121,13 @@ class LocalStorageImpl implements LocalStorage {
       });
   }
 
-  Stream<File> _getFile(final String key) {
+  Future<File> _getFile(final String key) {
     return getApplicationSupportDirectory()
-      .asStream()
-      .map((directory) {
+      .then((directory) {
         if (!directory.existsSync()) {
           directory.createSync(recursive: true);
         }
-        final String path = directory.path;
-        return File('$path/$key');
+        return File('${directory.path}/$key');
       });
   }
 }

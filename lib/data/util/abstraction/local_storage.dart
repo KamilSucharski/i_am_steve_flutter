@@ -2,31 +2,31 @@ import 'dart:io';
 import 'dart:typed_data';
 
 abstract class LocalStorage {
-  Stream<bool> containsEntry(final String key);
+  Future<bool> containsEntry(final String key);
 
-  Stream<bool> containsFile(final String key);
+  Future<bool> containsFile(final String key);
 
-  Stream<bool> removeEntry(final String key);
+  Future<bool> removeEntry(final String key);
 
-  Stream<void> removeFile(final String key);
+  Future<void> removeFile(final String key);
 
-  Stream<bool> putBool(final String key, final bool value);
+  Future<bool> putBool(final String key, final bool value);
 
-  Stream<bool> putInt(final String key, final int value);
+  Future<bool> putInt(final String key, final int value);
 
-  Stream<bool> putString(final String key, final String value);
+  Future<bool> putString(final String key, final String value);
 
-  Stream<bool> putObject(final String key, final Object object);
+  Future<bool> putObject(final String key, final Object object);
 
-  Stream<File> putFile(final String key, final Uint8List bytes);
+  Future<File> putFile(final String key, final Uint8List bytes);
 
-  Stream<bool?> getBoolean(final String key);
+  Future<bool?> getBoolean(final String key);
 
-  Stream<int?> getInt(final String key);
+  Future<int?> getInt(final String key);
 
-  Stream<String?> getString(final String key);
+  Future<String?> getString(final String key);
 
-  Stream<T?> getObject<T>(final String key);
+  Future<T?> getObject<T>(final String key);
 
-  Stream<File?> getFile(final String key);
+  Future<File?> getFile(final String key);
 }
