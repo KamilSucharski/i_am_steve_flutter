@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:i_am_steve_flutter/data/dto/comic_dto.dart';
 import 'package:i_am_steve_flutter/domain/util/abstraction/configuration.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
-import 'package:rxdart/rxdart.dart';
 
 class ComicApi {
 
@@ -15,11 +14,10 @@ class ComicApi {
 
   Future<List<ComicDto>> getComics() => _dio
     .get<List<dynamic>>(_configuration.getBaseUrl() + Consts.comicMetadataFileName)
-    .then((response) => response.data as List<dynamic>)
-    .asStream()
-    .flatMapIterable<dynamic>((item) => Stream.value(item))
-    .map((dynamic item) => ComicDto.fromJson(item as Map<String, dynamic>))
-    .toList();
+    .then((response) => (response.data as List<dynamic>)
+      .map((dynamic item) => ComicDto.fromJson(item as Map<String, dynamic>))
+      .toList()
+    );
 
   Future<Uint8List> getComicPanel(final String fileName) => _dio
     .get<List<int>>(
