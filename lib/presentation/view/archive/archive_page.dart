@@ -19,17 +19,14 @@ class ArchivePage extends StatefulWidget {
 class _ArchivePageState extends BaseWidgetState<ArchivePage, ArchiveCubit, ArchiveState> {
 
   @override
-  bool onStateChange(final BuildContext context, final ArchiveState state) {
+  void onStateChange(final BuildContext context, final ArchiveState state) {
     if (state is NavigateToComic) {
       Navigator.pop(context, state.comic);
-      return false;
     }
-
-    return true;
   }
 
   @override
-  Widget createBody(final BuildContext context, final ArchiveState state) {
+  Widget createBody(final BuildContext context) {
     final listItems = ArchiveListMapper((comic) => cubit.onComicClicked(comic))
       .map(widget.arguments.comics);
     return SafeArea(

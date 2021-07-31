@@ -19,35 +19,38 @@ class ComicPage extends StatefulWidget {
 class _ComicPageState extends BaseWidgetState<ComicPage, ComicCubit, ComicState> {
 
   @override
-  bool onStateChange(final BuildContext context, final ComicState state) {
-    if (state is HandleError) {
-      Fluttertoast.showToast(msg: state.error.toString());
-      return false;
-    }
-
-    return true;
+  void initState() {
+    cubit.fetchComicPanels(widget.arguments.comic);
+    super.initState();
   }
 
   @override
-  Widget createBody(final BuildContext context, final ComicState state) {
-    if (state is Initial) {
-      cubit.fetchComicPanels(widget.arguments.comic);
-      return super.createBody(context, state);
+  void onStateChange(final BuildContext context, final ComicState state) {
+    if (state is HandleError) {
+      Fluttertoast.showToast(msg: state.error.toString());
     }
+  }
 
-    if (!(state is DisplayComic)) {
-      return super.createBody(context, state);
-    }
-
-    final listItems = ComicListMapper().map(state);
+  @override
+  Widget createBody(final BuildContext context) {
     return SafeArea(
       child: Container(
         color: Styles.colorWhite,
-        child: ListView.builder(
-          padding: EdgeInsets.zero,
-          itemCount: listItems.length,
-          itemBuilder: (context, index) => listItems[index].toWidget(context),
-        ).build(context)
+        child: blocBuilder(
+          builder: (context, state) {
+            if (state is DisplayComic) {
+              final listItems = ComicListMapper().map(state);
+              return ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: listItems.length,
+                itemBuilder: (context, index) => listItems[index].toWidget(context),
+              ).build(context);
+            } else {
+              return super.createBody(context);
+            }
+          },
+          buildWhen: (previous, current) => current is DisplayComic
+        )
       )
     );
   }

@@ -37,16 +37,17 @@ class StartCubit extends BaseCubit<StartState> {
   Stream<List<Comic>> _sequentiallyDownloadComicPanels(final List<Comic> comics) {
     var sequentialDownloads = Stream.value(null);
     comics.forEach((comic) {
-      final nextDownload = _getComicPanelsOperation
-        .execute(comic)
-        .asStream()
-        .map((comicPanels) {
-          emit(StartState.loading(
-            comic.number,
-            comics.length
-          ));
-      });
-      sequentialDownloads = sequentialDownloads.flatMap((_) => nextDownload);
+      sequentialDownloads = sequentialDownloads
+        .flatMap((_) => _getComicPanelsOperation
+          .execute(comic)
+          .asStream()
+          .map((comicPanels) {
+            emit(StartState.loading(
+              comic.number,
+              comics.length
+            ));
+          })
+        );
     });
     return sequentialDownloads.map((_) => comics);
   }

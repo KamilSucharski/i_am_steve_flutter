@@ -14,7 +14,6 @@ class RepositoryModule implements InjectorModule {
       getIt.get()
     ));
     getIt.registerFactory<ComicRepositoryRemote>(() => ComicRepositoryRemoteImpl(
-      getIt.get(),
       getIt.get()
     ));
   }

@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:i_am_steve_flutter/presentation/di/module/cubit_module.dart';
 import 'package:i_am_steve_flutter/presentation/di/module/implementation_module.dart';
-import 'package:i_am_steve_flutter/presentation/di/module/mapper_module.dart';
 import 'package:i_am_steve_flutter/presentation/di/module/operation_module.dart';
 import 'package:i_am_steve_flutter/presentation/di/module/repository_module.dart';
 
@@ -11,7 +10,6 @@ class Injector {
   static void initialize(final String baseUrl) {
     [
       ImplementationModule(baseUrl),
-      MapperModule(),
       NetworkModule(),
       RepositoryModule(),
       OperationModule(),

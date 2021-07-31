@@ -6,13 +6,23 @@ import 'package:i_am_steve_flutter/domain/view/base/base_cubit.dart';
 abstract class BaseWidgetState<WIDGET extends StatefulWidget, CUBIT extends BaseCubit<STATE>, STATE> extends State<WIDGET> {
   final CUBIT cubit = GetIt.I.get<CUBIT>();
 
-  /// Return true if you want to rebuild the widget
-  bool onStateChange(final BuildContext context, final STATE state) {
-    return false;
+  void onStateChange(
+    final BuildContext context,
+    final STATE state,
+  ) {}
+
+  Widget createBody(final BuildContext context) {
+    return Container();
   }
 
-  Widget createBody(final BuildContext context, final STATE state) {
-    return Container();
+  BlocBuilder<CUBIT, STATE> blocBuilder({
+    required final BlocWidgetBuilder<STATE> builder,
+    final BlocBuilderCondition<STATE>? buildWhen,
+  }) {
+    return BlocBuilder<CUBIT, STATE>(
+      builder: builder,
+      buildWhen: buildWhen,
+    );
   }
 
   @override
@@ -21,11 +31,9 @@ abstract class BaseWidgetState<WIDGET extends StatefulWidget, CUBIT extends Base
         create: (_) => cubit,
         child: BlocListener<CUBIT, STATE>(
           listener: (context, state) {
-            if (onStateChange(context, state)) {
-              setState(() {});
-            }
+            onStateChange(context, state);
           },
-          child: createBody(context, cubit.state)
+          child: createBody(context)
         )
     );
   }

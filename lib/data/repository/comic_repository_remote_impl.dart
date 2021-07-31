@@ -9,16 +9,15 @@ import 'package:sprintf/sprintf.dart';
 
 class ComicRepositoryRemoteImpl implements ComicRepositoryRemote {
   final ComicApi _comicApi;
-  final ComicMapper _comicMapper;
 
-  ComicRepositoryRemoteImpl(this._comicApi, this._comicMapper);
+  ComicRepositoryRemoteImpl(this._comicApi);
 
   @override
   Future<List<Comic>> getComics() {
     return _comicApi
       .getComics()
       .then((comics) => comics
-        .map((comic) => _comicMapper.map(comic)).toList()
+        .map((comic) => ComicMapper().map(comic)).toList()
       );
   }
 

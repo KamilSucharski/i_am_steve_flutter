@@ -24,7 +24,7 @@ class ComicGalleryPage extends StatefulWidget {
 class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGalleryCubit, ComicGalleryState> {
 
   @override
-  Widget createBody(final BuildContext context, final ComicGalleryState state) {
+  Widget createBody(final BuildContext context) {
     final comics = widget.arguments.comics;
     final controller = PageController(
       initialPage: comics.length - 1,
@@ -50,30 +50,36 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
   ) {
     return Container(
       height: 52,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _createButton(
-            Assets.iconChevronLeft,
-            () => _goToPreviousPage(controller)
-          ),
-          _createButton(
-            Assets.iconArchive,
-            () => _navigateToArchive(controller, comics)
-          ),
-          _createButton(
-            Assets.iconChevronRight,
-            () => _goToNextPage(controller)
-          )
-        ]
+      child: blocBuilder(
+        builder: (_, state) => Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _createButton(
+              Assets.iconChevronLeft,
+              true,
+              () => _goToPreviousPage(controller)
+            ),
+            _createButton(
+              Assets.iconArchive,
+              true,
+              () => _navigateToArchive(controller, comics)
+            ),
+            _createButton(
+              Assets.iconChevronRight,
+              true,
+              () => _goToNextPage(controller)
+            )
+          ]
+        )
       )
     );
   }
 
   Widget _createButton(
     final String asset,
-    final void Function() onClick
+    final bool visible,
+    final void Function() onClick,
   ) {
     return Expanded(
       child: Material(

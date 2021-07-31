@@ -35,10 +35,9 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
   }
 
   @override
-  bool onStateChange(final BuildContext context, final StartState state) {
+  void onStateChange(final BuildContext context, final StartState state) {
     if (state is HandleError) {
       Fluttertoast.showToast(msg: state.error.toString());
-      return false;
     }
 
     if (state is NavigateToComics) {
@@ -46,36 +45,53 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
         Routes.comics,
         arguments: ComicGalleryArguments(comics: state.comics),
       );
-      return false;
     }
-
-    return true;
   }
 
   @override
-  Widget createBody(final BuildContext context, final StartState state) {
-    final progressText = state.maybeMap(
-      loading: (state) => sprintf(
-        Strings.startBodyWithProgress,
-        [state.done, state.all]
-      ),
-      orElse: () => Strings.startBodyWithoutProgress
-    );
-
+  Widget createBody(final BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
-    final Widget textContainer = Container(
+    return SafeArea(
+      child: Container(
+        color: Styles.backgroundColor,
+        child: Column(
+          verticalDirection: VerticalDirection.up,
+          children: [
+            _createProgressTextWidget(mediaQueryData),
+            _createIconWidget(mediaQueryData)
+          ],
+        )
+      )
+    );
+  }
+
+  Widget _createProgressTextWidget(final MediaQueryData mediaQueryData) {
+    return Container(
       width: mediaQueryData.size.width,
       height: mediaQueryData.size.height * 0.5,
       padding: const EdgeInsets.all(16),
-      child: Text(
-        progressText,
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.overline?.apply(
-          fontSizeFactor: 4
-        ),
-      )
+      child: blocBuilder(
+        builder: (context, state) {
+          final text = state.maybeMap(
+            loading: (state) => sprintf(
+              Strings.startBodyWithProgress,
+              [state.done, state.all]
+            ),
+            orElse: () => Strings.startBodyWithoutProgress
+          );
+          return Text(
+            text,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.overline?.apply(
+              fontSizeFactor: 4
+            ),
+          );
+        }
+      ),
     );
+  }
 
+  Widget _createIconWidget(final MediaQueryData mediaQueryData) {
     Widget icon = SvgPicture.asset(
       Assets.iconSteve,
       width: mediaQueryData.size.width * 0.5,
@@ -92,22 +108,9 @@ class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState>
       }
     }
 
-    final Widget iconContainer = Container(
+    return Container(
       padding: const EdgeInsets.all(16),
       child: icon
-    );
-
-    return SafeArea(
-      child: Container(
-        color: Styles.backgroundColor,
-        child: Column(
-          verticalDirection: VerticalDirection.up,
-          children: [
-            textContainer,
-            iconContainer
-          ],
-        )
-      )
     );
   }
 }
