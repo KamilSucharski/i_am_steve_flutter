@@ -50,6 +50,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
   ) {
     return Container(
       height: 52,
+      color: Styles.backgroundColor,
       child: blocBuilder(
         builder: (_, state) => Row(
           mainAxisSize: MainAxisSize.max,
@@ -57,7 +58,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
           children: [
             _createButton(
               Assets.iconChevronLeft,
-              true,
+              !(state is SetButtonVisibility) || state.previousButtonVisible,
               () => _goToPreviousPage(controller)
             ),
             _createButton(
@@ -67,7 +68,7 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
             ),
             _createButton(
               Assets.iconChevronRight,
-              true,
+              !(state is SetButtonVisibility) || state.nextButtonVisible,
               () => _goToNextPage(controller)
             )
           ]
@@ -81,6 +82,10 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
     final bool visible,
     final void Function() onClick,
   ) {
+    if (!visible) {
+      return Expanded(child: SizedBox());
+    }
+
     return Expanded(
       child: Material(
         color: Styles.backgroundColor,
@@ -111,7 +116,8 @@ class _ComicGalleryPageState extends BaseWidgetState<ComicGalleryPage, ComicGall
     final Widget pageView = Expanded(
       child: PageView(
         controller: controller,
-        children: pages
+        onPageChanged: (page) => cubit.onPageChanged(page, pages.length),
+        children: pages,
       )
     );
     return pageView;

@@ -4,5 +4,8 @@ part 'comic_gallery_state.freezed.dart';
 
 @freezed
 class ComicGalleryState with _$ComicGalleryState {
-  const factory ComicGalleryState.initial() = Initial;
+  const factory ComicGalleryState.setButtonVisibility(
+    final bool previousButtonVisible,
+    final bool nextButtonVisible,
+  ) = SetButtonVisibility;
 }
