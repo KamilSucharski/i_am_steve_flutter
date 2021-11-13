@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'comic_state.dart';
 
@@ -20,16 +21,21 @@ class _$ComicStateTearOff {
     return const Initial();
   }
 
-  DisplayComic displayComic(Comic comic, ComicPanels comicPanels) {
+  DisplayComic displayComic(
+      {required Key key,
+      required Comic comic,
+      required ComicPanels comicPanels}) {
     return DisplayComic(
-      comic,
-      comicPanels,
+      key: key,
+      comic: comic,
+      comicPanels: comicPanels,
     );
   }
 
-  HandleError handleError(dynamic error) {
-    return HandleError(
-      error,
+  ShowError showError({required Key key, required String message}) {
+    return ShowError(
+      key: key,
+      message: message,
     );
   }
 }
@@ -42,16 +48,25 @@ mixin _$ComicState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Comic comic, ComicPanels comicPanels)
+    required TResult Function(Key key, Comic comic, ComicPanels comicPanels)
         displayComic,
-    required TResult Function(dynamic error) handleError,
+    required TResult Function(Key key, String message) showError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, Comic comic, ComicPanels comicPanels)?
+        displayComic,
+    TResult Function(Key key, String message)? showError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
-    TResult Function(dynamic error)? handleError,
+    TResult Function(Key key, Comic comic, ComicPanels comicPanels)?
+        displayComic,
+    TResult Function(Key key, String message)? showError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,14 +74,21 @@ mixin _$ComicState {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(DisplayComic value) displayComic,
-    required TResult Function(HandleError value) handleError,
+    required TResult Function(ShowError value) showError,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(DisplayComic value)? displayComic,
+    TResult Function(ShowError value)? showError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(DisplayComic value)? displayComic,
-    TResult Function(HandleError value)? handleError,
+    TResult Function(ShowError value)? showError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -116,7 +138,8 @@ class _$Initial implements Initial {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Initial);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Initial);
   }
 
   @override
@@ -126,19 +149,31 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Comic comic, ComicPanels comicPanels)
+    required TResult Function(Key key, Comic comic, ComicPanels comicPanels)
         displayComic,
-    required TResult Function(dynamic error) handleError,
+    required TResult Function(Key key, String message) showError,
   }) {
     return initial();
   }
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, Comic comic, ComicPanels comicPanels)?
+        displayComic,
+    TResult Function(Key key, String message)? showError,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
-    TResult Function(dynamic error)? handleError,
+    TResult Function(Key key, Comic comic, ComicPanels comicPanels)?
+        displayComic,
+    TResult Function(Key key, String message)? showError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -152,9 +187,19 @@ class _$Initial implements Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(DisplayComic value) displayComic,
-    required TResult Function(HandleError value) handleError,
+    required TResult Function(ShowError value) showError,
   }) {
     return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(DisplayComic value)? displayComic,
+    TResult Function(ShowError value)? showError,
+  }) {
+    return initial?.call(this);
   }
 
   @override
@@ -162,7 +207,7 @@ class _$Initial implements Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(DisplayComic value)? displayComic,
-    TResult Function(HandleError value)? handleError,
+    TResult Function(ShowError value)? showError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -181,7 +226,7 @@ abstract class $DisplayComicCopyWith<$Res> {
   factory $DisplayComicCopyWith(
           DisplayComic value, $Res Function(DisplayComic) then) =
       _$DisplayComicCopyWithImpl<$Res>;
-  $Res call({Comic comic, ComicPanels comicPanels});
+  $Res call({Key key, Comic comic, ComicPanels comicPanels});
 
   $ComicCopyWith<$Res> get comic;
   $ComicPanelsCopyWith<$Res> get comicPanels;
@@ -199,15 +244,20 @@ class _$DisplayComicCopyWithImpl<$Res> extends _$ComicStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? key = freezed,
     Object? comic = freezed,
     Object? comicPanels = freezed,
   }) {
     return _then(DisplayComic(
-      comic == freezed
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as Key,
+      comic: comic == freezed
           ? _value.comic
           : comic // ignore: cast_nullable_to_non_nullable
               as Comic,
-      comicPanels == freezed
+      comicPanels: comicPanels == freezed
           ? _value.comicPanels
           : comicPanels // ignore: cast_nullable_to_non_nullable
               as ComicPanels,
@@ -232,8 +282,11 @@ class _$DisplayComicCopyWithImpl<$Res> extends _$ComicStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DisplayComic implements DisplayComic {
-  const _$DisplayComic(this.comic, this.comicPanels);
+  const _$DisplayComic(
+      {required this.key, required this.comic, required this.comicPanels});
 
+  @override
+  final Key key;
   @override
   final Comic comic;
   @override
@@ -241,25 +294,22 @@ class _$DisplayComic implements DisplayComic {
 
   @override
   String toString() {
-    return 'ComicState.displayComic(comic: $comic, comicPanels: $comicPanels)';
+    return 'ComicState.displayComic(key: $key, comic: $comic, comicPanels: $comicPanels)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is DisplayComic &&
-            (identical(other.comic, comic) ||
-                const DeepCollectionEquality().equals(other.comic, comic)) &&
+        (other.runtimeType == runtimeType &&
+            other is DisplayComic &&
+            (identical(other.key, key) || other.key == key) &&
+            (identical(other.comic, comic) || other.comic == comic) &&
             (identical(other.comicPanels, comicPanels) ||
-                const DeepCollectionEquality()
-                    .equals(other.comicPanels, comicPanels)));
+                other.comicPanels == comicPanels));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(comic) ^
-      const DeepCollectionEquality().hash(comicPanels);
+  int get hashCode => Object.hash(runtimeType, key, comic, comicPanels);
 
   @JsonKey(ignore: true)
   @override
@@ -270,23 +320,35 @@ class _$DisplayComic implements DisplayComic {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Comic comic, ComicPanels comicPanels)
+    required TResult Function(Key key, Comic comic, ComicPanels comicPanels)
         displayComic,
-    required TResult Function(dynamic error) handleError,
+    required TResult Function(Key key, String message) showError,
   }) {
-    return displayComic(comic, comicPanels);
+    return displayComic(key, comic, comicPanels);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, Comic comic, ComicPanels comicPanels)?
+        displayComic,
+    TResult Function(Key key, String message)? showError,
+  }) {
+    return displayComic?.call(key, comic, comicPanels);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
-    TResult Function(dynamic error)? handleError,
+    TResult Function(Key key, Comic comic, ComicPanels comicPanels)?
+        displayComic,
+    TResult Function(Key key, String message)? showError,
     required TResult orElse(),
   }) {
     if (displayComic != null) {
-      return displayComic(comic, comicPanels);
+      return displayComic(key, comic, comicPanels);
     }
     return orElse();
   }
@@ -296,9 +358,19 @@ class _$DisplayComic implements DisplayComic {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(DisplayComic value) displayComic,
-    required TResult Function(HandleError value) handleError,
+    required TResult Function(ShowError value) showError,
   }) {
     return displayComic(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(DisplayComic value)? displayComic,
+    TResult Function(ShowError value)? showError,
+  }) {
+    return displayComic?.call(this);
   }
 
   @override
@@ -306,7 +378,7 @@ class _$DisplayComic implements DisplayComic {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(DisplayComic value)? displayComic,
-    TResult Function(HandleError value)? handleError,
+    TResult Function(ShowError value)? showError,
     required TResult orElse(),
   }) {
     if (displayComic != null) {
@@ -317,98 +389,118 @@ class _$DisplayComic implements DisplayComic {
 }
 
 abstract class DisplayComic implements ComicState {
-  const factory DisplayComic(Comic comic, ComicPanels comicPanels) =
-      _$DisplayComic;
+  const factory DisplayComic(
+      {required Key key,
+      required Comic comic,
+      required ComicPanels comicPanels}) = _$DisplayComic;
 
-  Comic get comic => throw _privateConstructorUsedError;
-  ComicPanels get comicPanels => throw _privateConstructorUsedError;
+  Key get key;
+  Comic get comic;
+  ComicPanels get comicPanels;
   @JsonKey(ignore: true)
   $DisplayComicCopyWith<DisplayComic> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $HandleErrorCopyWith<$Res> {
-  factory $HandleErrorCopyWith(
-          HandleError value, $Res Function(HandleError) then) =
-      _$HandleErrorCopyWithImpl<$Res>;
-  $Res call({dynamic error});
+abstract class $ShowErrorCopyWith<$Res> {
+  factory $ShowErrorCopyWith(ShowError value, $Res Function(ShowError) then) =
+      _$ShowErrorCopyWithImpl<$Res>;
+  $Res call({Key key, String message});
 }
 
 /// @nodoc
-class _$HandleErrorCopyWithImpl<$Res> extends _$ComicStateCopyWithImpl<$Res>
-    implements $HandleErrorCopyWith<$Res> {
-  _$HandleErrorCopyWithImpl(
-      HandleError _value, $Res Function(HandleError) _then)
-      : super(_value, (v) => _then(v as HandleError));
+class _$ShowErrorCopyWithImpl<$Res> extends _$ComicStateCopyWithImpl<$Res>
+    implements $ShowErrorCopyWith<$Res> {
+  _$ShowErrorCopyWithImpl(ShowError _value, $Res Function(ShowError) _then)
+      : super(_value, (v) => _then(v as ShowError));
 
   @override
-  HandleError get _value => super._value as HandleError;
+  ShowError get _value => super._value as ShowError;
 
   @override
   $Res call({
-    Object? error = freezed,
+    Object? key = freezed,
+    Object? message = freezed,
   }) {
-    return _then(HandleError(
-      error == freezed
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+    return _then(ShowError(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as Key,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$HandleError implements HandleError {
-  const _$HandleError(this.error);
+class _$ShowError implements ShowError {
+  const _$ShowError({required this.key, required this.message});
 
   @override
-  final dynamic error;
+  final Key key;
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'ComicState.handleError(error: $error)';
+    return 'ComicState.showError(key: $key, message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is HandleError &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+        (other.runtimeType == runtimeType &&
+            other is ShowError &&
+            (identical(other.key, key) || other.key == key) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
+  int get hashCode => Object.hash(runtimeType, key, message);
 
   @JsonKey(ignore: true)
   @override
-  $HandleErrorCopyWith<HandleError> get copyWith =>
-      _$HandleErrorCopyWithImpl<HandleError>(this, _$identity);
+  $ShowErrorCopyWith<ShowError> get copyWith =>
+      _$ShowErrorCopyWithImpl<ShowError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Comic comic, ComicPanels comicPanels)
+    required TResult Function(Key key, Comic comic, ComicPanels comicPanels)
         displayComic,
-    required TResult Function(dynamic error) handleError,
+    required TResult Function(Key key, String message) showError,
   }) {
-    return handleError(error);
+    return showError(key, message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, Comic comic, ComicPanels comicPanels)?
+        displayComic,
+    TResult Function(Key key, String message)? showError,
+  }) {
+    return showError?.call(key, message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Comic comic, ComicPanels comicPanels)? displayComic,
-    TResult Function(dynamic error)? handleError,
+    TResult Function(Key key, Comic comic, ComicPanels comicPanels)?
+        displayComic,
+    TResult Function(Key key, String message)? showError,
     required TResult orElse(),
   }) {
-    if (handleError != null) {
-      return handleError(error);
+    if (showError != null) {
+      return showError(key, message);
     }
     return orElse();
   }
@@ -418,9 +510,19 @@ class _$HandleError implements HandleError {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(DisplayComic value) displayComic,
-    required TResult Function(HandleError value) handleError,
+    required TResult Function(ShowError value) showError,
   }) {
-    return handleError(this);
+    return showError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(DisplayComic value)? displayComic,
+    TResult Function(ShowError value)? showError,
+  }) {
+    return showError?.call(this);
   }
 
   @override
@@ -428,21 +530,23 @@ class _$HandleError implements HandleError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(DisplayComic value)? displayComic,
-    TResult Function(HandleError value)? handleError,
+    TResult Function(ShowError value)? showError,
     required TResult orElse(),
   }) {
-    if (handleError != null) {
-      return handleError(this);
+    if (showError != null) {
+      return showError(this);
     }
     return orElse();
   }
 }
 
-abstract class HandleError implements ComicState {
-  const factory HandleError(dynamic error) = _$HandleError;
+abstract class ShowError implements ComicState {
+  const factory ShowError({required Key key, required String message}) =
+      _$ShowError;
 
-  dynamic get error => throw _privateConstructorUsedError;
+  Key get key;
+  String get message;
   @JsonKey(ignore: true)
-  $HandleErrorCopyWith<HandleError> get copyWith =>
+  $ShowErrorCopyWith<ShowError> get copyWith =>
       throw _privateConstructorUsedError;
 }

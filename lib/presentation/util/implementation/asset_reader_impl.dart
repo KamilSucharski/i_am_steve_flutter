@@ -1,6 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:i_am_steve_flutter/data/util/abstraction/asset_reader.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: AssetReader)
 class AssetReaderImpl implements AssetReader {
 
   @override

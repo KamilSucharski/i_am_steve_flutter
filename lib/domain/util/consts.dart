@@ -1,6 +1,9 @@
 class Consts {
   Consts._();
 
+  static const String appName = 'Healp';
+  static const String empty = '';
+
   static const String comicMetadataFileName = 'comics.json';
   static const String comicPanelFileNameFormat = '%d_%d.png';
 

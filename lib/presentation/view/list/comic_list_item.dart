@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
-import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
+import 'package:i_am_steve_flutter/domain/util/extension/context.dart';
 import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
 import 'package:i_am_steve_flutter/presentation/util/list_item.dart';
 import 'package:sprintf/sprintf.dart';
@@ -13,18 +12,20 @@ class ComicListItem implements ListItem {
   ComicListItem(this._comic, this._onComicClicked);
 
   @override
-  Widget toWidget(final BuildContext context) {
-    final button = Container(
+  Widget toWidget({
+    required final BuildContext context
+  }) {
+    final button = SizedBox(
       width: double.infinity,
       child: Material(
         color: Styles.backgroundColor,
         child: InkWell(
           onTap: () => _onComicClicked(_comic),
           child: Padding(
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             child: Text(
               sprintf(
-                Strings.comicArchiveFormat,
+                context.getString((strings) => strings.comic_archiveFormat),
                 [_comic.number, _comic.title, _comic.date]
               ),
               style: Theme.of(context).textTheme.overline?.apply(

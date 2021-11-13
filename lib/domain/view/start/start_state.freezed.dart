@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'start_state.dart';
 
@@ -20,22 +21,27 @@ class _$StartStateTearOff {
     return const Initial();
   }
 
-  Loading loading(int done, int all) {
-    return Loading(
-      done,
-      all,
+  SetLoading setLoading(
+      {required Key key, required int done, required int all}) {
+    return SetLoading(
+      key: key,
+      done: done,
+      all: all,
     );
   }
 
-  HandleError handleError(dynamic error) {
-    return HandleError(
-      error,
+  ShowError showError({required Key key, required String message}) {
+    return ShowError(
+      key: key,
+      message: message,
     );
   }
 
-  NavigateToComics navigateToComics(List<Comic> comics) {
+  NavigateToComics navigateToComics(
+      {required Key key, required List<Comic> comics}) {
     return NavigateToComics(
-      comics,
+      key: key,
+      comics: comics,
     );
   }
 }
@@ -48,33 +54,49 @@ mixin _$StartState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(int done, int all) loading,
-    required TResult Function(dynamic error) handleError,
-    required TResult Function(List<Comic> comics) navigateToComics,
+    required TResult Function(Key key, int done, int all) setLoading,
+    required TResult Function(Key key, String message) showError,
+    required TResult Function(Key key, List<Comic> comics) navigateToComics,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(int done, int all)? loading,
-    TResult Function(dynamic error)? handleError,
-    TResult Function(List<Comic> comics)? navigateToComics,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(HandleError value) handleError,
+    required TResult Function(SetLoading value) setLoading,
+    required TResult Function(ShowError value) showError,
     required TResult Function(NavigateToComics value) navigateToComics,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
+    TResult Function(NavigateToComics value)? navigateToComics,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(HandleError value)? handleError,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) =>
@@ -125,7 +147,8 @@ class _$Initial implements Initial {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Initial);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Initial);
   }
 
   @override
@@ -135,20 +158,31 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(int done, int all) loading,
-    required TResult Function(dynamic error) handleError,
-    required TResult Function(List<Comic> comics) navigateToComics,
+    required TResult Function(Key key, int done, int all) setLoading,
+    required TResult Function(Key key, String message) showError,
+    required TResult Function(Key key, List<Comic> comics) navigateToComics,
   }) {
     return initial();
   }
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(int done, int all)? loading,
-    TResult Function(dynamic error)? handleError,
-    TResult Function(List<Comic> comics)? navigateToComics,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -161,8 +195,8 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(HandleError value) handleError,
+    required TResult Function(SetLoading value) setLoading,
+    required TResult Function(ShowError value) showError,
     required TResult Function(NavigateToComics value) navigateToComics,
   }) {
     return initial(this);
@@ -170,10 +204,21 @@ class _$Initial implements Initial {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
+    TResult Function(NavigateToComics value)? navigateToComics,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(HandleError value)? handleError,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) {
@@ -189,32 +234,38 @@ abstract class Initial implements StartState {
 }
 
 /// @nodoc
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
-  $Res call({int done, int all});
+abstract class $SetLoadingCopyWith<$Res> {
+  factory $SetLoadingCopyWith(
+          SetLoading value, $Res Function(SetLoading) then) =
+      _$SetLoadingCopyWithImpl<$Res>;
+  $Res call({Key key, int done, int all});
 }
 
 /// @nodoc
-class _$LoadingCopyWithImpl<$Res> extends _$StartStateCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+class _$SetLoadingCopyWithImpl<$Res> extends _$StartStateCopyWithImpl<$Res>
+    implements $SetLoadingCopyWith<$Res> {
+  _$SetLoadingCopyWithImpl(SetLoading _value, $Res Function(SetLoading) _then)
+      : super(_value, (v) => _then(v as SetLoading));
 
   @override
-  Loading get _value => super._value as Loading;
+  SetLoading get _value => super._value as SetLoading;
 
   @override
   $Res call({
+    Object? key = freezed,
     Object? done = freezed,
     Object? all = freezed,
   }) {
-    return _then(Loading(
-      done == freezed
+    return _then(SetLoading(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as Key,
+      done: done == freezed
           ? _value.done
           : done // ignore: cast_nullable_to_non_nullable
               as int,
-      all == freezed
+      all: all == freezed
           ? _value.all
           : all // ignore: cast_nullable_to_non_nullable
               as int,
@@ -224,9 +275,12 @@ class _$LoadingCopyWithImpl<$Res> extends _$StartStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Loading implements Loading {
-  const _$Loading(this.done, this.all);
+class _$SetLoading implements SetLoading {
+  const _$SetLoading(
+      {required this.key, required this.done, required this.all});
 
+  @override
+  final Key key;
   @override
   final int done;
   @override
@@ -234,52 +288,60 @@ class _$Loading implements Loading {
 
   @override
   String toString() {
-    return 'StartState.loading(done: $done, all: $all)';
+    return 'StartState.setLoading(key: $key, done: $done, all: $all)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Loading &&
-            (identical(other.done, done) ||
-                const DeepCollectionEquality().equals(other.done, done)) &&
-            (identical(other.all, all) ||
-                const DeepCollectionEquality().equals(other.all, all)));
+        (other.runtimeType == runtimeType &&
+            other is SetLoading &&
+            (identical(other.key, key) || other.key == key) &&
+            (identical(other.done, done) || other.done == done) &&
+            (identical(other.all, all) || other.all == all));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(done) ^
-      const DeepCollectionEquality().hash(all);
+  int get hashCode => Object.hash(runtimeType, key, done, all);
 
   @JsonKey(ignore: true)
   @override
-  $LoadingCopyWith<Loading> get copyWith =>
-      _$LoadingCopyWithImpl<Loading>(this, _$identity);
+  $SetLoadingCopyWith<SetLoading> get copyWith =>
+      _$SetLoadingCopyWithImpl<SetLoading>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(int done, int all) loading,
-    required TResult Function(dynamic error) handleError,
-    required TResult Function(List<Comic> comics) navigateToComics,
+    required TResult Function(Key key, int done, int all) setLoading,
+    required TResult Function(Key key, String message) showError,
+    required TResult Function(Key key, List<Comic> comics) navigateToComics,
   }) {
-    return loading(done, all);
+    return setLoading(key, done, all);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
+  }) {
+    return setLoading?.call(key, done, all);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(int done, int all)? loading,
-    TResult Function(dynamic error)? handleError,
-    TResult Function(List<Comic> comics)? navigateToComics,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(done, all);
+    if (setLoading != null) {
+      return setLoading(key, done, all);
     }
     return orElse();
   }
@@ -288,121 +350,151 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(HandleError value) handleError,
+    required TResult Function(SetLoading value) setLoading,
+    required TResult Function(ShowError value) showError,
     required TResult Function(NavigateToComics value) navigateToComics,
   }) {
-    return loading(this);
+    return setLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
+    TResult Function(NavigateToComics value)? navigateToComics,
+  }) {
+    return setLoading?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(HandleError value)? handleError,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(this);
+    if (setLoading != null) {
+      return setLoading(this);
     }
     return orElse();
   }
 }
 
-abstract class Loading implements StartState {
-  const factory Loading(int done, int all) = _$Loading;
+abstract class SetLoading implements StartState {
+  const factory SetLoading(
+      {required Key key, required int done, required int all}) = _$SetLoading;
 
-  int get done => throw _privateConstructorUsedError;
-  int get all => throw _privateConstructorUsedError;
+  Key get key;
+  int get done;
+  int get all;
   @JsonKey(ignore: true)
-  $LoadingCopyWith<Loading> get copyWith => throw _privateConstructorUsedError;
+  $SetLoadingCopyWith<SetLoading> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $HandleErrorCopyWith<$Res> {
-  factory $HandleErrorCopyWith(
-          HandleError value, $Res Function(HandleError) then) =
-      _$HandleErrorCopyWithImpl<$Res>;
-  $Res call({dynamic error});
+abstract class $ShowErrorCopyWith<$Res> {
+  factory $ShowErrorCopyWith(ShowError value, $Res Function(ShowError) then) =
+      _$ShowErrorCopyWithImpl<$Res>;
+  $Res call({Key key, String message});
 }
 
 /// @nodoc
-class _$HandleErrorCopyWithImpl<$Res> extends _$StartStateCopyWithImpl<$Res>
-    implements $HandleErrorCopyWith<$Res> {
-  _$HandleErrorCopyWithImpl(
-      HandleError _value, $Res Function(HandleError) _then)
-      : super(_value, (v) => _then(v as HandleError));
+class _$ShowErrorCopyWithImpl<$Res> extends _$StartStateCopyWithImpl<$Res>
+    implements $ShowErrorCopyWith<$Res> {
+  _$ShowErrorCopyWithImpl(ShowError _value, $Res Function(ShowError) _then)
+      : super(_value, (v) => _then(v as ShowError));
 
   @override
-  HandleError get _value => super._value as HandleError;
+  ShowError get _value => super._value as ShowError;
 
   @override
   $Res call({
-    Object? error = freezed,
+    Object? key = freezed,
+    Object? message = freezed,
   }) {
-    return _then(HandleError(
-      error == freezed
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+    return _then(ShowError(
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as Key,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$HandleError implements HandleError {
-  const _$HandleError(this.error);
+class _$ShowError implements ShowError {
+  const _$ShowError({required this.key, required this.message});
 
   @override
-  final dynamic error;
+  final Key key;
+  @override
+  final String message;
 
   @override
   String toString() {
-    return 'StartState.handleError(error: $error)';
+    return 'StartState.showError(key: $key, message: $message)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is HandleError &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+        (other.runtimeType == runtimeType &&
+            other is ShowError &&
+            (identical(other.key, key) || other.key == key) &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
+  int get hashCode => Object.hash(runtimeType, key, message);
 
   @JsonKey(ignore: true)
   @override
-  $HandleErrorCopyWith<HandleError> get copyWith =>
-      _$HandleErrorCopyWithImpl<HandleError>(this, _$identity);
+  $ShowErrorCopyWith<ShowError> get copyWith =>
+      _$ShowErrorCopyWithImpl<ShowError>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(int done, int all) loading,
-    required TResult Function(dynamic error) handleError,
-    required TResult Function(List<Comic> comics) navigateToComics,
+    required TResult Function(Key key, int done, int all) setLoading,
+    required TResult Function(Key key, String message) showError,
+    required TResult Function(Key key, List<Comic> comics) navigateToComics,
   }) {
-    return handleError(error);
+    return showError(key, message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
+  }) {
+    return showError?.call(key, message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(int done, int all)? loading,
-    TResult Function(dynamic error)? handleError,
-    TResult Function(List<Comic> comics)? navigateToComics,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
-    if (handleError != null) {
-      return handleError(error);
+    if (showError != null) {
+      return showError(key, message);
     }
     return orElse();
   }
@@ -411,35 +503,48 @@ class _$HandleError implements HandleError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(HandleError value) handleError,
+    required TResult Function(SetLoading value) setLoading,
+    required TResult Function(ShowError value) showError,
     required TResult Function(NavigateToComics value) navigateToComics,
   }) {
-    return handleError(this);
+    return showError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
+    TResult Function(NavigateToComics value)? navigateToComics,
+  }) {
+    return showError?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(HandleError value)? handleError,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) {
-    if (handleError != null) {
-      return handleError(this);
+    if (showError != null) {
+      return showError(this);
     }
     return orElse();
   }
 }
 
-abstract class HandleError implements StartState {
-  const factory HandleError(dynamic error) = _$HandleError;
+abstract class ShowError implements StartState {
+  const factory ShowError({required Key key, required String message}) =
+      _$ShowError;
 
-  dynamic get error => throw _privateConstructorUsedError;
+  Key get key;
+  String get message;
   @JsonKey(ignore: true)
-  $HandleErrorCopyWith<HandleError> get copyWith =>
+  $ShowErrorCopyWith<ShowError> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -448,7 +553,7 @@ abstract class $NavigateToComicsCopyWith<$Res> {
   factory $NavigateToComicsCopyWith(
           NavigateToComics value, $Res Function(NavigateToComics) then) =
       _$NavigateToComicsCopyWithImpl<$Res>;
-  $Res call({List<Comic> comics});
+  $Res call({Key key, List<Comic> comics});
 }
 
 /// @nodoc
@@ -464,10 +569,15 @@ class _$NavigateToComicsCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? key = freezed,
     Object? comics = freezed,
   }) {
     return _then(NavigateToComics(
-      comics == freezed
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as Key,
+      comics: comics == freezed
           ? _value.comics
           : comics // ignore: cast_nullable_to_non_nullable
               as List<Comic>,
@@ -478,27 +588,30 @@ class _$NavigateToComicsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NavigateToComics implements NavigateToComics {
-  const _$NavigateToComics(this.comics);
+  const _$NavigateToComics({required this.key, required this.comics});
 
+  @override
+  final Key key;
   @override
   final List<Comic> comics;
 
   @override
   String toString() {
-    return 'StartState.navigateToComics(comics: $comics)';
+    return 'StartState.navigateToComics(key: $key, comics: $comics)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is NavigateToComics &&
-            (identical(other.comics, comics) ||
-                const DeepCollectionEquality().equals(other.comics, comics)));
+        (other.runtimeType == runtimeType &&
+            other is NavigateToComics &&
+            (identical(other.key, key) || other.key == key) &&
+            const DeepCollectionEquality().equals(other.comics, comics));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(comics);
+  int get hashCode => Object.hash(
+      runtimeType, key, const DeepCollectionEquality().hash(comics));
 
   @JsonKey(ignore: true)
   @override
@@ -509,24 +622,35 @@ class _$NavigateToComics implements NavigateToComics {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(int done, int all) loading,
-    required TResult Function(dynamic error) handleError,
-    required TResult Function(List<Comic> comics) navigateToComics,
+    required TResult Function(Key key, int done, int all) setLoading,
+    required TResult Function(Key key, String message) showError,
+    required TResult Function(Key key, List<Comic> comics) navigateToComics,
   }) {
-    return navigateToComics(comics);
+    return navigateToComics(key, comics);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
+  }) {
+    return navigateToComics?.call(key, comics);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(int done, int all)? loading,
-    TResult Function(dynamic error)? handleError,
-    TResult Function(List<Comic> comics)? navigateToComics,
+    TResult Function(Key key, int done, int all)? setLoading,
+    TResult Function(Key key, String message)? showError,
+    TResult Function(Key key, List<Comic> comics)? navigateToComics,
     required TResult orElse(),
   }) {
     if (navigateToComics != null) {
-      return navigateToComics(comics);
+      return navigateToComics(key, comics);
     }
     return orElse();
   }
@@ -535,8 +659,8 @@ class _$NavigateToComics implements NavigateToComics {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(HandleError value) handleError,
+    required TResult Function(SetLoading value) setLoading,
+    required TResult Function(ShowError value) showError,
     required TResult Function(NavigateToComics value) navigateToComics,
   }) {
     return navigateToComics(this);
@@ -544,10 +668,21 @@ class _$NavigateToComics implements NavigateToComics {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
+    TResult Function(NavigateToComics value)? navigateToComics,
+  }) {
+    return navigateToComics?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(HandleError value)? handleError,
+    TResult Function(SetLoading value)? setLoading,
+    TResult Function(ShowError value)? showError,
     TResult Function(NavigateToComics value)? navigateToComics,
     required TResult orElse(),
   }) {
@@ -559,9 +694,11 @@ class _$NavigateToComics implements NavigateToComics {
 }
 
 abstract class NavigateToComics implements StartState {
-  const factory NavigateToComics(List<Comic> comics) = _$NavigateToComics;
+  const factory NavigateToComics(
+      {required Key key, required List<Comic> comics}) = _$NavigateToComics;
 
-  List<Comic> get comics => throw _privateConstructorUsedError;
+  Key get key;
+  List<Comic> get comics;
   @JsonKey(ignore: true)
   $NavigateToComicsCopyWith<NavigateToComics> get copyWith =>
       throw _privateConstructorUsedError;

@@ -3,9 +3,11 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:i_am_steve_flutter/data/util/abstraction/local_storage.dart';
+import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@Injectable(as: LocalStorage)
 class LocalStorageImpl implements LocalStorage {
   @override
   Future<bool> containsEntry(final String key) {

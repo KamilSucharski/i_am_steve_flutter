@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'archive_state.dart';
 
@@ -20,9 +21,10 @@ class _$ArchiveStateTearOff {
     return const Initial();
   }
 
-  NavigateToComic navigateToComic(Comic comic) {
+  NavigateToComic navigateToComic({required Key key, required Comic comic}) {
     return NavigateToComic(
-      comic,
+      key: key,
+      comic: comic,
     );
   }
 }
@@ -35,13 +37,19 @@ mixin _$ArchiveState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Comic comic) navigateToComic,
+    required TResult Function(Key key, Comic comic) navigateToComic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, Comic comic)? navigateToComic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Comic comic)? navigateToComic,
+    TResult Function(Key key, Comic comic)? navigateToComic,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +57,12 @@ mixin _$ArchiveState {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(NavigateToComic value) navigateToComic,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(NavigateToComic value)? navigateToComic,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -104,7 +118,8 @@ class _$Initial implements Initial {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Initial);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Initial);
   }
 
   @override
@@ -114,16 +129,25 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Comic comic) navigateToComic,
+    required TResult Function(Key key, Comic comic) navigateToComic,
   }) {
     return initial();
   }
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, Comic comic)? navigateToComic,
+  }) {
+    return initial?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Comic comic)? navigateToComic,
+    TResult Function(Key key, Comic comic)? navigateToComic,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -139,6 +163,15 @@ class _$Initial implements Initial {
     required TResult Function(NavigateToComic value) navigateToComic,
   }) {
     return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(NavigateToComic value)? navigateToComic,
+  }) {
+    return initial?.call(this);
   }
 
   @override
@@ -164,7 +197,7 @@ abstract class $NavigateToComicCopyWith<$Res> {
   factory $NavigateToComicCopyWith(
           NavigateToComic value, $Res Function(NavigateToComic) then) =
       _$NavigateToComicCopyWithImpl<$Res>;
-  $Res call({Comic comic});
+  $Res call({Key key, Comic comic});
 
   $ComicCopyWith<$Res> get comic;
 }
@@ -182,10 +215,15 @@ class _$NavigateToComicCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? key = freezed,
     Object? comic = freezed,
   }) {
     return _then(NavigateToComic(
-      comic == freezed
+      key: key == freezed
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as Key,
+      comic: comic == freezed
           ? _value.comic
           : comic // ignore: cast_nullable_to_non_nullable
               as Comic,
@@ -203,27 +241,29 @@ class _$NavigateToComicCopyWithImpl<$Res>
 /// @nodoc
 
 class _$NavigateToComic implements NavigateToComic {
-  const _$NavigateToComic(this.comic);
+  const _$NavigateToComic({required this.key, required this.comic});
 
+  @override
+  final Key key;
   @override
   final Comic comic;
 
   @override
   String toString() {
-    return 'ArchiveState.navigateToComic(comic: $comic)';
+    return 'ArchiveState.navigateToComic(key: $key, comic: $comic)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is NavigateToComic &&
-            (identical(other.comic, comic) ||
-                const DeepCollectionEquality().equals(other.comic, comic)));
+        (other.runtimeType == runtimeType &&
+            other is NavigateToComic &&
+            (identical(other.key, key) || other.key == key) &&
+            (identical(other.comic, comic) || other.comic == comic));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(comic);
+  int get hashCode => Object.hash(runtimeType, key, comic);
 
   @JsonKey(ignore: true)
   @override
@@ -234,20 +274,29 @@ class _$NavigateToComic implements NavigateToComic {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Comic comic) navigateToComic,
+    required TResult Function(Key key, Comic comic) navigateToComic,
   }) {
-    return navigateToComic(comic);
+    return navigateToComic(key, comic);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(Key key, Comic comic)? navigateToComic,
+  }) {
+    return navigateToComic?.call(key, comic);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Comic comic)? navigateToComic,
+    TResult Function(Key key, Comic comic)? navigateToComic,
     required TResult orElse(),
   }) {
     if (navigateToComic != null) {
-      return navigateToComic(comic);
+      return navigateToComic(key, comic);
     }
     return orElse();
   }
@@ -259,6 +308,15 @@ class _$NavigateToComic implements NavigateToComic {
     required TResult Function(NavigateToComic value) navigateToComic,
   }) {
     return navigateToComic(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Initial value)? initial,
+    TResult Function(NavigateToComic value)? navigateToComic,
+  }) {
+    return navigateToComic?.call(this);
   }
 
   @override
@@ -276,9 +334,11 @@ class _$NavigateToComic implements NavigateToComic {
 }
 
 abstract class NavigateToComic implements ArchiveState {
-  const factory NavigateToComic(Comic comic) = _$NavigateToComic;
+  const factory NavigateToComic({required Key key, required Comic comic}) =
+      _$NavigateToComic;
 
-  Comic get comic => throw _privateConstructorUsedError;
+  Key get key;
+  Comic get comic;
   @JsonKey(ignore: true)
   $NavigateToComicCopyWith<NavigateToComic> get copyWith =>
       throw _privateConstructorUsedError;

@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:i_am_steve_flutter/domain/util/abstraction/logger.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: Logger)
 class LoggerImpl implements Logger {
   @override
   void debug(final String string) {

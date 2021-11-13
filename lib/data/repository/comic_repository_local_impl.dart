@@ -3,13 +3,16 @@ import 'dart:typed_data';
 
 import 'package:i_am_steve_flutter/data/util/abstraction/asset_reader.dart';
 import 'package:i_am_steve_flutter/data/util/abstraction/local_storage.dart';
-import 'package:i_am_steve_flutter/domain/error/no_comic_panel_error.dart';
-import 'package:i_am_steve_flutter/domain/error/no_comics_error.dart';
+import 'package:i_am_steve_flutter/domain/exception/no_comic_panel_exception.dart';
+import 'package:i_am_steve_flutter/domain/exception/no_comics_exception.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/repository/comic_repository_local.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
+import 'package:i_am_steve_flutter/domain/util/extension/generic.dart';
+import 'package:injectable/injectable.dart';
 import 'package:sprintf/sprintf.dart';
 
+@Injectable(as: ComicRepositoryLocal)
 class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
 
   final AssetReader _assetReader;
@@ -18,94 +21,67 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   ComicRepositoryLocalImpl(this._assetReader, this._localStorage);
 
   @override
-  Future<List<Comic>> getComicsFromAssets() {
-    return _assetReader
-      .getString(Consts.assetsPreload + Consts.comicMetadataFileName)
-      .then((comicsJson) => (jsonDecode(comicsJson) as List<dynamic>)
-        .map((dynamic item) => Comic.fromJson(item as Map<String, dynamic>))
-        .toList()
-      );
-  }
+  Future<List<Comic>> getComicsFromAssets() => _assetReader
+    .getString(Consts.assetsPreload + Consts.comicMetadataFileName)
+    .then((comicsJson) => (jsonDecode(comicsJson) as List<dynamic>)
+      .map((dynamic item) => Comic.fromJson(item as Map<String, dynamic>))
+      .toList()
+    );
 
   @override
-  Future<List<Comic>> getComicsFromLocalStorage() {
-    return _localStorage
-      .getObject<List<Map<String, dynamic>>>(Consts.keyComicList)
-      .then((list) {
-        if (list == null) {
-          throw NoComicsError();
-        }
-        return list
-          .map((item) => Comic.fromJson(item))
-          .toList();
-      });
-  }
+  Future<List<Comic>> getComicsFromLocalStorage() => _localStorage
+    .getObject<List<Map<String, dynamic>>>(Consts.keyComicList)
+    .then((list) {
+      if (list == null) {
+        throw NoComicsException();
+      }
+      return list
+        .map((item) => Comic.fromJson(item))
+        .toList();
+    });
   
   @override
-  Future<bool> saveComicsToLocalStorage(final List<Comic> comics) {
-    return _localStorage.putObject(
-      Consts.keyComicList,
-      comics
-    );
-  }
+  Future<bool> saveComicsToLocalStorage({
+    required final List<Comic> comics,
+  }) => _localStorage.putObject(
+    Consts.keyComicList,
+    comics
+  );
   
   @override
-  Future<Uint8List> getComicPanelFromAssets(
-    final int comicNumber,
-    final int panelNumber
-  ) {
-    final String fileName = sprintf(
-      Consts.comicPanelFileNameFormat,
-      [comicNumber, panelNumber]
-    );
-    return _assetReader
-      .getBytes(Consts.assetsPreload + fileName)
-      .then((bytes) => bytes.buffer.asUint8List());
-  }
+  Future<Uint8List> getComicPanelFromAssets({
+    required final int comicNumber,
+    required final int panelNumber
+  }) => sprintf(Consts.comicPanelFileNameFormat, [comicNumber, panelNumber])
+    .let((fileName) => _assetReader.getBytes(Consts.assetsPreload + fileName))
+    .then((bytes) => bytes.buffer.asUint8List());
 
   @override
-  Future<Uint8List> getComicPanelFromLocalStorage(
-    final int comicNumber,
-    final int panelNumber
-  ) {
-    final String fileName = sprintf(
-      Consts.comicPanelFileNameFormat,
-      [comicNumber, panelNumber]
-    );
-    return _localStorage
-      .getFile(fileName)
-      .then((file) {
-        if (file == null) {
-          throw NoComicPanelError();
-        }
-        return file.readAsBytesSync();
-      });
-  }
+  Future<Uint8List> getComicPanelFromLocalStorage({
+    required final int comicNumber,
+    required final int panelNumber
+  }) => sprintf(Consts.comicPanelFileNameFormat, [comicNumber, panelNumber])
+    .let((fileName) => _localStorage.getFile(fileName))
+    .then((file) {
+      if (file == null) {
+        throw NoComicPanelException();
+      }
+      return file.readAsBytesSync();
+    });
 
   @override
-  Future<Uint8List> saveComicPanelToLocalStorage(
-    final int comicNumber,
-    final int panelNumber,
-    final Uint8List bytes
-  ) {
-    final String fileName = sprintf(
-      Consts.comicPanelFileNameFormat,
-      [comicNumber, panelNumber]
-    );
-    return _localStorage
-      .putFile(fileName, bytes)
-      .then((file) => bytes);
-  }
+  Future<Uint8List> saveComicPanelToLocalStorage({
+    required final int comicNumber,
+    required final int panelNumber,
+    required final Uint8List bytes,
+  }) => sprintf(Consts.comicPanelFileNameFormat, [comicNumber, panelNumber])
+    .let((fileName) => _localStorage.putFile(fileName, bytes))
+    .then((file) => bytes);
 
   @override
-  Future<void> removeComicPanelFromLocalStorage(
-    final int comicNumber,
-    final int panelNumber
-  ) {
-    final String fileName = sprintf(
-      Consts.comicPanelFileNameFormat,
-      [comicNumber, panelNumber]
-    );
-    return _localStorage.removeFile(fileName);
-  }
+  Future<void> removeComicPanelFromLocalStorage({
+    required final int comicNumber,
+    required final int panelNumber,
+  }) => sprintf(Consts.comicPanelFileNameFormat, [comicNumber, panelNumber])
+    .let((fileName) => _localStorage.removeFile(fileName));
 }
