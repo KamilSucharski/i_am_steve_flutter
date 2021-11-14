@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:i_am_steve_flutter/domain/model/comic.dart';
-import 'package:i_am_steve_flutter/domain/util/extension/context.dart';
 import 'package:i_am_steve_flutter/domain/util/unit.dart';
 import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
-import 'package:i_am_steve_flutter/presentation/util/list_item.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:sprintf/sprintf.dart';
 
 class ListItem extends StatelessWidget {
   final String text;
