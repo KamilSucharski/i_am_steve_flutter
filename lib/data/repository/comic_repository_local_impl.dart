@@ -22,7 +22,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
 
   @override
   Future<List<Comic>> getComicsFromAssets() => _assetReader
-    .getString(Consts.assetsPreload + Consts.comicMetadataFileName)
+    .getString(assetName: Consts.assetsPreload + Consts.comicMetadataFileName)
     .then((comicsJson) => (jsonDecode(comicsJson) as List<dynamic>)
       .map((dynamic item) => Comic.fromJson(item as Map<String, dynamic>))
       .toList()
@@ -30,7 +30,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
 
   @override
   Future<List<Comic>> getComicsFromLocalStorage() => _localStorage
-    .getObject<List<Map<String, dynamic>>>(
+    .getObject<List<dynamic>>(
       key: Consts.keyComicList,
     )
     .then((list) {
@@ -38,7 +38,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
         throw NoComicsException();
       }
       return list
-        .map((item) => Comic.fromJson(item))
+        .map((dynamic item) => Comic.fromJson(item as Map<String, dynamic>))
         .toList();
     });
   
@@ -55,7 +55,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     required final int comicNumber,
     required final int panelNumber
   }) => sprintf(Consts.comicPanelFileNameFormat, [comicNumber, panelNumber])
-    .let((fileName) => _assetReader.getBytes(Consts.assetsPreload + fileName))
+    .let((fileName) => _assetReader.getBytes(assetName: Consts.assetsPreload + fileName))
     .then((bytes) => bytes.buffer.asUint8List());
 
   @override

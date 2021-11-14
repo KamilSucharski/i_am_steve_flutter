@@ -56,22 +56,19 @@ class StartPage extends CubitWidget<StartCubit, StartState> {
     height: MediaQuery.of(context).size.height * 0.5,
     padding: const EdgeInsets.all(16),
     child: blocBuilder(
-      builder: (context, state) {
-        final String text = state.maybeMap(
+      builder: (context, state) => Text(
+        state.maybeMap(
           setLoading: (state) => sprintf(
             context.getString((strings) => strings.start_bodyWithProgress),
             [state.done, state.all]
           ),
           orElse: () => context.getString((strings) => strings.start_bodyWithoutProgress),
-        );
-        return Text(
-          text,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 40,
-          ),
-        );
-      },
+        ),
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 40,
+        ),
+      ),
     ),
   );
 

@@ -36,7 +36,7 @@ class ListItem extends StatelessWidget {
         height: 1,
         width: double.infinity,
         color: Styles.darkerBackgroundColor
-      )
+      ),
     ],
   );
 

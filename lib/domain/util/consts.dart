@@ -1,7 +1,7 @@
 class Consts {
   Consts._();
 
-  static const String appName = 'Healp';
+  static const String appName = 'i am steve';
   static const String empty = '';
 
   static const double comicPanelAspectRatio = 1.465693430656934;
