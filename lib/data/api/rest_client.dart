@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 import 'package:i_am_steve_flutter/data/dto/comic_dto.dart';
 import 'package:retrofit/retrofit.dart';

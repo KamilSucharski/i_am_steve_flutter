@@ -15,7 +15,6 @@ import 'package:rxdart/rxdart.dart';
 class StartCubit extends BaseCubit<StartState> {
   final GetComicsOperation getComicsOperation;
   final GetComicPanelsOperation getComicPanelsOperation;
-  AnimationController? animationController;
 
   StartCubit({
     required final this.getComicsOperation,
@@ -44,12 +43,6 @@ class StartCubit extends BaseCubit<StartState> {
       .catchError(_errorSubject)
       .listen(emit)
       .addTo(disposables);
-  }
-
-  @override
-  Future<void> close() async {
-    animationController?.dispose();
-    await super.close();
   }
 
   Future<List<Comic>> _getComics() {
