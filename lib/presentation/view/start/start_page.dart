@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:i_am_steve_flutter/domain/util/extension/context.dart';
+import 'package:i_am_steve_flutter/domain/util/extension/build_context.dart';
 import 'package:i_am_steve_flutter/domain/util/extension/generic.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_state.dart';

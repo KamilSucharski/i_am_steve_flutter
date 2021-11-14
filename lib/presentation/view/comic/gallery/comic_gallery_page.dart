@@ -90,10 +90,10 @@ class ComicGalleryPage extends CubitWidget<ComicGalleryCubit, ComicGalleryState>
                 ?.nextButtonVisible
                 ?? false,
               tapsConsumer: (taps) => cubit.observeNextPageTaps(taps: taps),
-            )
-          ]
-        )
-      )
+            ),
+          ],
+        ),
+      ),
     );
   }
 

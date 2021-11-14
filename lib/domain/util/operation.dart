@@ -7,9 +7,7 @@ abstract class Operation<IN, OUT> {
 }
 
 extension UnitOperation<OUT> on Operation<Unit, OUT> {
-  OUT executeUnit() {
-    return execute(
-      input: Unit(),
-    );
-  }
+  OUT executeUnit() => execute(
+    input: Unit(),
+  );
 }

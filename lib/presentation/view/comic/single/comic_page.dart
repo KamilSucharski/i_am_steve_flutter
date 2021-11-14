@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:i_am_steve_flutter/domain/util/extension/context.dart';
+import 'package:i_am_steve_flutter/domain/util/extension/build_context.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/util/consts.dart';
 import 'package:i_am_steve_flutter/domain/util/extension/generic.dart';
@@ -66,11 +66,9 @@ class ComicPage extends CubitWidget<ComicCubit, ComicState> {
   Widget _createComicPanel({
     required final Uint8List panel,
   }) => Container(
-    margin: const EdgeInsets.only(
-      left: 6,
-      right: 6,
-      bottom: 2,
-      top: 2,
+    margin: const EdgeInsets.symmetric(
+      horizontal: 6,
+      vertical: 2,
     ),
     decoration: BoxDecoration(
       color: Styles.colorWhite,
