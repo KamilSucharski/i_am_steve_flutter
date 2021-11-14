@@ -50,24 +50,22 @@ class ComicGalleryPage extends CubitWidget<ComicGalleryCubit, ComicGalleryState>
       initialPage: arguments.comics.length - 1,
       keepPage: false
     );
-    return SafeArea(
-      child: Container(
-        color: Styles.backgroundColor,
+    return Scaffold(
+      body: SafeArea(
         child: Column(
           verticalDirection: VerticalDirection.up,
           children: [
             _createButtons(),
-            _createPageView()
+            _createPageView(),
           ],
-        )
-      )
+        ),
+      ),
     );
   }
 
   Widget _createButtons() {
-    return Container(
+    return SizedBox(
       height: 52,
-      color: Styles.backgroundColor,
       child: blocBuilder(
         builder: (_, state) => Row(
           mainAxisSize: MainAxisSize.max,
@@ -110,22 +108,19 @@ class ComicGalleryPage extends CubitWidget<ComicGalleryCubit, ComicGalleryState>
     }
 
     return Expanded(
-      child: Material(
-        color: Styles.backgroundColor,
-        child: InkWell(
-          onTap: onTap,
-          child: SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: SvgPicture.asset(
-              iconName,
-              color: Styles.buttonColor,
-              height: 24,
-              width: 24
-            )
-          )
-        )
-      )
+      child: InkWell(
+        onTap: onTap,
+        child: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: SvgPicture.asset(
+            iconName,
+            color: Styles.buttonColor,
+            height: 24,
+            width: 24,
+          ),
+        ),
+      ),
     );
   }
 

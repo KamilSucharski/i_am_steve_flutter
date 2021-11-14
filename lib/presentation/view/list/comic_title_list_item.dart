@@ -26,9 +26,9 @@ class ComicTitleListItem implements ListItem {
         context.getString((strings) => strings.comic_titleFormat),
         [_number, _title]
       ),
-      style: Theme.of(context).textTheme.overline?.apply(
-        fontSizeFactor: 1.6,
-        color: Styles.colorBlack
+      style: const TextStyle(
+        fontSize: 16,
+        color: Styles.colorBlack,
       ),
     )
   );

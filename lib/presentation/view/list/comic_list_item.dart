@@ -28,10 +28,9 @@ class ComicListItem implements ListItem {
                 context.getString((strings) => strings.comic_archiveFormat),
                 [_comic.number, _comic.title, _comic.date]
               ),
-              style: Theme.of(context).textTheme.overline?.apply(
-                fontSizeFactor: 1.6,
-                color: Styles.colorWhite
-              )
+              style: const TextStyle(
+                fontSize: 16,
+              ),
             ),
           )
         )

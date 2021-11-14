@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:i_am_steve_flutter/domain/util/extension/generic.dart';
 import 'package:i_am_steve_flutter/domain/view/archive/archive_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/archive/archive_state.dart';
-import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
 import 'package:i_am_steve_flutter/presentation/view/base/cubit_widget.dart';
 
 import 'archive_arguments.dart';
@@ -31,9 +30,8 @@ class ArchivePage extends CubitWidget<ArchiveCubit, ArchiveState> {
   }) {
     final listItems = ArchiveListMapper((comic) => cubit.onComicClicked(comic: comic))
       .map(arguments.comics);
-    return SafeArea(
-      child: Container(
-        color: Styles.backgroundColor,
+    return Scaffold(
+      body: SafeArea(
         child: ListView.builder(
           padding: EdgeInsets.zero,
           itemCount: listItems.length,

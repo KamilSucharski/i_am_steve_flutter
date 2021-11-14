@@ -17,7 +17,7 @@ class Styles {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     backgroundColor: backgroundColor,
     primaryColor: darkerBackgroundColor,
-    colorScheme: const ColorScheme.light(
+    colorScheme: const ColorScheme.dark(
       primary: darkerBackgroundColor,
       primaryVariant: darkerBackgroundColor,
       secondary: buttonColor,

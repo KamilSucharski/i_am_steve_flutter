@@ -40,15 +40,12 @@ class StartPage extends CubitWidget<StartCubit, StartState> {
   }) {
     final body = Scaffold(
       body: SafeArea(
-        child: Container(
-          color: Styles.backgroundColor,
-          child: Column(
-            verticalDirection: VerticalDirection.up,
-            children: [
-              _createProgressTextWidget(context: context),
-              _createIconWidget(context: context),
-            ],
-          ),
+        child: Column(
+          verticalDirection: VerticalDirection.up,
+          children: [
+            _createProgressTextWidget(context: context),
+            _createIconWidget(context: context),
+          ],
         ),
       ),
     );
@@ -79,8 +76,8 @@ class StartPage extends CubitWidget<StartCubit, StartState> {
         return Text(
           text,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.overline?.apply(
-            fontSizeFactor: 4
+          style: const TextStyle(
+            fontSize: 40,
           ),
         );
       },
