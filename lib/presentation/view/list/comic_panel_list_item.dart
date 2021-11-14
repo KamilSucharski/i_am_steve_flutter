@@ -20,7 +20,10 @@ class ComicPanelListItem implements ListItem {
       top: 2
     ),
     padding: const EdgeInsets.all(2),
-    color: Styles.colorBlack,
+    decoration: BoxDecoration(
+      color: Styles.colorWhite,
+      border: Border.all(color: Styles.colorBlack),
+    ),
     child: AspectRatio(
       aspectRatio: 1004 / 685,
       child: Image.memory(_panel),

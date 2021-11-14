@@ -129,17 +129,19 @@ class ComicGalleryPage extends CubitWidget<ComicGalleryCubit, ComicGalleryState>
     );
   }
 
-  Widget _createPageView() {
-    final List<Widget> pages = arguments
-      .comics
-      .map((comic) => ComicPage(arguments: ComicArguments(comic: comic)))
-      .toList();
-    return Expanded(
-      child: PageView(
-        controller: cubit.pageController,
-        onPageChanged: (page) => cubit.onPageChanged(page, pages.length),
-        children: pages,
+  Widget _createPageView() => Expanded(
+    child: PageView.builder(
+      controller: cubit.pageController,
+      onPageChanged: (page) => cubit.onPageChanged(
+        page,
+        arguments.comics.length,
       ),
-    );
-  }
+      itemCount: arguments.comics.length,
+      itemBuilder: (BuildContext context, int index) => ComicPage(
+        arguments: ComicArguments(
+          comic: arguments.comics[index],
+        ),
+      ),
+    ),
+  );
 }
