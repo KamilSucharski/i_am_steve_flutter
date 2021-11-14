@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:i_am_steve_flutter/domain/model/comic.dart';
 import 'package:i_am_steve_flutter/domain/util/extension/generic.dart';
+import 'package:i_am_steve_flutter/domain/util/unit.dart';
 import 'package:i_am_steve_flutter/domain/view/comic/gallery/comic_gallery_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/comic/gallery/comic_gallery_state.dart';
 import 'package:i_am_steve_flutter/presentation/resource/images.dart';
@@ -12,6 +13,7 @@ import 'package:i_am_steve_flutter/presentation/view/base/cubit_widget.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/gallery/comic_gallery_arguments.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/single/comic_arguments.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/single/comic_page.dart';
+import 'package:i_am_steve_flutter/presentation/view/widget/image_tab.dart';
 
 class ComicGalleryPage extends CubitWidget<ComicGalleryCubit, ComicGalleryState> {
   final ComicGalleryArguments arguments;
@@ -34,10 +36,7 @@ class ComicGalleryPage extends CubitWidget<ComicGalleryCubit, ComicGalleryState>
           arguments: ArchiveArguments(comics: arguments.comics),
         ).then((result) => result
           .cast<Comic>()
-          ?.let((comic) => cubit
-            .pageController
-            ?.jumpToPage(arguments.comics.indexOf(comic))
-          ),
+          ?.let((comic) => cubit.changePage(page: arguments.comics.indexOf(comic))),
         ),
       );
   }
@@ -77,12 +76,12 @@ class ComicGalleryPage extends CubitWidget<ComicGalleryCubit, ComicGalleryState>
                 .cast<SetButtonsVisibility>()
                 ?.previousButtonVisible
                 ?? false,
-              onTap: cubit.onPreviousPageTapped,
+              tapsConsumer: (taps) => cubit.observePreviousPageTaps(taps: taps),
             ),
             _createButton(
               iconName: Images.iconArchive,
               visible: true,
-              onTap: cubit.onArchiveTapped,
+              tapsConsumer: (taps) => cubit.observeArchiveTaps(taps: taps),
             ),
             _createButton(
               iconName: Images.iconChevronRight,
@@ -90,7 +89,7 @@ class ComicGalleryPage extends CubitWidget<ComicGalleryCubit, ComicGalleryState>
                 .cast<SetButtonsVisibility>()
                 ?.nextButtonVisible
                 ?? false,
-              onTap: cubit.onNextPageTapped,
+              tapsConsumer: (taps) => cubit.observeNextPageTaps(taps: taps),
             )
           ]
         )
@@ -101,27 +100,20 @@ class ComicGalleryPage extends CubitWidget<ComicGalleryCubit, ComicGalleryState>
   Widget _createButton({
     required final String iconName,
     required final bool visible,
-    required final void Function() onTap,
+    required final void Function(Stream<Unit>) tapsConsumer,
   }) {
     if (!visible) {
       return const Expanded(child: SizedBox());
     }
 
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: SvgPicture.asset(
-            iconName,
-            color: Styles.buttonColor,
-            height: 24,
-            width: 24,
-          ),
-        ),
+    return ImageTab(
+      image: SvgPicture.asset(
+        iconName,
+        color: Styles.buttonColor,
+        height: 24,
+        width: 24,
       ),
-    );
+    ).also((it) => tapsConsumer.call(it.taps()));
   }
 
   Widget _createPageView() => Expanded(

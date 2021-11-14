@@ -30,7 +30,9 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
 
   @override
   Future<List<Comic>> getComicsFromLocalStorage() => _localStorage
-    .getObject<List<Map<String, dynamic>>>(Consts.keyComicList)
+    .getObject<List<Map<String, dynamic>>>(
+      key: Consts.keyComicList,
+    )
     .then((list) {
       if (list == null) {
         throw NoComicsException();
@@ -44,8 +46,8 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
   Future<bool> saveComicsToLocalStorage({
     required final List<Comic> comics,
   }) => _localStorage.putObject(
-    Consts.keyComicList,
-    comics
+    key: Consts.keyComicList,
+    object: comics
   );
   
   @override
@@ -61,7 +63,9 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     required final int comicNumber,
     required final int panelNumber
   }) => sprintf(Consts.comicPanelFileNameFormat, [comicNumber, panelNumber])
-    .let((fileName) => _localStorage.getFile(fileName))
+    .let((fileName) => _localStorage.getFile(
+      key: fileName,
+    ))
     .then((file) {
       if (file == null) {
         throw NoComicPanelException();
@@ -75,7 +79,10 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     required final int panelNumber,
     required final Uint8List bytes,
   }) => sprintf(Consts.comicPanelFileNameFormat, [comicNumber, panelNumber])
-    .let((fileName) => _localStorage.putFile(fileName, bytes))
+    .let((fileName) => _localStorage.putFile(
+      key: fileName,
+      bytes: bytes,
+    ))
     .then((file) => bytes);
 
   @override
@@ -83,5 +90,7 @@ class ComicRepositoryLocalImpl implements ComicRepositoryLocal {
     required final int comicNumber,
     required final int panelNumber,
   }) => sprintf(Consts.comicPanelFileNameFormat, [comicNumber, panelNumber])
-    .let((fileName) => _localStorage.removeFile(fileName));
+    .let((fileName) => _localStorage.removeFile(
+      key: fileName,
+    ));
 }
