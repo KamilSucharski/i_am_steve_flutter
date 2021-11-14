@@ -24,7 +24,7 @@ class Styles {
       background: backgroundColor,
     ),
     textTheme: Theme.of(context).textTheme.apply(
-      fontFamily: 'Poppins',
+      fontFamily: 'Komika',
       bodyColor: textColor,
       displayColor: textColor,
       decoration: TextDecoration.none,

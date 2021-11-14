@@ -35,20 +35,22 @@ class ComicPage extends CubitWidget<ComicCubit, ComicState> {
       body: SafeArea(
         child: Container(
           color: Styles.colorWhite,
-          child: blocBuilder(
-            builder: (context, state) => state
-              .cast<DisplayComic>()
-              ?.let((it) {
-                final listItems = ComicListMapper().map(it);
-                return ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: listItems.length,
-                  itemBuilder: (context, index) => listItems[index]
-                    .toWidget(context: context),
-                ).build(context);
-              })
-              ?? const SizedBox.shrink(),
-            buildWhen: (previous, current) => current is DisplayComic,
+          child: Scrollbar(
+            child: blocBuilder(
+              builder: (context, state) => state
+                .cast<DisplayComic>()
+                ?.let((it) {
+                  final listItems = ComicListMapper().map(it);
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: listItems.length,
+                    itemBuilder: (context, index) => listItems[index]
+                      .toWidget(context: context),
+                  ).build(context);
+                })
+                ?? const SizedBox.shrink(),
+              buildWhen: (previous, current) => current is DisplayComic,
+            ),
           ),
         ),
       ),

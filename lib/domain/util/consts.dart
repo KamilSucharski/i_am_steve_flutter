@@ -4,6 +4,7 @@ class Consts {
   static const String appName = 'Healp';
   static const String empty = '';
 
+  static const double comicPanelAspectRatio = 1.465693430656934;
   static const String comicMetadataFileName = 'comics.json';
   static const String comicPanelFileNameFormat = '%d_%d.png';
 
