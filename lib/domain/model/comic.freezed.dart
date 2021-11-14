@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'comic.dart';
 
@@ -29,7 +30,7 @@ class _$ComicTearOff {
     );
   }
 
-  Comic fromJson(Map<String, Object> json) {
+  Comic fromJson(Map<String, Object?> json) {
     return Comic.fromJson(json);
   }
 }
@@ -133,7 +134,7 @@ class _$_Comic implements _Comic {
       {required this.number, required this.title, required this.date});
 
   factory _$_Comic.fromJson(Map<String, dynamic> json) =>
-      _$_$_ComicFromJson(json);
+      _$$_ComicFromJson(json);
 
   @override
   final int number;
@@ -150,21 +151,15 @@ class _$_Comic implements _Comic {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Comic &&
-            (identical(other.number, number) ||
-                const DeepCollectionEquality().equals(other.number, number)) &&
-            (identical(other.title, title) ||
-                const DeepCollectionEquality().equals(other.title, title)) &&
-            (identical(other.date, date) ||
-                const DeepCollectionEquality().equals(other.date, date)));
+        (other.runtimeType == runtimeType &&
+            other is _Comic &&
+            (identical(other.number, number) || other.number == number) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.date, date) || other.date == date));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(number) ^
-      const DeepCollectionEquality().hash(title) ^
-      const DeepCollectionEquality().hash(date);
+  int get hashCode => Object.hash(runtimeType, number, title, date);
 
   @JsonKey(ignore: true)
   @override
@@ -173,7 +168,7 @@ class _$_Comic implements _Comic {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ComicToJson(this);
+    return _$$_ComicToJson(this);
   }
 }
 
@@ -186,11 +181,11 @@ abstract class _Comic implements Comic {
   factory _Comic.fromJson(Map<String, dynamic> json) = _$_Comic.fromJson;
 
   @override
-  int get number => throw _privateConstructorUsedError;
+  int get number;
   @override
-  String get title => throw _privateConstructorUsedError;
+  String get title;
   @override
-  String get date => throw _privateConstructorUsedError;
+  String get date;
   @override
   @JsonKey(ignore: true)
   _$ComicCopyWith<_Comic> get copyWith => throw _privateConstructorUsedError;

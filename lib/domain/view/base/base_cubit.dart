@@ -7,11 +7,14 @@ abstract class BaseCubit<State> extends Cubit<State> {
 
   final CompositeSubscription disposables = CompositeSubscription();
 
-  BaseCubit(State initialState) : super(initialState) {
-    init();
+  BaseCubit({required final State initialState}) : super(initialState) {
+    initSync();
+    initAsync();
   }
 
-  Future<void> init() async {}
+  void initSync() {}
+
+  Future<void> initAsync() async {}
 
   @override
   Future<void> close() async {

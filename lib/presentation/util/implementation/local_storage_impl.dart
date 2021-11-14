@@ -3,131 +3,141 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:i_am_steve_flutter/data/util/abstraction/local_storage.dart';
+import 'package:i_am_steve_flutter/domain/util/extension/generic.dart';
+import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@Injectable(as: LocalStorage)
 class LocalStorageImpl implements LocalStorage {
   @override
-  Future<bool> containsEntry(final String key) {
-    return SharedPreferences
-      .getInstance()
-      .then((prefs) => prefs.containsKey(key));
-  }
+  Future<bool> containsEntry({
+    required final String key,
+  }) => SharedPreferences
+    .getInstance()
+    .then((prefs) => prefs.containsKey(key));
 
   @override
-  Future<bool> containsFile(final String key) {
-    return _getFile(key)
-      .then((file) => file.existsSync());
-  }
+  Future<bool> containsFile({
+    required final String key,
+  }) => _getFile(key: key)
+    .then((file) => file.existsSync());
 
   @override
-  Future<bool> removeEntry(final String key) {
-    return SharedPreferences
-      .getInstance()
-      .then((prefs) => prefs.remove(key));
-  }
+  Future<bool> removeEntry({
+    required final String key,
+  }) => SharedPreferences
+    .getInstance().then((prefs) => prefs.remove(key));
 
   @override
-  Future<void> removeFile(final String key) {
-    return _getFile(key)
-      .then((file) {
-        if (file.existsSync()) {
-          file.deleteSync();
-        }
-      });
-  }
+  Future<void> removeFile({
+    required final String key,
+  }) => _getFile(key: key)
+    .then((file) {
+      if (file.existsSync()) {
+        file.deleteSync();
+      }
+    });
 
   @override
-  Future<bool> putBool(final String key, final bool value) {
-    return SharedPreferences
-      .getInstance()
-      .then((prefs) => prefs.setBool(key, value));
-  }
+  Future<bool> putBool({
+    required final String key,
+    required final bool value,
+  }) => SharedPreferences
+    .getInstance()
+    .then((prefs) => prefs.setBool(key, value));
 
   @override
-  Future<bool> putInt(final String key, final int value) {
-    return SharedPreferences
-      .getInstance()
-      .then((prefs) => prefs.setInt(key, value));
-  }
+  Future<bool> putInt({
+    required final String key,
+    required final int value,
+  }) => SharedPreferences
+    .getInstance()
+    .then((prefs) => prefs.setInt(key, value));
 
   @override
-  Future<bool> putString(final String key, final String value) {
-    return SharedPreferences
-        .getInstance()
-        .then((prefs) => prefs.setString(key, value));
-  }
+  Future<bool> putString({
+    required final String key,
+    required final String value,
+  }) => SharedPreferences
+    .getInstance()
+    .then((prefs) => prefs.setString(key, value));
 
   @override
-  Future<bool> putObject(final String key, final Object object) {
-    final json = jsonEncode(object);
-    return putString(key, json);
-  }
+  Future<bool> putObject({
+    required final String key,
+    required final Object object,
+  }) => jsonEncode(object)
+    .let((json) => putString(
+      key: key,
+      value: json,
+    ));
 
   @override
-  Future<File> putFile(final String key, final Uint8List bytes) {
-    return _getFile(key)
-      .then((file) {
-          if (!file.existsSync()) {
-            file.createSync(recursive: true);
-          }
-          file.writeAsBytesSync(bytes);
-          return file;
-      });
-  }
+  Future<File> putFile({
+    required final String key,
+    required final Uint8List bytes,
+  }) => _getFile(key: key)
+    .then((file) {
+      if (!file.existsSync()) {
+        file.createSync(recursive: true);
+      }
+      file.writeAsBytesSync(bytes);
+      return file;
+    });
 
   @override
-  Future<bool?> getBoolean(final String key) {
-    return SharedPreferences
-        .getInstance()
-        .then((prefs) => prefs.getBool(key));
-  }
+  Future<bool?> getBoolean({
+    required final String key,
+  }) => SharedPreferences
+    .getInstance()
+    .then((prefs) => prefs.getBool(key));
 
   @override
-  Future<int?> getInt(final String key) {
-    return SharedPreferences
-        .getInstance()
-        .then((prefs) => prefs.getInt(key));
-  }
+  Future<int?> getInt({
+    required final String key,
+  }) => SharedPreferences
+    .getInstance()
+    .then((prefs) => prefs.getInt(key));
 
   @override
-  Future<String?> getString(final String key) {
-    return SharedPreferences
-        .getInstance()
-        .then((prefs) => prefs.getString(key));
-  }
+  Future<String?> getString({
+    required final String key,
+  }) => SharedPreferences
+    .getInstance()
+    .then((prefs) => prefs.getString(key));
 
   @override
-  Future<T?> getObject<T>(final String key) {
-    return getString(key)
-      .then((json) {
-        if (json != null) {
-          return jsonDecode(json) as T;
-        } else {
-          return null;
-        }
-      });
-  }
+  Future<T?> getObject<T>({
+    required final String key,
+  }) => getString(key: key)
+    .then((json) {
+      if (json != null) {
+        return jsonDecode(json) as T;
+      } else {
+        return null;
+      }
+    });
 
   @override
-  Future<File?> getFile(final String key) {
-    return _getFile(key)
-      .then((file) {
-        if (file.existsSync()) {
-          return file;
-        } else {
-          return null;
-        }
-      });
-  }
+  Future<File?> getFile({
+    required final String key,
+  }) => _getFile(key: key)
+    .then((file) {
+      if (file.existsSync()) {
+        return file;
+      } else {
+        return null;
+      }
+    });
 
-  Future<File> _getFile(final String key) {
-    return getApplicationSupportDirectory()
-      .then((directory) {
-        if (!directory.existsSync()) {
-          directory.createSync(recursive: true);
-        }
-        return File('${directory.path}/$key');
-      });
-  }
+  Future<File> _getFile({
+    required final String key,
+  }) => getApplicationSupportDirectory()
+    .then((directory) {
+      if (!directory.existsSync()) {
+        directory.createSync(recursive: true);
+      }
+      return File('${directory.path}/$key');
+    });
 }
