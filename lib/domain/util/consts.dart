@@ -1,6 +1,10 @@
 class Consts {
   Consts._();
 
+  static const String appName = 'i am steve';
+  static const String empty = '';
+
+  static const double comicPanelAspectRatio = 1.465693430656934;
   static const String comicMetadataFileName = 'comics.json';
   static const String comicPanelFileNameFormat = '%d_%d.png';
 

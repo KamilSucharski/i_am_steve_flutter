@@ -7,38 +7,47 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: 2.14.4
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   # Architecture
-  flutter_bloc: 7.0.1
-  rxdart: 0.27.1
-  provider: 5.0.0
-  get_it: 5.0.6
+  flutter_bloc: 7.3.1
+  rxdart: 0.27.2
+  provider: 6.0.1
+  get_it: 7.2.0
+  injectable: 1.5.0
 
   # Data
-  dio: 4.0.0
-  freezed_annotation: 0.14.2
-  shared_preferences: 2.0.6
+  dio: 4.0.1
+  retrofit: 2.0.1
+  freezed_annotation: 0.15.0
+  shared_preferences: 2.0.8
+  json_annotation: 4.3.0
 
   # UI
-  flutter_svg: 0.22.0
-  fluttertoast: 8.0.7
+  image_loader: 1.0.3
+  fluttertoast: 8.0.8
 
   # Other
-  sprintf: 5.0.0
-  path_provider: 2.0.2
+  intl: 0.17.0
+  sprintf: 6.0.0
+  path_provider: 2.0.6
 
 dev_dependencies:
-  freezed: 0.14.2
-  build_runner: 2.0.6
-  json_serializable: 4.1.4
-  pedantic: 1.11.1
+  build_runner: 2.1.4
+  injectable_generator: 1.5.2
+  retrofit_generator: 2.0.1+2
+  freezed: 0.15.0+1
+  json_serializable: 6.0.1
+  flutter_lints: 1.0.4
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/icons/
@@ -48,3 +57,6 @@ flutter:
     - family: Komika
       fonts:
         - asset: assets/fonts/komika_slim.ttf
+
+flutter_intl:
+  enabled: true

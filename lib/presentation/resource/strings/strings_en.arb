@@ -1,0 +1,10 @@
+{
+    "@@locale": "en",
+
+    "start_bodyWithoutProgress": "Updating…",
+    "start_bodyWithProgress": "Updating…\n(%d / %d)",
+
+    "comic_titleFormat": "#%d %s",
+
+    "comic_archiveFormat": "#%d %s (%s)"
+}

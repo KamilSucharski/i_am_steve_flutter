@@ -1,116 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:i_am_steve_flutter/domain/util/extension/build_context.dart';
+import 'package:i_am_steve_flutter/domain/util/extension/generic.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_cubit.dart';
 import 'package:i_am_steve_flutter/domain/view/start/start_state.dart';
-import 'package:i_am_steve_flutter/presentation/resource/assets.dart';
+import 'package:i_am_steve_flutter/presentation/resource/images.dart';
 import 'package:i_am_steve_flutter/presentation/resource/routes.dart';
-import 'package:i_am_steve_flutter/presentation/resource/strings.dart';
-import 'package:i_am_steve_flutter/presentation/resource/styles.dart';
-import 'package:i_am_steve_flutter/presentation/view/base/base_widget_state.dart';
+import 'package:i_am_steve_flutter/presentation/view/base/cubit_widget.dart';
 import 'package:i_am_steve_flutter/presentation/view/comic/gallery/comic_gallery_arguments.dart';
+import 'package:i_am_steve_flutter/presentation/view/widget/rotating_widget.dart';
+import 'package:image_loader/image_helper.dart';
 import 'package:sprintf/sprintf.dart';
 
-class StartPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _StartPageState();
-}
-
-class _StartPageState extends BaseWidgetState<StartPage, StartCubit, StartState> with SingleTickerProviderStateMixin {
-  AnimationController? _animationController;
+class StartPage extends CubitWidget<StartCubit, StartState> {
 
   @override
-  void initState() {
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 2500),
-      vsync: this,
-    );
-    super.initState();
+  void onStateChange({
+    required final BuildContext context,
+    required final StartState state,
+  }) {
+    state
+      .cast<ShowError>()
+      ?.let((it) => it.message)
+      .let((it) => Fluttertoast.showToast(msg: it));
+
+    state
+      .cast<NavigateToComics>()
+      ?.let((it) => Navigator
+        .of(context)
+        .pushReplacementNamed(
+          Routes.comics,
+          arguments: ComicGalleryArguments(comics: it.comics),
+        ));
   }
 
   @override
-  void dispose() {
-    _animationController?.dispose();
-    super.dispose();
-  }
-
-  @override
-  void onStateChange(final BuildContext context, final StartState state) {
-    if (state is HandleError) {
-      Fluttertoast.showToast(msg: state.error.toString());
-    }
-
-    if (state is NavigateToComics) {
-      Navigator.of(context).pushReplacementNamed(
-        Routes.comics,
-        arguments: ComicGalleryArguments(comics: state.comics),
-      );
-    }
-  }
-
-  @override
-  Widget createBody(final BuildContext context) {
-    final mediaQueryData = MediaQuery.of(context);
-    return SafeArea(
-      child: Container(
-        color: Styles.backgroundColor,
-        child: Column(
-          verticalDirection: VerticalDirection.up,
-          children: [
-            _createProgressTextWidget(mediaQueryData),
-            _createIconWidget(mediaQueryData)
-          ],
-        )
-      )
-    );
-  }
-
-  Widget _createProgressTextWidget(final MediaQueryData mediaQueryData) {
-    return Container(
-      width: mediaQueryData.size.width,
-      height: mediaQueryData.size.height * 0.5,
-      padding: const EdgeInsets.all(16),
-      child: blocBuilder(
-        builder: (context, state) {
-          final text = state.maybeMap(
-            loading: (state) => sprintf(
-              Strings.startBodyWithProgress,
-              [state.done, state.all]
-            ),
-            orElse: () => Strings.startBodyWithoutProgress
-          );
-          return Text(
-            text,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.overline?.apply(
-              fontSizeFactor: 4
-            ),
-          );
-        }
+  Widget createBody({
+    required final BuildContext context,
+  }) => Scaffold(
+    body: SafeArea(
+      child: Column(
+        verticalDirection: VerticalDirection.up,
+        children: [
+          _createProgressTextWidget(context: context),
+          _createIconWidget(context: context),
+        ],
       ),
-    );
-  }
+    ),
+  );
 
-  Widget _createIconWidget(final MediaQueryData mediaQueryData) {
-    Widget icon = SvgPicture.asset(
-      Assets.iconSteve,
-      width: mediaQueryData.size.width * 0.5,
-      height: mediaQueryData.size.width * 0.5
-    );
+  Widget _createProgressTextWidget({
+    required final BuildContext context,
+  }) => Container(
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.height * 0.5,
+    padding: const EdgeInsets.all(16),
+    child: blocBuilder(
+      builder: (context, state) => Text(
+        state.maybeMap(
+          setLoading: (state) => sprintf(
+            context.getString((strings) => strings.start_bodyWithProgress),
+            [state.done, state.all]
+          ),
+          orElse: () => context.getString((strings) => strings.start_bodyWithoutProgress),
+        ),
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 40,
+        ),
+      ),
+    ),
+  );
 
-    if (_animationController != null) {
-      icon = RotationTransition(
-        turns: Tween(begin: 0.0, end: 1.0).animate(_animationController!),
-        child: icon
-      );
-      if (_animationController?.isAnimating == false) {
-        _animationController?.repeat();
-      }
-    }
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: icon
-    );
-  }
+  Widget _createIconWidget({
+    required final BuildContext context,
+  }) => Container(
+    padding: const EdgeInsets.all(16),
+    child: RotatingWidget(
+      child: ImageHelper(
+        image: Images.iconSteve,
+        imageType: ImageType.svg,
+        width: MediaQuery.of(context).size.width * 0.5,
+        height: MediaQuery.of(context).size.width * 0.5,
+        errorBuilder: const SizedBox.shrink(),
+      ),
+    ),
+  );
 }

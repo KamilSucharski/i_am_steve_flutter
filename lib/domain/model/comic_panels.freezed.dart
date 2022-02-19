@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'comic_panels.dart';
 
@@ -165,24 +166,16 @@ class _$_ComicPanels implements _ComicPanels {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ComicPanels &&
-            (identical(other.panel1, panel1) ||
-                const DeepCollectionEquality().equals(other.panel1, panel1)) &&
-            (identical(other.panel2, panel2) ||
-                const DeepCollectionEquality().equals(other.panel2, panel2)) &&
-            (identical(other.panel3, panel3) ||
-                const DeepCollectionEquality().equals(other.panel3, panel3)) &&
-            (identical(other.panel4, panel4) ||
-                const DeepCollectionEquality().equals(other.panel4, panel4)));
+        (other.runtimeType == runtimeType &&
+            other is _ComicPanels &&
+            (identical(other.panel1, panel1) || other.panel1 == panel1) &&
+            (identical(other.panel2, panel2) || other.panel2 == panel2) &&
+            (identical(other.panel3, panel3) || other.panel3 == panel3) &&
+            (identical(other.panel4, panel4) || other.panel4 == panel4));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(panel1) ^
-      const DeepCollectionEquality().hash(panel2) ^
-      const DeepCollectionEquality().hash(panel3) ^
-      const DeepCollectionEquality().hash(panel4);
+  int get hashCode => Object.hash(runtimeType, panel1, panel2, panel3, panel4);
 
   @JsonKey(ignore: true)
   @override
@@ -198,13 +191,13 @@ abstract class _ComicPanels implements ComicPanels {
       required Uint8List panel4}) = _$_ComicPanels;
 
   @override
-  Uint8List get panel1 => throw _privateConstructorUsedError;
+  Uint8List get panel1;
   @override
-  Uint8List get panel2 => throw _privateConstructorUsedError;
+  Uint8List get panel2;
   @override
-  Uint8List get panel3 => throw _privateConstructorUsedError;
+  Uint8List get panel3;
   @override
-  Uint8List get panel4 => throw _privateConstructorUsedError;
+  Uint8List get panel4;
   @override
   @JsonKey(ignore: true)
   _$ComicPanelsCopyWith<_ComicPanels> get copyWith =>

@@ -11,16 +11,23 @@ class Styles {
   static const Color colorWhite = Colors.white;
   static const Color colorBlack = Colors.black;
 
-  static ThemeData getAppTheme(final BuildContext context) =>
-    ThemeData(
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      backgroundColor: backgroundColor,
-      primaryColor: darkerBackgroundColor,
-      accentColor: textColor,
-      textTheme: Theme.of(context).textTheme.apply(
-        fontFamily: 'Komika',
-        bodyColor: textColor,
-        displayColor: textColor,
-      )
-    );
+  static ThemeData getAppTheme({
+    required final BuildContext context
+  }) => ThemeData(
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    backgroundColor: backgroundColor,
+    primaryColor: darkerBackgroundColor,
+    colorScheme: const ColorScheme.dark(
+      primary: darkerBackgroundColor,
+      primaryVariant: darkerBackgroundColor,
+      secondary: buttonColor,
+      background: backgroundColor,
+    ),
+    textTheme: Theme.of(context).textTheme.apply(
+      fontFamily: 'Komika',
+      bodyColor: textColor,
+      displayColor: textColor,
+      decoration: TextDecoration.none,
+    ),
+  );
 }
